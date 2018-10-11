@@ -27,7 +27,7 @@ def linefollow_command():
     f.lfollow_left_smooth(6000)
         
 def crate_challenge():
-    m.drive(2000)
+    m.drive(3000)
     m.turn_left()
     f.lfollow_left_smooth(3000)
     m.turn_left()
@@ -35,5 +35,5 @@ def crate_challenge():
     m.lower_arm()
     m.close_arm()
     m.turn_left()
-    m.drive(1000)
+    m.drive(3000)
     f.lfollow_right_smooth()
