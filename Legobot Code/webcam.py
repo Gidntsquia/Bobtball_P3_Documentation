@@ -2,7 +2,7 @@ from wallaby import *
 import constants as c
 import movement as m
 import actions as a
-import linefollow as f
+import sensors as s
 
 def initialize_camera():
     # Wait two seconds for camera to initialize
@@ -95,8 +95,8 @@ def check_zones_full():
             graphics_rectangle_fill(320, 0, 480, 260, 255, 0, 0)
             graphics_update()
             print "We are guessing that the right zone is red. \n"
-    f.left_forwards_until_black()  # The left tophat can end up on white - Jet 6-27-18 
-    f.align_far()
+    s.left_forwards_until_black()  # The left tophat can end up on white - Jet 6-27-18 
+    s.align_far()
     camera_close()
     graphics_close()
     print "Crate zone: " + str(a.crate_zone)
