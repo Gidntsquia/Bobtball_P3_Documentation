@@ -89,7 +89,7 @@ def activate_motors(left_motor_power = c.BASE_LM_POWER, right_motor_power = c.BA
         mav(c.LEFT_MOTOR, left_motor_power)  # Ensures actual desired value is reached.
     else:
         print "Something seems to have gone wrong. One motor is given a starting speed while the other is not."
-        u.sd()
+        print "Revving being skipped..."
     mav(c.LEFT_MOTOR, left_motor_power)  # Ensures actual desired value is reached.
     mav(c.RIGHT_MOTOR, right_motor_power)
     c.CURRENT_LM_POWER = left_motor_power
