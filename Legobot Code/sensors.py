@@ -800,393 +800,6 @@ def align_in_zone_safely():
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Line Follow Functions~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-def pid_lfollow_right(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
-    first_run_through = True
-    target = 100.0 * (c.RIGHT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
-    base_power_left = c.BASE_LM_POWER
-    base_power_right = c.BASE_RM_POWER
-    last_error = 0
-    integral = 0
-    sec = seconds() + time / 1000.0
-    while seconds() < sec:
-        norm_reading = 100.0 * (analog(c.RIGHT_TOPHAT) - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
-        error = target - norm_reading  # Positive error means white, negative means black.
-        derivative = error - last_error  # If rate of change is going negative, need to veer left
-        last_error = error
-        integral = 0.5 * integral + error  
-        left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
-        right_power = c.BASE_RM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
-        if left_power > 1300:
-            left_power = 1300
-        elif left_power < -1000:
-            left_power = -1000
-        if right_power < -1300:
-            right_power = -1300
-        elif right_power > 1000:
-            right_power = 1000
-        if first_run_through == True:
-            m.activate_motors(int(left_power), int(right_power))
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
-            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
-        else:
-            mav(c.LEFT_MOTOR, int(left_power))
-            mav(c.RIGHT_MOTOR, int(right_power))
-        first_run_through = False
-    if stop == True:
-        m.deactivate_motors()
-
-
-def pid_lfollow_right_value_testing(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
-    first_run_through = True
-    target = 100.0 * (c.RIGHT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
-    base_power_left = c.BASE_LM_POWER
-    base_power_right = c.BASE_RM_POWER
-    last_error = 0
-    integral = 0
-    sec = seconds() + time / 1000.0
-    while seconds() < sec:
-        norm_reading = 100.0 * (analog(c.RIGHT_TOPHAT) - c.MIN_VALUE_RIGHT) / (c.MAX_VALUE_RIGHT - c.MIN_VALUE_RIGHT)
-        error = target - norm_reading  # Positive error means white, negative means black.
-        derivative = error - last_error  # If rate of change is going negative, need to veer left
-        last_error = error
-        integral = 0.5 * integral + error  
-        left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
-        right_power = c.BASE_RM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
-        if left_power > 1300:
-            left_power = 1300
-        elif left_power < -1000:
-            left_power = -1000
-        if right_power < -1300:
-            right_power = -1300
-        elif right_power > 1000:
-            right_power = 1000
-        if first_run_through == True:
-            m.activate_motors(int(left_power), int(right_power))
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
-            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
-        else:
-            mav(c.LEFT_MOTOR, int(left_power))
-            mav(c.RIGHT_MOTOR, int(right_power))
-        if u.right_pressed():
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
-            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
-            msleep(30)
-        first_run_through = False
-    if stop == True:
-        m.deactivate_motors()
-
-
-def pid_lfollow_right_until_left_senses_black(time = 15000, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
-    first_run_through = True
-    target = 100.0 * (c.RIGHT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
-    base_power_left = c.BASE_LM_POWER
-    base_power_right = c.BASE_RM_POWER
-    last_error = 0
-    integral = 0
-    sec = seconds() + time / 1000.0
-    while seconds() < sec and NotBlackLeft():
-        norm_reading = 100.0 * (analog(c.RIGHT_TOPHAT) - c.MIN_VALUE_RIGHT) / (c.MAX_VALUE_RIGHT - c.MIN_VALUE_RIGHT)
-        error = target - norm_reading  # Positive error means white, negative means black.
-        derivative = error - last_error  # If rate of change is going negative, need to veer left
-        last_error = error
-        integral = 0.5 * integral + error  
-        left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
-        right_power = c.BASE_RM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
-        if left_power > 1300:
-            left_power = 1300
-        elif left_power < -1000:
-            left_power = -1000
-        if right_power < -1300:
-            right_power = -1300
-        elif right_power > 1000:
-            right_power = 1000
-        if first_run_through == True:
-            m.activate_motors(int(left_power), int(right_power))
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
-            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
-        else:
-            mav(c.LEFT_MOTOR, int(left_power))
-            mav(c.RIGHT_MOTOR, int(right_power))
-        first_run_through = False
-    if stop == True:
-        m.deactivate_motors()
-
-
-def pid_lfollow_right_inside_line(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
-    first_run_through = True
-    target = 100.0 * (c.RIGHT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
-    base_power_left = c.BASE_LM_POWER
-    base_power_right = c.BASE_RM_POWER
-    last_error = 0
-    integral = 0
-    sec = seconds() + time / 1000.0
-    while seconds() < sec:
-        norm_reading = 100.0 * (analog(c.RIGHT_TOPHAT) - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
-        error = target - norm_reading  # Positive error means white, negative means black.
-        derivative = error - last_error  # If rate of change is going negative, need to veer left
-        last_error = error
-        integral = 0.5 * integral + error  
-        left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
-        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
-        if left_power > 1300:
-            left_power = 1300
-        elif left_power < -1000:
-            left_power = -1000
-        if right_power < -1300:
-            right_power = -1300
-        elif right_power > 1000:
-            right_power = 1000
-        if first_run_through == True:
-            m.activate_motors(int(left_power), int(right_power))
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
-            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
-        else:
-            mav(c.LEFT_MOTOR, int(left_power))
-            mav(c.RIGHT_MOTOR, int(right_power))
-        first_run_through = False
-    if stop == True:
-        m.deactivate_motors()
-
-
-def pid_lfollow_left(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
-    first_run_through = True
-    target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
-    base_power_left = c.BASE_LM_POWER
-    base_power_right = c.BASE_RM_POWER
-    last_error = 0
-    integral = 0
-    sec = seconds() + time / 1000.0
-    while seconds() < sec:
-        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
-        error = target - norm_reading  # Positive error means white, negative means black.
-        derivative = error - last_error  # If rate of change is going negative, need to veer left
-        last_error = error
-        integral = 0.5 * integral + error  
-        left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
-        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
-        if left_power > 1300:
-            left_power = 1300
-        elif left_power < -1000:
-            left_power = -1000
-        if right_power < -1300:
-            right_power = -1300
-        elif right_power > 1000:
-            right_power = 1000
-        if first_run_through == True:
-            m.activate_motors(int(left_power), int(right_power))
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_LEFT: " + str(c.MAX_TOPHAT_VALUE_LEFT)
-            print "c.MIN_TOPHAT_VALUE_LEFT: " + str(c.MIN_TOPHAT_VALUE_LEFT)
-        else:
-            mav(c.LEFT_MOTOR, int(left_power))
-            mav(c.RIGHT_MOTOR, int(right_power))
-        first_run_through = False
-    if stop == True:
-        m.deactivate_motors()
-
-
-def pid_lfollow_left_value_testing(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
-    first_run_through = True
-    target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
-    base_power_left = c.BASE_LM_POWER
-    base_power_right = c.BASE_RM_POWER
-    last_error = 0
-    integral = 0
-    sec = seconds() + time / 1000.0
-    while seconds() < sec:
-        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
-        error = target - norm_reading  # Positive error means white, negative means black.
-        derivative = error - last_error  # If rate of change is going negative, need to veer left
-        last_error = error
-        integral = 0.5 * integral + error  
-        left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
-        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
-        if left_power > 1300:
-            left_power = 1300
-        elif left_power < -1000:
-            left_power = -1000
-        if right_power < -1300:
-            right_power = -1300
-        elif right_power > 1000:
-            right_power = 1000
-        if first_run_through == True:
-            m.activate_motors(int(left_power), int(right_power))
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_LEFT: " + str(c.MAX_TOPHAT_VALUE_LEFT)
-            print "c.MIN_TOPHAT_VALUE_LEFT: " + str(c.MIN_TOPHAT_VALUE_LEFT)
-        else:
-            mav(c.LEFT_MOTOR, int(left_power))
-            mav(c.RIGHT_MOTOR, int(right_power))
-        if u.right_pressed():
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
-            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
-            msleep(30)
-        first_run_through = False
-    if stop == True:
-        m.deactivate_motors()
-
-
-def pid_lfollow_left_until_right_senses_black(time = 15000, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
-    first_run_through = True
-    target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
-    base_power_left = c.BASE_LM_POWER
-    base_power_right = c.BASE_RM_POWER
-    last_error = 0
-    integral = 0
-    sec = seconds() + time / 1000.0
-    while seconds() < sec and NotBlackRight():
-        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
-        error = target - norm_reading  # Positive error means white, negative means black.
-        derivative = error - last_error  # If rate of change is going negative, need to veer left
-        last_error = error
-        integral = 0.5 * integral + error  
-        left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
-        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
-        if left_power > 1300:
-            left_power = 1300
-        elif left_power < -1000:
-            left_power = -1000
-        if right_power < -1300:
-            right_power = -1300
-        elif right_power > 1000:
-            right_power = 1000
-        if first_run_through == True:
-            m.activate_motors(int(left_power), int(right_power))
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_LEFT: " + str(c.MAX_TOPHAT_VALUE_LEFT)
-            print "c.MIN_TOPHAT_VALUE_LEFT: " + str(c.MIN_TOPHAT_VALUE_LEFT)
-        else:
-            mav(c.LEFT_MOTOR, int(left_power))
-            mav(c.RIGHT_MOTOR, int(right_power))
-        first_run_through = False
-    if stop == True:
-        m.deactivate_motors()
-
-
-def pid_lfollow_left_inside_line(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
-    first_run_through = True
-    target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
-    base_power_left = c.BASE_LM_POWER
-    base_power_right = c.BASE_RM_POWER
-    last_error = 0
-    integral = 0
-    sec = seconds() + time / 1000.0
-    while seconds() < sec:
-        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
-        error = target - norm_reading  # Positive error means white, negative means black.
-        derivative = error - last_error  # If rate of change is going negative, need to veer left
-        last_error = error
-        integral = 0.5 * integral + error  
-        left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
-        right_power = c.BASE_RM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
-        if left_power > 1300:
-            left_power = 1300
-        elif left_power < -1000:
-            left_power = -1000
-        if right_power < -1300:
-            right_power = -1300
-        elif right_power > 1000:
-            right_power = 1000
-        if first_run_through == True:
-            m.activate_motors(int(left_power), int(right_power))
-            print "Norm reading: " + str(norm_reading)
-            print "Error: " + str(error)
-            print "Derivative: " + str(derivative)
-            print "kd: " + str(kd)
-            print "left_power: " + str(left_power)
-            print "right_power: " + str(right_power)
-            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
-            print "c.MAX_TOPHAT_VALUE_LEFT: " + str(c.MAX_TOPHAT_VALUE_LEFT)
-            print "c.MIN_TOPHAT_VALUE_LEFT: " + str(c.MIN_TOPHAT_VALUE_LEFT)
-        else:
-            mav(c.LEFT_MOTOR, int(left_power))
-            mav(c.RIGHT_MOTOR, int(right_power))
-        first_run_through = False
-    if stop == True:
-        m.deactivate_motors()
-
-
-def lfollow_both(time, starting_speed_left = 0, starting_speed_right = 0, stop = True, refresh_rate = c.LFOLLOW_REFRESH_RATE):
-# Line follow using both tophats until time is reached.
-    print "Starting lfollow_both()\n"
-    m.activate_motors(c.BASE_LM_POWER, c.BASE_RM_POWER, starting_speed_left, starting_speed_right)
-    sec = seconds() + time / 1000.0
-    while seconds() < sec:
-        if BlackRight() and BlackLeft():
-            m.drive_no_print(30)
-        elif BlackRight() and NotBlackLeft():
-            mav(c.LEFT_MOTOR, c.BASE_LM_POWER)
-        elif NotBlackRight() and BlackLeft():
-            mav(c.RIGHT_MOTOR, c.BASE_RM_POWER)
-        elif NotBlackRight and NotBlackRight():
-            mav(c.LEFT_MOTOR, c.BASE_LM_POWER)
-            mav(c.RIGHT_MOTOR, c.BASE_RM_POWER)
-        msleep(refresh_rate)
-    if stop == True:
-        m.deactivate_motors()
-
-
 def lfollow_left(time, starting_speed_left = 0, starting_speed_right = 0, stop = True, refresh_rate = c.LFOLLOW_REFRESH_RATE):
 # Line follow with the left tophat until time is reached.
     print "Starting lfollow_left()\n"
@@ -1783,6 +1396,392 @@ def lfollow_backwards_inside_line_until_right_senses_black_smooth(time, starting
             mav(c.LEFT_MOTOR, -1 * c.LFOLLOW_SMOOTH_LM_POWER)
             mav(c.RIGHT_MOTOR, -1 * c.BASE_RM_POWER)
         msleep(refresh_rate)
+    if stop == True:
+        m.deactivate_motors()
+
+
+def lfollow_both(time, starting_speed_left = 0, starting_speed_right = 0, stop = True, refresh_rate = c.LFOLLOW_REFRESH_RATE):
+# Line follow using both tophats until time is reached.
+    print "Starting lfollow_both()\n"
+    m.activate_motors(c.BASE_LM_POWER, c.BASE_RM_POWER, starting_speed_left, starting_speed_right)
+    sec = seconds() + time / 1000.0
+    while seconds() < sec:
+        if BlackRight() and BlackLeft():
+            m.drive_no_print(30)
+        elif BlackRight() and NotBlackLeft():
+            mav(c.LEFT_MOTOR, c.BASE_LM_POWER)
+        elif NotBlackRight() and BlackLeft():
+            mav(c.RIGHT_MOTOR, c.BASE_RM_POWER)
+        elif NotBlackRight and NotBlackRight():
+            mav(c.LEFT_MOTOR, c.BASE_LM_POWER)
+            mav(c.RIGHT_MOTOR, c.BASE_RM_POWER)
+        msleep(refresh_rate)
+    if stop == True:
+        m.deactivate_motors()
+
+
+def pid_lfollow_right(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
+    first_run_through = True
+    target = 100.0 * (c.RIGHT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
+    base_power_left = c.BASE_LM_POWER
+    base_power_right = c.BASE_RM_POWER
+    last_error = 0
+    integral = 0
+    sec = seconds() + time / 1000.0
+    while seconds() < sec:
+        norm_reading = 100.0 * (analog(c.RIGHT_TOPHAT) - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
+        error = target - norm_reading  # Positive error means white, negative means black.
+        derivative = error - last_error  # If rate of change is going negative, need to veer left
+        last_error = error
+        integral = 0.5 * integral + error  
+        left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
+        right_power = c.BASE_RM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if left_power > 1300:
+            left_power = 1300
+        elif left_power < -1000:
+            left_power = -1000
+        if right_power < -1300:
+            right_power = -1300
+        elif right_power > 1000:
+            right_power = 1000
+        if first_run_through == True:
+            m.activate_motors(int(left_power), int(right_power))
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
+            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
+        else:
+            mav(c.LEFT_MOTOR, int(left_power))
+            mav(c.RIGHT_MOTOR, int(right_power))
+        first_run_through = False
+    if stop == True:
+        m.deactivate_motors()
+
+
+def pid_lfollow_right_value_testing(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
+    first_run_through = True
+    target = 100.0 * (c.RIGHT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
+    base_power_left = c.BASE_LM_POWER
+    base_power_right = c.BASE_RM_POWER
+    last_error = 0
+    integral = 0
+    sec = seconds() + time / 1000.0
+    while seconds() < sec:
+        norm_reading = 100.0 * (analog(c.RIGHT_TOPHAT) - c.MIN_VALUE_RIGHT) / (c.MAX_VALUE_RIGHT - c.MIN_VALUE_RIGHT)
+        error = target - norm_reading  # Positive error means white, negative means black.
+        derivative = error - last_error  # If rate of change is going negative, need to veer left
+        last_error = error
+        integral = 0.5 * integral + error  
+        left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
+        right_power = c.BASE_RM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if left_power > 1300:
+            left_power = 1300
+        elif left_power < -1000:
+            left_power = -1000
+        if right_power < -1300:
+            right_power = -1300
+        elif right_power > 1000:
+            right_power = 1000
+        if first_run_through == True:
+            m.activate_motors(int(left_power), int(right_power))
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
+            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
+        else:
+            mav(c.LEFT_MOTOR, int(left_power))
+            mav(c.RIGHT_MOTOR, int(right_power))
+        if u.right_pressed():
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
+            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
+            msleep(30)
+        first_run_through = False
+    if stop == True:
+        m.deactivate_motors()
+
+
+def pid_lfollow_right_until_left_senses_black(time = 15000, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
+    first_run_through = True
+    target = 100.0 * (c.RIGHT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
+    base_power_left = c.BASE_LM_POWER
+    base_power_right = c.BASE_RM_POWER
+    last_error = 0
+    integral = 0
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and NotBlackLeft():
+        norm_reading = 100.0 * (analog(c.RIGHT_TOPHAT) - c.MIN_VALUE_RIGHT) / (c.MAX_VALUE_RIGHT - c.MIN_VALUE_RIGHT)
+        error = target - norm_reading  # Positive error means white, negative means black.
+        derivative = error - last_error  # If rate of change is going negative, need to veer left
+        last_error = error
+        integral = 0.5 * integral + error  
+        left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
+        right_power = c.BASE_RM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if left_power > 1300:
+            left_power = 1300
+        elif left_power < -1000:
+            left_power = -1000
+        if right_power < -1300:
+            right_power = -1300
+        elif right_power > 1000:
+            right_power = 1000
+        if first_run_through == True:
+            m.activate_motors(int(left_power), int(right_power))
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
+            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
+        else:
+            mav(c.LEFT_MOTOR, int(left_power))
+            mav(c.RIGHT_MOTOR, int(right_power))
+        first_run_through = False
+    if stop == True:
+        m.deactivate_motors()
+
+
+def pid_lfollow_right_inside_line(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
+    first_run_through = True
+    target = 100.0 * (c.RIGHT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
+    base_power_left = c.BASE_LM_POWER
+    base_power_right = c.BASE_RM_POWER
+    last_error = 0
+    integral = 0
+    sec = seconds() + time / 1000.0
+    while seconds() < sec:
+        norm_reading = 100.0 * (analog(c.RIGHT_TOPHAT) - c.MIN_TOPHAT_VALUE_RIGHT) / (c.MAX_TOPHAT_VALUE_RIGHT - c.MIN_TOPHAT_VALUE_RIGHT)
+        error = target - norm_reading  # Positive error means white, negative means black.
+        derivative = error - last_error  # If rate of change is going negative, need to veer left
+        last_error = error
+        integral = 0.5 * integral + error  
+        left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
+        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if left_power > 1300:
+            left_power = 1300
+        elif left_power < -1000:
+            left_power = -1000
+        if right_power < -1300:
+            right_power = -1300
+        elif right_power > 1000:
+            right_power = 1000
+        if first_run_through == True:
+            m.activate_motors(int(left_power), int(right_power))
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
+            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
+        else:
+            mav(c.LEFT_MOTOR, int(left_power))
+            mav(c.RIGHT_MOTOR, int(right_power))
+        first_run_through = False
+    if stop == True:
+        m.deactivate_motors()
+
+
+def pid_lfollow_left(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
+    first_run_through = True
+    target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+    base_power_left = c.BASE_LM_POWER
+    base_power_right = c.BASE_RM_POWER
+    last_error = 0
+    integral = 0
+    sec = seconds() + time / 1000.0
+    while seconds() < sec:
+        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+        error = target - norm_reading  # Positive error means white, negative means black.
+        derivative = error - last_error  # If rate of change is going negative, need to veer left
+        last_error = error
+        integral = 0.5 * integral + error  
+        left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
+        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if left_power > 1300:
+            left_power = 1300
+        elif left_power < -1000:
+            left_power = -1000
+        if right_power < -1300:
+            right_power = -1300
+        elif right_power > 1000:
+            right_power = 1000
+        if first_run_through == True:
+            m.activate_motors(int(left_power), int(right_power))
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_LEFT: " + str(c.MAX_TOPHAT_VALUE_LEFT)
+            print "c.MIN_TOPHAT_VALUE_LEFT: " + str(c.MIN_TOPHAT_VALUE_LEFT)
+        else:
+            mav(c.LEFT_MOTOR, int(left_power))
+            mav(c.RIGHT_MOTOR, int(right_power))
+        first_run_through = False
+    if stop == True:
+        m.deactivate_motors()
+
+
+def pid_lfollow_left_value_testing(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
+    first_run_through = True
+    target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+    base_power_left = c.BASE_LM_POWER
+    base_power_right = c.BASE_RM_POWER
+    last_error = 0
+    integral = 0
+    sec = seconds() + time / 1000.0
+    while seconds() < sec:
+        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+        error = target - norm_reading  # Positive error means white, negative means black.
+        derivative = error - last_error  # If rate of change is going negative, need to veer left
+        last_error = error
+        integral = 0.5 * integral + error  
+        left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
+        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if left_power > 1300:
+            left_power = 1300
+        elif left_power < -1000:
+            left_power = -1000
+        if right_power < -1300:
+            right_power = -1300
+        elif right_power > 1000:
+            right_power = 1000
+        if first_run_through == True:
+            m.activate_motors(int(left_power), int(right_power))
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_LEFT: " + str(c.MAX_TOPHAT_VALUE_LEFT)
+            print "c.MIN_TOPHAT_VALUE_LEFT: " + str(c.MIN_TOPHAT_VALUE_LEFT)
+        else:
+            mav(c.LEFT_MOTOR, int(left_power))
+            mav(c.RIGHT_MOTOR, int(right_power))
+        if u.right_pressed():
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_RIGHT: " + str(c.MAX_TOPHAT_VALUE_RIGHT)
+            print "c.MIN_TOPHAT_VALUE_RIGHT: " + str(c.MIN_TOPHAT_VALUE_RIGHT)
+            msleep(30)
+        first_run_through = False
+    if stop == True:
+        m.deactivate_motors()
+
+
+def pid_lfollow_left_until_right_senses_black(time = 15000, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
+    first_run_through = True
+    target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+    base_power_left = c.BASE_LM_POWER
+    base_power_right = c.BASE_RM_POWER
+    last_error = 0
+    integral = 0
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and NotBlackRight():
+        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+        error = target - norm_reading  # Positive error means white, negative means black.
+        derivative = error - last_error  # If rate of change is going negative, need to veer left
+        last_error = error
+        integral = 0.5 * integral + error  
+        left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
+        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if left_power > 1300:
+            left_power = 1300
+        elif left_power < -1000:
+            left_power = -1000
+        if right_power < -1300:
+            right_power = -1300
+        elif right_power > 1000:
+            right_power = 1000
+        if first_run_through == True:
+            m.activate_motors(int(left_power), int(right_power))
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_LEFT: " + str(c.MAX_TOPHAT_VALUE_LEFT)
+            print "c.MIN_TOPHAT_VALUE_LEFT: " + str(c.MIN_TOPHAT_VALUE_LEFT)
+        else:
+            mav(c.LEFT_MOTOR, int(left_power))
+            mav(c.RIGHT_MOTOR, int(right_power))
+        first_run_through = False
+    if stop == True:
+        m.deactivate_motors()
+
+
+def pid_lfollow_left_inside_line(time, kp = c.KP, ki = c.KI, kd = c.KD, stop = True):
+    first_run_through = True
+    target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+    base_power_left = c.BASE_LM_POWER
+    base_power_right = c.BASE_RM_POWER
+    last_error = 0
+    integral = 0
+    sec = seconds() + time / 1000.0
+    while seconds() < sec:
+        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+        error = target - norm_reading  # Positive error means white, negative means black.
+        derivative = error - last_error  # If rate of change is going negative, need to veer left
+        last_error = error
+        integral = 0.5 * integral + error  
+        left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
+        right_power = c.BASE_RM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if left_power > 1300:
+            left_power = 1300
+        elif left_power < -1000:
+            left_power = -1000
+        if right_power < -1300:
+            right_power = -1300
+        elif right_power > 1000:
+            right_power = 1000
+        if first_run_through == True:
+            m.activate_motors(int(left_power), int(right_power))
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_LEFT: " + str(c.MAX_TOPHAT_VALUE_LEFT)
+            print "c.MIN_TOPHAT_VALUE_LEFT: " + str(c.MIN_TOPHAT_VALUE_LEFT)
+        else:
+            mav(c.LEFT_MOTOR, int(left_power))
+            mav(c.RIGHT_MOTOR, int(right_power))
+        first_run_through = False
     if stop == True:
         m.deactivate_motors()
 
