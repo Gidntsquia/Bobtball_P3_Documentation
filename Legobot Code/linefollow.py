@@ -45,7 +45,7 @@ def align_close():
 
 def align_close_smart():
 # Aligns completely on the side of the line closest to the claw
-    print "Starting align_close_cheeky()"
+    print "Starting align_close_smart()"
     starting_left_time = seconds()
     if BlackLeft():
         left_backwards_until_white()
@@ -100,7 +100,7 @@ def align_far_safe():
 
 def align_far_smart():
 # Aligns completely on the side of the line closest to the camera
-    print "Starting align_far_cheeky()"
+    print "Starting align_far_smart()"
     if BlackLeft() and BlackRight():
         drive_until_both_white()
     starting_left_time = seconds()
