@@ -16,7 +16,6 @@ IS_MAIN_BOT = right_button() == 0 and MAIN_BOT_CHANNEL_COUNT() or left_button() 
 IS_CLONE_BOT = left_button() == 0 and CLONE_BOT_CHANNEL_COUNT() or right_button() == 1  # Right button for clone
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Motors, Servos, and Sensors~~~~~~~~~~~~~~~~~~~~~~~~
-
 if IS_MAIN_BOT:
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Motors~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -29,6 +28,10 @@ if IS_MAIN_BOT:
     BASE_RM_POWER = -900
     LFOLLOW_SMOOTH_LM_POWER = int (.7 * BASE_LM_POWER)
     LFOLLOW_SMOOTH_RM_POWER = int (.7 * BASE_RM_POWER)
+    
+    # Motor Power Trackers
+    CURRENT_LM_POWER = 0
+    CURRENT_RM_POWER = 0
 
     # Motor Timings
     RIGHT_TURN_TIME = 850  # Need to test turn timings periodically. They change as battery charge changes, or on new boards.
@@ -104,6 +107,7 @@ if IS_MAIN_BOT:
     KP_SAFE = 7
     KI_SAFE = 0.061
     KD_SAFE = 1
+    
 
 else:  # Clone Bot ----------------------------------------------------------------------------------------------------------------
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Clone Motors~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,6 +121,10 @@ else:  # Clone Bot -------------------------------------------------------------
     BASE_RM_POWER = -900
     LFOLLOW_SMOOTH_LM_POWER = int (.7 * BASE_LM_POWER)
     LFOLLOW_SMOOTH_RM_POWER = int (.7 * BASE_RM_POWER)
+    
+    # Clone Motor Power Trackers
+    CURRENT_LM_POWER = 0
+    CURRENT_RM_POWER = 0
 
     # Clone Motor Timings
     RIGHT_TURN_TIME = 900  # Need to test turn timings periodically. They change as battery charge changes, or on new boards.
@@ -193,3 +201,4 @@ else:  # Clone Bot -------------------------------------------------------------
     KP_SAFE = 7
     KI_SAFE = 0.061
     KD_SAFE = 1
+NOTHING = 99999  # This is a number that is never used by any command. 
