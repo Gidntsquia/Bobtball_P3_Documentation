@@ -201,4 +201,4 @@ else:  # Clone Bot -------------------------------------------------------------
     KP_SAFE = 7
     KI_SAFE = 0.061
     KD_SAFE = 1
-NOTHING = 99999  # This is a number that is never used by any command. 
+NO_VALUE = 99999  # This is a number that is never used by any command. 
