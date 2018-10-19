@@ -7,28 +7,6 @@ import constants as c
 
 # Note: Every time the wheels are set to a speed, they must be set back to 0 or they will continue to spin.
 
-
-def activate_motors(left_motor_power = c.BASE_LM_POWER, right_motor_power = c.BASE_RM_POWER, starting_speed_left = 0, starting_speed_right = 0):
-    left_velocity_change = left_motor_power / 30
-    right_velocity_change = right_motor_power / 30
-    while abs(starting_speed_left - left_motor_power) > 100 and abs(starting_speed_right - right_motor_power) > 100:
-        mav(c.LEFT_MOTOR, starting_speed_left)
-        starting_speed_left += left_velocity_change
-        mav(c.RIGHT_MOTOR, starting_speed_right)
-        starting_speed_right += right_velocity_change
-        if abs(starting_speed_left) > abs(left_motor_power) or abs(starting_speed_right) > abs(right_motor_power):
-            print "Velocity too high"
-            exit(86)
-        msleep(1)
-    mav(c.LEFT_MOTOR, left_motor_power)  # Ensures actual desired value is reached.
-    mav(c.RIGHT_MOTOR, right_motor_power)
-
-
-def deactivate_motors():
-    mav(c.LEFT_MOTOR, 0)
-    mav(c.RIGHT_MOTOR, 0)
-
-
 def drive(time = c.DEFAULT_DRIVE_TIME, drive_left_motor_power = c.BASE_LM_POWER, drive_right_motor_power = c.BASE_RM_POWER, drive_starting_speed_left = 0, drive_starting_speed_right = 0, stop = True, drive_print = True):
     activate_motors(drive_left_motor_power, drive_right_motor_power, drive_starting_speed_left, drive_starting_speed_right)
     if drive_print == True:
@@ -70,6 +48,27 @@ def wait(time = 1000):  # Same as msleep command, but stops the wheels.
     msleep(time)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Complex Movement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def activate_motors(left_motor_power = c.BASE_LM_POWER, right_motor_power = c.BASE_RM_POWER, starting_speed_left = 0, starting_speed_right = 0):
+    left_velocity_change = left_motor_power / 30
+    right_velocity_change = right_motor_power / 30
+    while abs(starting_speed_left - left_motor_power) > 100 and abs(starting_speed_right - right_motor_power) > 100:
+        mav(c.LEFT_MOTOR, starting_speed_left)
+        starting_speed_left += left_velocity_change
+        mav(c.RIGHT_MOTOR, starting_speed_right)
+        starting_speed_right += right_velocity_change
+        if abs(starting_speed_left) > abs(left_motor_power) or abs(starting_speed_right) > abs(right_motor_power):
+            print "Velocity too high"
+            exit(86)
+        msleep(1)
+    mav(c.LEFT_MOTOR, left_motor_power)  # Ensures actual desired value is reached.
+    mav(c.RIGHT_MOTOR, right_motor_power)
+
+
+def deactivate_motors():
+    mav(c.LEFT_MOTOR, 0)
+    mav(c.RIGHT_MOTOR, 0)
+
 
 def drive_tics(tics, starting_speed_left = 0, starting_speed_right = 0, stop = True):
     print "Starting drive_tics"
