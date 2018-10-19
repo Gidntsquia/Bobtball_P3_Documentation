@@ -141,17 +141,32 @@ def turn_right_no_print(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0, starti
      turn_right(time, speed_multiplier, starting_speed_left, starting_speed_right, stop, False)
 
 
-def av(motor_port, desired_velocity, intermediate_velocity = 0):
+def av(motor_port, desired_velocity, intermediate_velocity = c.NO_VALUE):
 # Revs a motor up to a given velocity from 0. The motor and desired velocity must be specified. Cannot rev two motors simultaneously.
+    if intermediate_velocity = c.NO_VALUE:
+        if motor_port = c.LEFT_MOTOR:
+            intermediate_velocity = c.CURRENT_LM_POWER
+        elif motor_port = c.RIGHT_MOTOR:
+            intermediate_velocity = c.CURRENT_RM_POWER
+        else:
+            print "An invalid motor port was selected."
     velocity_change = desired_velocity / 30
     while abs(intermediate_velocity - desired_velocity) > 100:
         mav(motor_port, intermediate_velocity)
+        if motor_port = c.LEFT_MOTOR:
+            c.CURRENT_LM_POWER = desired_velocity
+        elif motor_port = c.RIGHT_MOTOR:
+            c.CURRENT_RM_POWER = desired_velocity
         intermediate_velocity += velocity_change
         if abs(intermediate_velocity) > abs(desired_velocity):
             print "Velocity too high"
-            exit(86)
+            u.sd(86)
         msleep(1)
     mav(motor_port, desired_velocity)  # Ensures actual desired value is reached
+    if motor_port = c.LEFT_MOTOR:
+        c.CURRENT_LM_POWER = desired_velocity
+    elif motor_port = c.RIGHT_MOTOR:
+        c.CURRENT_RM_POWER = desired_velocity
 
 
 def accel(left_desired_velocity = c.BASE_LM_POWER, right_desired_velocity = c.BASE_RM_POWER, left_intermediate_velocity = 0, right_intermediate_velocity = 0):
