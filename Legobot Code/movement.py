@@ -16,8 +16,8 @@ def drive(time = c.DEFAULT_DRIVE_TIME, drive_left_motor_power = c.BASE_LM_POWER,
         deactivate_motors()
 
 
-def turn_left(time = c.LEFT_TURN_TIME, multiplier = 1, starting_speed_left = 0, starting_speed_right = 0, stop = True, turn_left_print = True):
-    activate_motors(-1 * c.BASE_LM_POWER, c.BASE_RM_POWER, starting_speed_left, starting_speed_right)
+def turn_left(time = c.LEFT_TURN_TIME, speed_multiplier = 1.0, starting_speed_left = 0, starting_speed_right = 0, stop = True, turn_left_print = True):
+    activate_motors(int(speed_multiplier * -1 * c.BASE_LM_POWER), int(speed_multiplier *  c.BASE_RM_POWER), starting_speed_left, starting_speed_right)
     if turn_left_print == True:
         print "Turn left for %d ms" % time
     msleep(time)
@@ -25,8 +25,8 @@ def turn_left(time = c.LEFT_TURN_TIME, multiplier = 1, starting_speed_left = 0, 
         deactivate_motors()
 
 
-def turn_right(time = c.RIGHT_TURN_TIME, left_motor_power = c.BASE_LM_POWER, right_motor_power = -1 * c.BASE_RM_POWER, starting_speed_left = 0, starting_speed_right = 0, stop = True, turn_right_print = True):
-    activate_motors(left_motor_power, right_motor_power, starting_speed_left, starting_speed_right)
+def turn_right(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0, starting_speed_left = 0, starting_speed_right = 0, stop = True, turn_right_print = True):
+    activate_motors(int(speed_multplier * c.BASE_LM_POWER), int(speed_multiplier * -1 * c.BASE_RM_POWER), starting_speed_left, starting_speed_right)
     if turn_right_print == True:
         print "Turn right for %d ms" % time
     msleep(time)
@@ -133,12 +133,12 @@ def backwards_no_print(time = c.DEFAULT_BACKWARDS_TIME, backwards_left_motor_pow
     backwards(time, backwards_left_motor_power, backwards_right_motor_power, starting_speed_left, starting_speed_right, stop, False)
 
 
-def turn_left_no_print(time = c.LEFT_TURN_TIME, left_motor_power = -1 * c.BASE_LM_POWER, right_motor_power =  c.BASE_RM_POWER, starting_speed_left = 0, starting_speed_right = 0, stop = True):
-     turn_left(time, left_motor_power, right_motor_power, starting_speed_left, starting_speed_right, stop, False)
+def turn_left_no_print(time = c.LEFT_TURN_TIME, speed_multiplier = 1.0, starting_speed_left = 0, starting_speed_right = 0, stop = True):
+     turn_left(time, speed_multiplier, starting_speed_left, starting_speed_right, stop, False)
 
 
-def turn_right_no_print(time = c.RIGHT_TURN_TIME, left_motor_power = c.BASE_LM_POWER, right_motor_power = -1 * c.BASE_RM_POWER, starting_speed_left = 0, starting_speed_right = 0, stop = True):
-     turn_right(time, left_motor_power, right_motor_power, starting_speed_left, starting_speed_right, stop, False)
+def turn_right_no_print(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0, starting_speed_left = 0, starting_speed_right = 0, stop = True):
+     turn_right(time, speed_multiplier, starting_speed_left, starting_speed_right, stop, False)
 
 
 def av(motor_port, desired_velocity, intermediate_velocity = 0):
