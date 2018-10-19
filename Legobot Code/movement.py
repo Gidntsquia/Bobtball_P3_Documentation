@@ -16,8 +16,8 @@ def drive(time = c.DEFAULT_DRIVE_TIME, drive_left_motor_power = c.BASE_LM_POWER,
         deactivate_motors()
 
 
-def turn_left(time = c.LEFT_TURN_TIME, left_motor_power = -1 * c.BASE_LM_POWER, right_motor_power = c.BASE_RM_POWER, starting_speed_left = 0, starting_speed_right = 0, stop = True, turn_left_print = True):
-    activate_motors(left_motor_power, right_motor_power, starting_speed_left, starting_speed_right)
+def turn_left(time = c.LEFT_TURN_TIME, multiplier = 1, starting_speed_left = 0, starting_speed_right = 0, stop = True, turn_left_print = True):
+    activate_motors(-1 * c.BASE_LM_POWER, c.BASE_RM_POWER, starting_speed_left, starting_speed_right)
     if turn_left_print == True:
         print "Turn left for %d ms" % time
     msleep(time)
@@ -49,25 +49,58 @@ def wait(time = 1000):  # Same as msleep command, but stops the wheels.
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Complex Movement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-def activate_motors(left_motor_power = c.BASE_LM_POWER, right_motor_power = c.BASE_RM_POWER, starting_speed_left = 0, starting_speed_right = 0):
+def activate_motors(left_motor_power = c.BASE_LM_POWER, right_motor_power = c.BASE_RM_POWER, starting_speed_left = c.NO_VALUE, starting_speed_right = c.NO_VALUE):
+      if left_motor_power > 1450:
+        print "left_motor_power is too high! Power autoset from " + str(left_motor_power) + " to 1450"
+        left_motor_power = 1450
+    elif left_motor_power < -1450:
+        print "left_motor_power is too high! Power autoset from " + str(left_motor_power) + " to -1450"
+        left_motor_power = -1450
+    if right_motor_power < -1450:
+        print "right_motor_power is too high! Power autoset from " + str(right_motor_power) + " to -1450"
+        right_motor_power = -1450
+    elif right_motor_power > 1450:
+        print "right_motor_power is too high! Power autoset from " + str(right_motor_power) + " to 1450"
+        right_motor_power = 1450
     left_velocity_change = left_motor_power / 30
     right_velocity_change = right_motor_power / 30
-    while abs(starting_speed_left - left_motor_power) > 100 and abs(starting_speed_right - right_motor_power) > 100:
-        mav(c.LEFT_MOTOR, starting_speed_left)
-        starting_speed_left += left_velocity_change
-        mav(c.RIGHT_MOTOR, starting_speed_right)
-        starting_speed_right += right_velocity_change
-        if abs(starting_speed_left) > abs(left_motor_power) or abs(starting_speed_right) > abs(right_motor_power):
-            print "Velocity too high"
-            exit(86)
-        msleep(1)
+    if starting_speed_left = c.NO_VALUE and starting_speed_right = c.NO_VALUE:
+        while abs(c.CURRENT_LM_POWER - left_motor_power) > 100 and abs(c.CURRENT_RM_POWER - right_motor_power) > 100:
+            mav(c.LEFT_MOTOR, c.CURRENT_LM_POWER)
+            c.CURRENT_LM_POWER += left_velocity_change
+            mav(c.RIGHT_MOTOR, c.CURRENT_RM_POWER)
+            c.CURRENT_LM_POWER += right_velocity_change
+            if abs(c.CURRENT_LM_POWER) > abs(left_motor_power) or abs(c.CURRENT_RM_POWER) > abs(right_motor_power):
+                print "Velocity too high"
+                exit(86)
+            msleep(1)
+    elif starting_speed_left != c.NO_VALUE and starting_speed_right != c.NO_VALUE:
+        while abs(starting_speed_left - left_motor_power) > 100 and abs(starting_speed_right - right_motor_power) > 100:
+            mav(c.LEFT_MOTOR, starting_speed_left)
+            c.CURRENT_LM_POWER = starting_speed_left
+            starting_speed_left += left_velocity_change
+            mav(c.RIGHT_MOTOR, starting_speed_right)
+            c.CURRENT_RM_POWER = starting_speed_right
+            starting_speed_right += right_velocity_change
+          if abs(starting_speed_left) > abs(left_motor_power) or abs(starting_speed_right) > abs(right_motor_power):
+             print "Velocity too high"
+             exit(86)
+            msleep(1)
+        mav(c.LEFT_MOTOR, left_motor_power)  # Ensures actual desired value is reached.
+    else:
+        print "Something seems to have gone wrong. One motor is given a starting speed while the other is not."
+        u.sd()
     mav(c.LEFT_MOTOR, left_motor_power)  # Ensures actual desired value is reached.
     mav(c.RIGHT_MOTOR, right_motor_power)
+    c.CURRENT_LM_POWER = left_motor_power
+    c.CURRENT_RM_POWER = right_motor_power
 
 
 def deactivate_motors():
     mav(c.LEFT_MOTOR, 0)
     mav(c.RIGHT_MOTOR, 0)
+    c.CURRENT_LM_POWER = 0
+    c.CURRENT_RM_POWER = 0
 
 
 def drive_tics(tics, starting_speed_left = 0, starting_speed_right = 0, stop = True):
