@@ -5,7 +5,7 @@ from wallaby import *
 import constants as c
 import actions as a
 import movement as m
-import linefollow as f
+import sensors as s
 import utils as u
 
 def main():
