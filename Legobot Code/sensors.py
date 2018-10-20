@@ -164,7 +164,7 @@ def left_backwards_until_black(time = 10000, stop = True, starting_speed_left = 
         m.deactivate_motors()
 
 
-def left_backwards_until_black_safe(time = 1500,stop = True, starting_speed_left = c.NO_VALUE):
+def left_backwards_until_black_safe(time = 1500, stop = True, starting_speed_left = c.NO_VALUE):
 # Left motor goes back until left tophat senses black
     print "Starting left_backwards_until_black_safe()"
     m.av(c.LEFT_MOTOR, -1 * c.BASE_LM_POWER, starting_speed_left)
@@ -656,25 +656,25 @@ def drive_until_both_white(time = 20000, stop = True, starting_speed_left = c.NO
 
 
 def drive_through_line_left(time = 10000, stop = True, starting_speed_left = c.NO_VALUE, starting_speed_right = c.NO_VALUE):
-    drive_until_black_left(time, starting_speed_left, starting_speed_right, False)
-    drive_until_white_left(time, c.BASE_LM_POWER, c.BASE_RM_POWER, stop)
+    drive_until_black_left(time, False, starting_speed_left, starting_speed_right)
+    drive_until_white_left(time, stop, c.BASE_LM_POWER, c.BASE_RM_POWER)
 
 
 def drive_through_line_right(time = 10000, stop = True, starting_speed_left = c.NO_VALUE, starting_speed_right = c.NO_VALUE):
-    drive_until_black_right(time, starting_speed_left, starting_speed_right, False)
-    drive_until_white_right(time, c.BASE_LM_POWER, c.BASE_RM_POWER, stop)
+    drive_until_black_right(time, False, starting_speed_left, starting_speed_right)
+    drive_until_white_right(time, stop, c.BASE_LM_POWER, c.BASE_RM_POWER)
 
 
 def drive_through_line_third(time = 10000, stop = True, starting_speed_left = c.NO_VALUE, starting_speed_right = c.NO_VALUE):
-    drive_until_black_third(time, starting_speed_left, starting_speed_right, False)
-    drive_until_white_third(time, c.BASE_LM_POWER, c.BASE_RM_POWER, stop)
+    drive_until_black_third(time, False, starting_speed_left, starting_speed_right)
+    drive_until_white_third(time, stop, c.BASE_LM_POWER, c.BASE_RM_POWER)
 
 
-def drive_through_two_lines_third(time = 10000):  # Drives without stopping the motors in between
-    drive_until_black_third(time, 0, 0, False)
-    drive_until_white_third(time, c.BASE_LM_POWER, c.BASE_RM_POWER, False)
-    drive_until_black_third(time, c.BASE_LM_POWER, c.BASE_RM_POWER, False)
-    drive_until_white_third(time, c.BASE_LM_POWER, c.BASE_RM_POWER)
+def drive_through_two_lines_third(time = 10000, stop = True, starting_speed_left = c.NO_VALUE, starting_speed_right = c.NO_VALUE):  # Drives without stopping the motors in between
+    drive_until_black_third(time, False, starting_speed_left, starting_speed_right)
+    drive_until_white_third(time, False, c.BASE_LM_POWER, c.BASE_RM_POWER)
+    drive_until_black_third(time, False, c.BASE_LM_POWER, c.BASE_RM_POWER)
+    drive_until_white_third(time, stop, c.BASE_LM_POWER, c.BASE_RM_POWER)
 
 
 def backwards_until_black_left(time = 20000, stop = True, starting_speed_left = c.NO_VALUE, starting_speed_right = c.NO_VALUE):
@@ -776,20 +776,20 @@ def backwards_until_both_white(time = 20000, stop = True, starting_speed_left = 
     print "White sensed, stopped driving\n"
 
 
-def backwards_through_line_left(time = 10000):
-    backwards_until_black_left(time, 0, 0, False)
-    backwards_until_white_left(time, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER)
+def backwards_through_line_left(time = 10000, stop = True, starting_speed_left = c.NO_VALUE, starting_speed_right = c.NO_VALUE):
+    backwards_until_black_left(time, False, starting_speed_left, starting_speed_right)
+    backwards_until_white_left(time, stop, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER)
 
 
 def backwards_through_two_lines_in_calibration(time = 1200):
-    backwards_until_black_third(time, 0, 0, False)
-    backwards_until_white_third(time, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER, False)
+    backwards_until_black_third(time, False, 0, 0)
+    backwards_until_white_third(time, False, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER)
     if c.IS_CLONE_BOT:
-        backwards_until_black_left(time, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER, False)
+        backwards_until_black_left(time, False, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER)
         # The need for this stems from a weird interaction. More testing is needed to discover the cause.
-    backwards_until_white_left(time, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER, False)
-    backwards_until_black_left(time, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER, False)
-    backwards_until_white_left(time, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER)
+    backwards_until_white_left(time, False, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER)
+    backwards_until_black_left(time, False, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER)
+    backwards_until_white_left(time, True, -1 * c.BASE_LM_POWER, -1 * c.BASE_RM_POWER)
 
 
 def align_in_zone_safely():
