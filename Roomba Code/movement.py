@@ -92,30 +92,9 @@ def drive(time=c.DEFAULT_DRIVE_TIME, left_power = c.BASE_LM_POWER, right_power =
     create_stop()    
 
 
-def drive_slow(time=c.DEFAULT_DRIVE_TIME, left_power = c.BASE_LM_POWER / 2, right_power = c.BASE_RM_POWER / 2):
-    create_drive_direct(left_power, right_power)
-    print "Drive forwards slowly for %d ms" % time
-    msleep(time)
-    create_stop()
-
-
 def backwards(time = c.DEFAULT_BACKWARDS_TIME, backwards_left_motor_power = -1 * c.BASE_LM_POWER, backwards_right_motor_power = -1 * c.BASE_RM_POWER):
     create_drive_direct(backwards_left_motor_power, backwards_right_motor_power)
     print "Drive backwards for %d ms" % time
-    msleep(time)
-    create_stop()
-
-
-def backwards_slow(time=c.DEFAULT_BACKWARDS_TIME, backwards_left_motor_power = -1 * c.BASE_LM_POWER, backwards_right_motor_power = -1 * c.BASE_RM_POWER):
-    create_drive_direct(backwards_left_motor_power,backwards_right_motor_power)
-    print "Drive backwards for %d ms" % time
-    msleep(time)
-    create_stop()
-
-
-def forwards(time=c.DEFAULT_DRIVE_TIME, forward_left_motor_power = c.BASE_LM_POWER, forward_right_motor_power = c.BASE_RM_POWER):
-    create_drive_direct(forward_left_motor_power, forward_right_motor_power)
-    print "Drive forward for %d ms" % time
     msleep(time)
     create_stop()
 
@@ -138,27 +117,4 @@ def turn_right(time=c.RIGHT_TURN_TIME, left_power = c.BASE_LM_POWER, right_power
     create_drive_direct(left_power, right_power)
     msleep(time)
     print "Turn right for %d ms" % time
-    create_stop()
-
-
-def pivot_left(time=1670, left_power=-100, right_power=100): #change before the start of any day
-    create_drive_direct(left_power, right_power)
-    msleep(time)
-    create_stop()
-
-
-def pivot_right(time=1500, left_power = 100, right_power = -100):
-    create_drive_direct(left_power, right_power)
-    msleep(time)
-    create_stop()
-
-        
-def full_rotation(time=6400, left_power=-100, right_power=100): #change before the start of any day
-    create_drive_direct(left_power, right_power)
-    msleep(time)
-    create_stop()
-        
-def half_rotation(time=3100, left_power=-100, right_power=100): #change before the start of any day
-    create_drive_direct(left_power, right_power)
-    msleep(time)
     create_stop()
