@@ -1,16 +1,16 @@
 from wallaby import *
 import constants as c
-import linefollow as f
+import sensors as s
 import movement as m
 
 #-----------------------------ARM----------------------------
 
 def arm_slow(desired_arm_position = c.ARM_DOWN_POS, arm_tics = 1, arm_ms = 1):
-     servo_slow(c.ARM_SERVO, desired_arm_position, arm_tics, arm_ms)
+    servo_slow(c.ARM_SERVO, desired_arm_position, arm_tics, arm_ms)
 
 
 def micro_slow(desired_micro_position = c.MICRO_LEFT_POS, micro_tics = 1, micro_ms = 1):
-     servo_slow(c.MICRO_SERVO, desired_micro_position, micro_tics, micro_ms)
+    servo_slow(c.MICRO_SERVO, desired_micro_position, micro_tics, micro_ms)
 
 
 def servo_slow(servo_port, desired_servo_position, tics = 1, ms = 1):
