@@ -1,6 +1,6 @@
 from wallaby import *
 import constants as c
-import linefollow as f
+import sensors as s
 import movement as m
 import utils as u
 
