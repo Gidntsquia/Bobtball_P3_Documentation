@@ -45,4 +45,12 @@ def crate_challenge():
     f.drive_until_black_third()
     f.drive_until_white_third()
     f.drive_until_black_third()
-
+    
+    def crate_collapse
+   f.drive_until_black_third()
+   f.drive_until_white_third()
+   f.drive_until_black_third()
+   m.turn_left(800)
+   f.align_close()
+   f.lfollow_left_smooth(5000)
+   m.turn_left(800)
