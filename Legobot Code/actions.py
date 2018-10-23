@@ -42,7 +42,7 @@ def crate_challenge():
     f.lfollow_right_smooth(3150)
     m.turn_right(800)
     f.align_close()
-    f.drive_until_black_left()
-    f.drive_until_white_left()
-    f.drive_until_black_left()
+    f.drive_until_black_third()
+    f.drive_until_white_third()
+    f.drive_until_black_third()
 
