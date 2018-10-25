@@ -2,7 +2,7 @@ from wallaby import *
 import constants as c
 import movement as m
 import actions as a
-import linefollow as f
+import sensors as s
 
 def initialize_camera():
     # Wait two seconds for camera to initialize
@@ -95,74 +95,12 @@ def check_zones_full():
             graphics_rectangle_fill(320, 0, 480, 260, 255, 0, 0)
             graphics_update()
             print "We are guessing that the right zone is red. \n"
-    f.left_forwards_until_black()  # The left tophat can end up on white - Jet 6-27-18 
-    f.align_far()
+    s.left_forwards_until_black()  # The left tophat can end up on white - Jet 6-27-18 
+    s.align_far()
     camera_close()
     graphics_close()
     print "Crate zone: " + str(a.crate_zone)
     print "Botguy zone: " + str(a.botguy_zone)
-    print "~fin~\n\n\n"
-
-
-def check_zones_crates():
-    print "Checking zones for yellow and red"
-    msleep(25)
-    ao()
-    camera_open()
-    initialize_camera()
-    a.crate_zone = 0
-    if get_object_area(c.YELLOW,0) > 50:  # Testing to see if middle zone is yellow
-        print "The middle zone is yellow."
-        a.crate_zone = c.MIDDLE
-    else:
-        m.turn_left(300)
-        msleep(25)
-        ao()
-        msleep(1000)
-        print "The middle zone is not yellow."
-        initialize_camera()
-        if get_object_area(c.YELLOW, 0) > 100:  # Testing to see if left zone is yellow
-            print "The left zone is yellow."
-            a.crate_zone = c.LEFT
-        else:
-            print "Not on the left, so it must be on the right."
-            a.crate_zone = c.RIGHT  # If the middle and left zones are not yellow, then the right zone must be yellow.
-        m.turn_right(300)
-        msleep(25)
-        ao()
-    camera_close()
-    print a.crate_zone
-    print "~fin~\n\n\n"
-
-
-def check_zones_botguy():
-    print "Checking for red zone"
-    msleep(25)
-    ao()
-    camera_open()
-    initialize_camera()
-    a.botguy_zone = 0
-    if get_object_area(c.RED, 0) > 50:  # Testing to see if middle zone is red
-        print "The middle zone is red."
-        a.botguy_zone = c.MIDDLE
-    else:
-        m.turn_left(300)
-        msleep(25)
-        ao()
-        msleep(1000)
-        print "The middle zone is not red."
-        initialize_camera()
-        if get_object_area(c.RED, 0) > 100:  # Testing to see if left zone is red
-            a.botguy_zone = c.LEFT
-            print "The left zone is red."
-        else:
-            print "Not on the left, so it must be on the right."
-            a.botguy_zone = c.RIGHT  # If the middle and left zones are not red, then the right zone must be red.
-        m.turn_right(300)
-        msleep(25)
-        ao()
-    print a.botguy_zone
-    camera_close()
     print "~fin~\n\n\n"
 
 

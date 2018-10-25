@@ -1,7 +1,7 @@
 from wallaby import *
 import constants as c
 import movement as m
-import linefollow as f
+import sensors as s
 
 #---------------------------------------------States-------------------------------------------
 
@@ -75,13 +75,13 @@ def calibrate():
     print "max_sensor_value_rcliff: " + str(max_sensor_value_rcliff)
     print "min_sensor_value_rcliff: " + str(min_sensor_value_rcliff)
     msleep(500)
-    f.forwards_until_black_lfcliff()
-    f.align_close_fcliffs()
+    s.forwards_until_black_lfcliff()
+    s.align_close_fcliffs()
     msleep(300)
-    f.forwards_until_black_lcliff()
-    f.align_close_cliffs()
+    s.forwards_until_black_lcliff()
+    s.align_close_cliffs()
     msleep(300)
-    f.forwards_until_bump()
+    s.forwards_until_bump()
     m.backwards(100)
     #m.activate_motors(1)
     #msleep(4250)

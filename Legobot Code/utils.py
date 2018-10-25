@@ -1,7 +1,7 @@
 from wallaby import *
 import constants as c
 import actions as a
-import linefollow as f
+import sensors as s
 import movement as m
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~States~~~~~~~~~~~~~~~~~~~~~~~~
@@ -114,8 +114,8 @@ def calibrate():
     c.MIN_TOPHAT_VALUE_RIGHT = min_sensor_value_right
     c.MAX_TOPHAT_VALUE_LEFT = max_sensor_value_left
     c.MIN_TOPHAT_VALUE_LEFT = min_sensor_value_left
-    f.backwards_through_two_lines_in_calibration()
-    f.align_close_cheeky()
+    s.backwards_through_two_lines_in_calibration()
+    s.align_close_smart()
     m.backwards(600)
     msleep(25)
     ao()

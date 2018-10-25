@@ -4,7 +4,7 @@ import sys
 from wallaby import *
 import constants as c
 import actions as a
-import linefollow as f
+import sensors as s
 import movement as m
 import webcam as w
 import utils as u
@@ -12,12 +12,9 @@ import utils as u
 def main():
     print "Starting main()\n"
     u.setup()
-    u.calibrate()
-    f.drive_until_black_right()
-    f.drive_until_white_right()
-    f.align_far_cheeky()
-    # Put the command from actions you want to run here.
-    # Don't write out your entire command out here; it gets too cluttered.
+    #u.calibrate()  # You only need to include this command if you want the tophats to sense better at the cost of speed.
+
+
     u.shutdown()
 
 
