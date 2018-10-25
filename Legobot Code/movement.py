@@ -26,7 +26,7 @@ def turn_left(time = c.LEFT_TURN_TIME, speed_multiplier = 1.0, starting_speed_le
 
 
 def turn_right(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0, starting_speed_left = 0, starting_speed_right = 0, stop = True, turn_right_print = True):
-    activate_motors(int(speed_multplier * c.BASE_LM_POWER), int(speed_multiplier * -1 * c.BASE_RM_POWER), starting_speed_left, starting_speed_right)
+    activate_motors(int(speed_multiplier * c.BASE_LM_POWER), int(speed_multiplier * -1 * c.BASE_RM_POWER), starting_speed_left, starting_speed_right)
     if turn_right_print == True:
         print "Turn right for %d ms" % time
     msleep(time)
@@ -50,7 +50,7 @@ def wait(time = 1000):  # Same as msleep command, but stops the wheels.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Complex Movement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def activate_motors(left_motor_power = c.BASE_LM_POWER, right_motor_power = c.BASE_RM_POWER, starting_speed_left = c.NO_VALUE, starting_speed_right = c.NO_VALUE):
-      if left_motor_power > 1450:
+    if left_motor_power > 1450:
         print "left_motor_power is too high! Power autoset from " + str(left_motor_power) + " to 1450"
         left_motor_power = 1450
     elif left_motor_power < -1450:
@@ -64,12 +64,12 @@ def activate_motors(left_motor_power = c.BASE_LM_POWER, right_motor_power = c.BA
         right_motor_power = 1450
     left_velocity_change = left_motor_power / 30
     right_velocity_change = right_motor_power / 30
-    if starting_speed_left = c.NO_VALUE and starting_speed_right = c.NO_VALUE:
+    if starting_speed_left == c.NO_VALUE and starting_speed_right == c.NO_VALUE:
         while abs(c.CURRENT_LM_POWER - left_motor_power) > 100 and abs(c.CURRENT_RM_POWER - right_motor_power) > 100:
             mav(c.LEFT_MOTOR, c.CURRENT_LM_POWER)
             c.CURRENT_LM_POWER += left_velocity_change
             mav(c.RIGHT_MOTOR, c.CURRENT_RM_POWER)
-            c.CURRENT_LM_POWER += right_velocity_change
+            c.CURRENT_RM_POWER += right_velocity_change
             if abs(c.CURRENT_LM_POWER) > abs(left_motor_power) or abs(c.CURRENT_RM_POWER) > abs(right_motor_power):
                 print "Velocity too high"
                 exit(86)
@@ -82,9 +82,9 @@ def activate_motors(left_motor_power = c.BASE_LM_POWER, right_motor_power = c.BA
             mav(c.RIGHT_MOTOR, starting_speed_right)
             c.CURRENT_RM_POWER = starting_speed_right
             starting_speed_right += right_velocity_change
-          if abs(starting_speed_left) > abs(left_motor_power) or abs(starting_speed_right) > abs(right_motor_power):
-             print "Velocity too high"
-             exit(86)
+            if abs(starting_speed_left) > abs(left_motor_power) or abs(starting_speed_right) > abs(right_motor_power):
+                print "Velocity too high"
+                exit(86)
             msleep(1)
         mav(c.LEFT_MOTOR, left_motor_power)  # Ensures actual desired value is reached.
     else:
@@ -143,19 +143,19 @@ def turn_right_no_print(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0, starti
 
 def av(motor_port, desired_velocity, intermediate_velocity = c.NO_VALUE):
 # Revs a motor up to a given velocity from 0. The motor and desired velocity must be specified. Cannot rev two motors simultaneously.
-    if intermediate_velocity = c.NO_VALUE:
-        if motor_port = c.LEFT_MOTOR:
+    if intermediate_velocity == c.NO_VALUE:
+        if motor_port == c.LEFT_MOTOR:
             intermediate_velocity = c.CURRENT_LM_POWER
-        elif motor_port = c.RIGHT_MOTOR:
+        elif motor_port == c.RIGHT_MOTOR:
             intermediate_velocity = c.CURRENT_RM_POWER
         else:
             print "An invalid motor port was selected."
     velocity_change = desired_velocity / 30
     while abs(intermediate_velocity - desired_velocity) > 100:
         mav(motor_port, intermediate_velocity)
-        if motor_port = c.LEFT_MOTOR:
+        if motor_port == c.LEFT_MOTOR:
             c.CURRENT_LM_POWER = desired_velocity
-        elif motor_port = c.RIGHT_MOTOR:
+        elif motor_port == c.RIGHT_MOTOR:
             c.CURRENT_RM_POWER = desired_velocity
         intermediate_velocity += velocity_change
         if abs(intermediate_velocity) > abs(desired_velocity):
@@ -163,9 +163,9 @@ def av(motor_port, desired_velocity, intermediate_velocity = c.NO_VALUE):
             u.sd(86)
         msleep(1)
     mav(motor_port, desired_velocity)  # Ensures actual desired value is reached
-    if motor_port = c.LEFT_MOTOR:
+    if motor_port == c.LEFT_MOTOR:
         c.CURRENT_LM_POWER = desired_velocity
-    elif motor_port = c.RIGHT_MOTOR:
+    elif motor_port == c.RIGHT_MOTOR:
         c.CURRENT_RM_POWER = desired_velocity
 
 
