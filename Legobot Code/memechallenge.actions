@@ -1,0 +1,13 @@
+# The bulk of commands should go here
+
+from wallaby import *
+import constants as c
+import movement as m
+import sensors as s
+import webcam as w 
+
+def vader():
+    s.lfollow_left_until_right_senses_white_smooth()
+    s.lfollow_left_smooth(6000)
+    m.turn_right
+    m.open_claw
