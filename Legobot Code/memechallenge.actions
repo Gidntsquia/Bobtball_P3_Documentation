@@ -7,11 +7,11 @@ import sensors as s
 import webcam as w 
 
 def vader():
-    s.lfollow_left_until_right_senses_white_smooth()
-    m.turn_left()
-    s.right_point_turn_until_black(999999,False)
-    s.lfollow_right_until_left_senses_black_smooth(99999,False)
-    s.lfollow_smooth(2000,True)
+    s.lfollow_right_until_left_senses_white_smooth()
     m.turn_right()
+    s.left_point_turn_until_black(999999,False)
+    s.lfollow_left_until_right_senses_black_smooth(99999,False)
+    s.lfollow_right_smooth(2000,True)
+    m.turn_left()
     m.backwards(1000)
     m.open_claw()
