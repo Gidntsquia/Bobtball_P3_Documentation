@@ -88,6 +88,7 @@ def calibrate():
     #m.deactivate_motors()
     msleep(1500)
     ao()
+    # DON'T DELETE THESE NEXT 4 LINES. They are purposeful. It avoids the roomba going into sleep mode after the calibration and not starting right.
     create_disconnect()
     wait_for_light(c.LIGHT_SENSOR)
     create_connect()
