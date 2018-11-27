@@ -73,3 +73,14 @@ def length_test():
    m.turn_left()
    m.backwards(1300)
        
+    
+def shootymcface()
+    s.drive_until_black_third()
+    s.drive_until_white_third()
+    s.drive_until_black_third()
+    s.left_point_turn_until_black()
+    s.lfollow_left_until_right_senses_black_smooth()
+    m.turn_left()
+    s.drive_until_black_right()
+    m.raise_arm()
+    m.lower_arm()       
