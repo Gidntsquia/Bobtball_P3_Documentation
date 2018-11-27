@@ -15,3 +15,15 @@ def vader():
     m.turn_left()
     m.backwards(1000)
     m.open_claw()
+
+def shootymcface():
+    s.drive_until_black_third()
+    s.drive_until_white_third()
+    s.drive_until_black_third()
+    s.right_point_turn_until_left_senses_black()
+    s.lfollow_left_until_right_senses_black_smooth()
+    m.turn_right()
+    m.turn_right()
+    s.lfollow_left_until_right_senses_black()
+    m.lift_arm(1000)
+    m.lower_arm(1000) 
