@@ -29,7 +29,8 @@ def shootymcface():
     m.turn_right()
     s.lfollow_left_until_right_senses_black_smooth(999999999)
     m.turn_left()
-    m.backwards(3000)
+    m.drive(500)
+    m.backwards(3500)
     s.left_point_turn_until_black()
     s.right_point_turn_until_left_senses_black()
     s.lfollow_left_smooth(3000)   
@@ -40,4 +41,4 @@ def shootymcface():
     m.turn_right()
     s.lfollow_left_until_right_senses_black_smooth(999999999)
     m.turn_left()
-
+    m.backwards(3000)
