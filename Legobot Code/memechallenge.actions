@@ -34,7 +34,7 @@ def shootymcface():
     s.lfollow_left_smooth(2000)
     m.turn_right()
     m.drive(2000)
-    m.backwards(3500)
+    m.backwards(3000)
     m.turn_left()
     s.lfollow_left_until_right_senses_black_smooth(9999999999)
     m.turn_right()
