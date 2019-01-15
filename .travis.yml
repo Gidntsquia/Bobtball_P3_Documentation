@@ -1,34 +1,20 @@
-# This file is part of 2017-2018_Rockville-Python-Code and is written by Michael Morocho ("Mike15678").
-# Copyright © 2018 Rockville High School Robotics Team. All rights reserved.
-# No part of this file may be reproduced, utilized, or distributed in any form or by any means, unless explicit permission is granted by the Rockville High School Robotics Team.
-# "libwallaby" is Copyright © Joshua Southerland and is liscensed under the GNU GPLv3.
-
-dist: trusty # Use Ubuntu 14.04 as our Travis CI environment.
-
-sudo: false # So we can use a container-based environment.
-
-language: python # Python is the programming language, of course.
-
-python: 2.7 # Use Python 2 since we write in it due to Wallaby using it.
-
-cache: pip # Cache files downloaded through pip (to hopefully allow for faster linting).
-
-env:
-  # Fill these out as necessary:
-  - LIB_COMP="$TRAVIS_BUILD_DIR/libwallaby-Compiled" LEGOBOT_CODE="$TRAVIS_BUILD_DIR/Legobot Code" ROOMBA_CODE="$TRAVIS_BUILD_DIR/Roomba Code"
+os: linux
+dist: xenial # Use Ubuntu 16.04 as our Travis CI environment
+language: python # Python is the programming language, of course
+python: "2.7" # Use Python 2 since we write in it due to Wallaby using it
+env: LEGOBOT_CODE="$TRAVIS_BUILD_DIR/Legobot Code" ROOMBA_CODE="$TRAVIS_BUILD_DIR/Roomba Code"
 
 before_install:
-  - mkdir -p "$LEGOBOT_CODE" # Create directory if not present.
-  - mkdir -p "$ROOMBA_CODE" # Create directory if not present.
+  # Create directories if not present
+  - mkdir -p "$LEGOBOT_CODE" "ROOMBA_CODE"
 
-install: # Just doing this here so I don't clutter up the "script" step.
-  - cp -a "$LIB_COMP/." "$LEGOBOT_CODE" # Copy Python 2 bindings to where the code is going to be linted.
-  - cp -a "$LIB_COMP/." "$ROOMBA_CODE" # Copy Python-2 bindings to where the code is going to be linted.
-  - python2 -m pip install --upgrade pylint # Use pip to install Pylint.
+install:
+  # Install required dependencies
+  - pip install --upgrade pylint # Use pip to install Pylint
 
-script: # Scripts shall execute in sequential order, thus causing the later scripts to fail if the earlier scripts fail.
-  # Legobot and Roomba code are about to be run to see if they work.
-  - cd "$LEGOBOT_CODE"
-  - python2 -m pylint -j 7 --ignore "wallaby.py" -d missing-docstring,unused-wildcard-import,wildcard-import,unused-import,redefined-builtin *.py # Finds any file that ends in '.py' and passes the 'pylint' command to each file found.
-  - cd "$ROOMBA_CODE"
-  - python2 -m pylint -j 7 --ignore "wallaby.py" -d missing-docstring,unused-wildcard-import,wildcard-import,unused-import,redefined-builtin *.py # Finds any file that ends in '.py' and passes the 'pylint' command to each file found.
+script:
+  # Lint the Python files
+  - pylint -j 4 -d missing-docstring,unused-wildcard-import,wildcard-import,unused-import,redefined-builtin "$LEGOBOT_CODE"/*.py "$ROOMBA_CODE"/*.py
+
+notifications:
+  slack: $SLACK_TOKEN
