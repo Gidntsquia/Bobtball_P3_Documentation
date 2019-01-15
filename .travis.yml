@@ -10,11 +10,11 @@ before_install:
 
 install:
   # Install required dependencies
-  - pip install --upgrade pylint # Use pip to install Pylint
+  - pip install --upgrade pyflakes # Use pip to install Pyflakes
 
 script:
   # Lint the Python files
-  - pylint -j 4 -d missing-docstring,unused-wildcard-import,wildcard-import,unused-import,redefined-builtin "$LEGOBOT_CODE"/*.py "$ROOMBA_CODE"/*.py
+  - pyflakes "$LEGOBOT_CODE"/*.py "$ROOMBA_CODE"/*.py
 
 notifications:
-  slack: $SLACK_TOKEN
+  slack: rockvillerobotics:bpKB3Dh7tOLwFCUY5S1LjLrG
