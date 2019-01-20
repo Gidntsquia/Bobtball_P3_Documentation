@@ -34,8 +34,8 @@ if IS_MAIN_BOT:
     CURRENT_RM_POWER = 0
 
     # Motor Timings
-    RIGHT_TURN_TIME = 850  # Need to test turn timings periodically. They change as battery charge changes, or on new boards.
-    LEFT_TURN_TIME = 850
+    RIGHT_TURN_TIME = 900  # Need to test turn timings periodically. They change as battery charge changes, or on new boards.
+    LEFT_TURN_TIME = 900
     DEFAULT_DRIVE_TIME = 500
     DEFAULT_BACKWARDS_TIME = 500
     PIVOT_RIGHT_TURN_TIME = 3580  # Turns 180 degrees. Not currently used.
@@ -51,27 +51,17 @@ if IS_MAIN_BOT:
 
     # Arm Servo
     ARM_SERVO = 0 
-    ARM_DOWN_POS = 1024  # Claw should be parallel to ground.
+    ARM_DOWN_POS = 1024
     ARM_UP_POS = 1306
-    ARM_HIGH_POS = 1900
-    ARM_PUSH_CRATE_POS = 1250  # Moves aboe pvc so crates can be pushed.
-    ARM_SECOND_CRATE_GRAB_POS = 1500
-    ARM_SECOND_CRATE_UP_POS = 1700
-    ARM_SECOND_CRATE_DEPOSIT_POS = 1300
 
     # Claw Servo
-    CLAW_SERVO = 3
-    CLAW_LESS_OPEN_POS = 1269
-    CLAW_OPEN_POS = 1200  # 720
-    CLAW_LARGE_OPEN_POS = 1100  # 690
-    CLAW_BOTGUY_OPEN_POS = 1269  # 817
-    CLAW_PARALLEL_CLOSE_POS = 1530
-    CLAW_CLOSE_POS = 1652   # There should be a slight space between both prongs.
-    CLAW_SECOND_CRATE_GRAB_POS = 1575  # 1150
-    BOTGUY_CLAW_CLOSE_POS = 1630  # 1110
+    CLAW_SERVO = 2
+    CLAW_OPEN_POS = 359
+    CLAW_CLOSE_POS = 1730
+    CLAW_CHECKING_POS = 359
 
     # Starting Positions
-    STARTING_ARM_POS = ARM_HIGH_POS
+    STARTING_ARM_POS = ARM_UP_POS
     STARTING_CLAW_POS = CLAW_OPEN_POS
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sensors~~~~~~~~~~~~~~~~~~~~~~~~
@@ -87,14 +77,24 @@ if IS_MAIN_BOT:
     RIGHT_TOPHAT_BW = 785  # If more, black. If less, white.
     THIRD_TOPHAT_BW = 2083  # If more, black. If less, white.
     LFOLLOW_REFRESH_RATE = 30  # Default amount of time before tophats check their black/white status again.
+    AVG_BIAS = 0
 
     # Digital Sensors
     BUMP_SENSOR = 0
+
+    # Gryo Conversian Rates
+    WALLAGREES_TO_DEGREES_RATE = 90 / 50000.0
 
     # Camera Colors
     YELLOW = 0
     RED = 1
     GREEN = 2
+
+    # Camera Zones
+    NEAR_ZONE = -1
+    FAR_ZONE = 1
+    FIRE_HOSPITAL = NEAR_ZONE
+    SAFE_HOSPITAL = FAR_ZONE
 
     # PID Lfollow
     MAX_TOPHAT_VALUE_RIGHT = 3200
@@ -144,28 +144,18 @@ else:  # Clone Bot -------------------------------------------------------------
 
     # Clone Arm Servo
     ARM_SERVO = 0 
-    ARM_DOWN_POS = 1118  # Claw should be parallel to ground.
-    ARM_UP_POS = 1400
-    ARM_HIGH_POS = 1900
-    ARM_PUSH_CRATE_POS = 1250  # Moves above pvc so crates can be pushed.
-    ARM_SECOND_CRATE_GRAB_POS = 1600
-    ARM_SECOND_CRATE_UP_POS = 1785
-    ARM_SECOND_CRATE_DEPOSIT_POS = 1350
+    ARM_DOWN_POS = 1024
+    ARM_UP_POS = 1306
 
     # Clone Claw Servo
     CLAW_SERVO = 3
-    CLAW_LESS_OPEN_POS = 1245
-    CLAW_OPEN_POS = 1150
-    CLAW_LARGE_OPEN_POS = 1100
-    CLAW_BOTGUY_OPEN_POS = 1250
-    CLAW_PARALLEL_CLOSE_POS = 1500
-    CLAW_CLOSE_POS = 1652  # There should be a slight space between both prongs.
-    CLAW_SECOND_CRATE_GRAB_POS = 1570
-    BOTGUY_CLAW_CLOSE_POS = 1580
+    CLAW_OPEN_POS = 1200
+    CLAW_CLOSE_POS = 1652
+    CLAW_CHECKING_POS = 1530
 
     # Clone Starting Positions
-    STARTING_ARM_POS = ARM_HIGH_POS
-    STARTING_CLAW_POS = CLAW_OPEN_POS  # 1010
+    STARTING_ARM_POS = ARM_UP_POS
+    STARTING_CLAW_POS = CLAW_OPEN_POS
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Clone Sensors~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -180,16 +170,25 @@ else:  # Clone Bot -------------------------------------------------------------
     RIGHT_TOPHAT_BW = 1783  # If more, black. If less, white.
     THIRD_TOPHAT_BW = 2121 # If more, black. If less, white.
     LFOLLOW_REFRESH_RATE = 30  # Default amount of time before tophats check their black/white status again.
+    AVG_BIAS = 0
 
     # Clone Digital Sensors
     BUMP_SENSOR = 0
+    
+    # Clone Gryo Conversian Rates
+    WALLAGREES_TO_DEGREES_RATE = 90 / 580000
 
     # Clone Camera Colors
     YELLOW = 0
     RED = 1
     GREEN = 2
     
-
+    # Camera Zones
+    NEAR_ZONE = -1
+    FAR_ZONE = 1
+    FIRE_HOSPITAL = NEAR_ZONE
+    SAFE_HOSPITAL = FAR_ZONE
+    
     # PID Lfollow
     MAX_TOPHAT_VALUE_RIGHT = 3200
     MIN_TOPHAT_VALUE_RIGHT = 158

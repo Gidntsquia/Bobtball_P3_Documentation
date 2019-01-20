@@ -53,13 +53,13 @@ def setup():
     enable_servo(c.ARM_SERVO)
     set_servo_position(c.CLAW_SERVO, c.STARTING_CLAW_POS)
     set_servo_position(c.ARM_SERVO, c.STARTING_ARM_POS)
-    #msleep(1000)
-    #print "Set claw to starting position of %d" % c.STARTING_CLAW_POS
-    #print "Set arm to starting position of %d" % c.STARTING_ARM_POS
-    #m.claw_slow(c.CLAW_PARALLEL_CLOSE_POS)
-    #m.wait()
-    #m.claw_slow(c.CLAW_OPEN_POS)
-    #m.wait()
+    msleep(1000)
+    print "Set claw to starting position of %d" % c.STARTING_CLAW_POS
+    print "Set arm to starting position of %d" % c.STARTING_ARM_POS
+    m.move_claw(c.CLAW_CHECKING_POS)
+    m.wait()
+    m.move_claw(c.STARTING_CLAW_POS)
+    m.wait()
     console_clear()
     print "Setup complete\n\n"
 
