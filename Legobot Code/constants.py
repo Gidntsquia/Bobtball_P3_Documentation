@@ -34,8 +34,8 @@ if IS_MAIN_BOT:
     CURRENT_RM_POWER = 0
 
     # Motor Timings
-    RIGHT_TURN_TIME = 900  # Need to test turn timings periodically. They change as battery charge changes, or on new boards.
-    LEFT_TURN_TIME = 900
+    RIGHT_TURN_TIME = 850  # Need to test turn timings periodically. They change as battery charge changes, or on new boards.
+    LEFT_TURN_TIME = 850
     DEFAULT_DRIVE_TIME = 500
     DEFAULT_BACKWARDS_TIME = 500
     PIVOT_RIGHT_TURN_TIME = 3580  # Turns 180 degrees. Not currently used.
@@ -87,24 +87,14 @@ if IS_MAIN_BOT:
     RIGHT_TOPHAT_BW = 785  # If more, black. If less, white.
     THIRD_TOPHAT_BW = 2083  # If more, black. If less, white.
     LFOLLOW_REFRESH_RATE = 30  # Default amount of time before tophats check their black/white status again.
-    AVG_BIAS = 0
 
     # Digital Sensors
     BUMP_SENSOR = 0
-
-    # Gryo Conversian Rates
-    WALLAGREES_TO_DEGREES_RATE = 90 / 50000.0
 
     # Camera Colors
     YELLOW = 0
     RED = 1
     GREEN = 2
-
-    # Camera Zones
-    NEAR_ZONE = -1
-    FAR_ZONE = 1
-    FIRE_HOSPITAL = NEAR_ZONE
-    SAFE_HOSPITAL = FAR_ZONE
 
     # PID Lfollow
     MAX_TOPHAT_VALUE_RIGHT = 3200
@@ -190,25 +180,16 @@ else:  # Clone Bot -------------------------------------------------------------
     RIGHT_TOPHAT_BW = 1783  # If more, black. If less, white.
     THIRD_TOPHAT_BW = 2121 # If more, black. If less, white.
     LFOLLOW_REFRESH_RATE = 30  # Default amount of time before tophats check their black/white status again.
-    AVG_BIAS = 0
 
     # Clone Digital Sensors
     BUMP_SENSOR = 0
-    
-    # Clone Gryo Conversian Rates
-    WALLAGREES_TO_DEGREES_RATE = 90 / 580000
 
     # Clone Camera Colors
     YELLOW = 0
     RED = 1
     GREEN = 2
     
-    # Camera Zones
-    NEAR_ZONE = -1
-    FAR_ZONE = 1
-    FIRE_HOSPITAL = NEAR_ZONE
-    SAFE_HOSPITAL = FAR_ZONE
-    
+
     # PID Lfollow
     MAX_TOPHAT_VALUE_RIGHT = 3200
     MIN_TOPHAT_VALUE_RIGHT = 158

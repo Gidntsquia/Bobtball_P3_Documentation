@@ -15,24 +15,6 @@ def initialize_camera():
         msleep(1)
     print "Finished Step 100\n"
 
-def check_zones_hospital():
-    print "Checking zones"
-    m.turn_left(300)
-    msleep(25)
-    ao()
-    # This fully turns of the motors instead of just stopping them. Do not remove.
-    camera_open()
-    initialize_camera()
-    if get_object_area(c.RED, 0) > 50:
-        c.FIRE_HOSPITAL = c.NEAR_ZONE
-        c.SAFE_HOSPITAL = c.FAR_ZONE
-    else:
-        c.FIRE_HOSPITAL = c.FAR_ZONE
-        c.SAFE_HOSPITAL = c.NEAR_ZONE
-    m.turn_right(300)
-    print "Fire Hospital Zone: " + str(c.FIRE_HOSPITAL)
-    print "Safe Hospital Zone: " + str(c.SAFE_HOSPITAL)
-
 
 def check_zones_full():
     print "Checking zones"
