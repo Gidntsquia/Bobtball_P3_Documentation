@@ -1,3 +1,4 @@
+
 # The bulk of commands should go here
 
 from wallaby import *
@@ -5,7 +6,13 @@ import constants as c
 import movement as m
 import sensors as s
 import webcam as w
-
+def fireFighters():
+    m.turn_left()
+    s.drive_until_black()
+    s.smart_close_align()
+    s.drive_through_two_lines_third()
+    s.turn_left_until_left_black()
+    s.lfollow_left_until_right_senses_black()
 def deliver_ambulance():
     print "Starting deliver_ambulance()"
     s.drive_through_two_lines_third()
