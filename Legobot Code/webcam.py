@@ -17,7 +17,6 @@ def initialize_camera():
 
 def check_zones_hospital():
     print "Checking zones"
-    m.turn_left(300)
     msleep(25)
     ao()
     # This fully turns of the motors instead of just stopping them. Do not remove.
