@@ -8,8 +8,9 @@ def lfollow_lcliff_smooth_until_bump()
             create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)
             
             
+            
 def prismriver():
-    m.turn_left()
+    m.turn_right()
     s.forwards_until_black_cliff(999999999)
     m.turn_left()
     s.lfollow_right_smooth_until_rcliff_senses_white()
