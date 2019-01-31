@@ -23,3 +23,11 @@ def prismriver():
     s.forwards_until_black_cliff()
     s.forwards_until_white_cliff()
     s.forwards_until_black_cliff()
+    s.lfollow_left_smooth_until_bump()
+    m.turn_right()
+    m.turn_right()
+    s.forwards_until_black_cliff()
+    s.forwards_until_white_cliff()
+    s.forwards_until_black_cliff()
+    m.turn_left()
+    
