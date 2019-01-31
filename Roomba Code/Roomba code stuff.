@@ -40,3 +40,8 @@ def prismriver():
     s.lfollow_left_smooth_until_bump(999999)
     m.turn_left()
     s.forwards_until_black_cliff()
+    m.forwards(1000)
+    m.turn_right()
+    m.forwards_until_black_cliff()
+    m.forwards_until_white_cliff()
+    m.forwards_until_black_cliff()
