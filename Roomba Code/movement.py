@@ -5,15 +5,19 @@ import movement as m
 
 #-----------------------------ARM----------------------------
 
-def arm_slow(desired_arm_position = c.ARM_DOWN_POS, arm_tics = 1, arm_ms = 1):
-    servo_slow(c.ARM_SERVO, desired_arm_position, arm_tics, arm_ms)
+def move_arm(desired_arm_position = c.ARM_DOWN_POS, arm_tics = 3, arm_ms = 1):
+    move_servo(c.ARM_SERVO, desired_arm_position, arm_tics, arm_ms)
 
 
-def micro_slow(desired_micro_position = c.MICRO_LEFT_POS, micro_tics = 1, micro_ms = 1):
-    servo_slow(c.MICRO_SERVO, desired_micro_position, micro_tics, micro_ms)
+def move_micro(desired_micro_position = c.MICRO_LEFT_POS, micro_tics = 3, micro_ms = 1):
+    move_servo(c.MICRO_SERVO, desired_micro_position, micro_tics, micro_ms)
 
 
-def servo_slow(servo_port, desired_servo_position, tics = 1, ms = 1):
+def move_claw(desired_claw_position = c.CLAW_CLOSE_POS, claw_tics = 3, claw_ms = 1):
+    move_servo(c.CLAW_SERVO, desired_claw_position, claw_tics, claw_ms)
+
+
+def move_servo(servo_port, desired_servo_position, tics = 3, ms = 1):
 # Moves a servo slowly to a given position from its current position. The servo and desired position must be specified
 # Servo move speed = tics / ms
 # >18 tics is too high
@@ -48,30 +52,55 @@ def servo_slow(servo_port, desired_servo_position, tics = 1, ms = 1):
     print "Completed servo_slow\n"
 
 
-def lift_arm(servo_position = c.ARM_UP_POS, time = 300):
-    print "Set lift servo to desired up position: %d" % servo_position
+def lift_arm(servo_position = c.ARM_UP_POS, tics = 3, ms = 1):
+    print "Lifting servo to: %d" % servo_position
     if servo_position > c.MAX_ARM_SERVO_POS:
         print "Invalid desired servo position\n"
         exit(86)
     if servo_position < c.MIN_ARM_SERVO_POS:
         print "Invalid desired servo position\n"
         exit(86)
-    set_servo_position(c.ARM_SERVO, servo_position)
+    move_servo(c.ARM_SERVO, servo_position, tics, ms)
     msleep(time)
     print "Arm reached up position: %d" % get_servo_position(c.ARM_SERVO)
 
 
-def lower_arm(servo_position = c.ARM_DOWN_POS, time = 300):
-    print "Set lift servo to desired down position: %d" % servo_position
+def lower_arm(servo_position = c.ARM_DOWN_POS, tics = 3, ms = 1):
+    print "Lowering arm to: %d" % servo_position
     if servo_position > c.MAX_ARM_SERVO_POS:
         print "Invalid desired servo position\n"
         exit(86)
     if servo_position < c.MIN_ARM_SERVO_POS:
         print "Invalid desired servo position\n"
         exit(86)
-    set_servo_position(c.ARM_SERVO, servo_position)
-    msleep(time)
+    move_servo(c.ARM_SERVO, servo_position, tics, ms)
     print "Arm reached down position: %d" % get_servo_position(c.ARM_SERVO)
+
+
+def open_claw(servo_position = c.CLAW_OPEN_POS, tics = 3, ms = 1):
+    print "Opening claw to: %d" % servo_position
+    if servo_position > c.MAX_ARM_SERVO_POS:
+        print "Invalid desired servo position\n"
+        exit(86)
+    if servo_position < c.MIN_ARM_SERVO_POS:
+        print "Invalid desired servo position\n"
+        exit(86)
+    move_servo(c.CLAW_SERVO, servo_position, tics, ms)
+    print "Claw reached close position: %d" % get_servo_position(c.CLAW_SERVO)
+
+
+def claw_close(servo_position = c.CLAW_CLOSE_POS, tics = 3, ms = 1):
+    print "Closing claw to: %d" % servo_position
+    if servo_position > c.MAX_ARM_SERVO_POS:
+        print "Invalid desired servo position\n"
+        exit(86)
+    if servo_position < c.MIN_ARM_SERVO_POS:
+        print "Invalid desired servo position\n"
+        exit(86)
+    move_servo(c.CLAW_SERVO, servo_position, tics, ms)
+    print "Claw reached close position: %d" % get_servo_position(c.CLAW_SERVO)
+
+
 
 #-----------------------------Driving-------------------------
 
