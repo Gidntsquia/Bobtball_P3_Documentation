@@ -96,7 +96,7 @@ if IS_MAIN_BOT:
     FIRE_HOSPITAL = NEAR_ZONE
     SAFE_HOSPITAL = FAR_ZONE
 
-    # PID Lfollow
+    # PID Lfollow Values
     MAX_TOPHAT_VALUE_RIGHT = 3200
     MIN_TOPHAT_VALUE_RIGHT = 158
     MAX_TOPHAT_VALUE_LEFT = 3200
@@ -107,7 +107,10 @@ if IS_MAIN_BOT:
     KP_SAFE = 7
     KI_SAFE = 0.061
     KD_SAFE = 1
-    
+
+    # Miscellaneous Values
+    SAFETY_TIME = 15000  # This is the while loop time limit that ensures we don't have an infinite loop.
+    SAFETY_TIME_NO_STOP = SAFETY_TIME + 1
 
 else:  # Clone Bot ----------------------------------------------------------------------------------------------------------------
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Clone Motors~~~~~~~~~~~~~~~~~~~~~~~~
@@ -183,13 +186,13 @@ else:  # Clone Bot -------------------------------------------------------------
     RED = 1
     GREEN = 2
     
-    # Camera Zones
+    # Clone Camera Zones
     NEAR_ZONE = -1
     FAR_ZONE = 1
     FIRE_HOSPITAL = NEAR_ZONE
     SAFE_HOSPITAL = FAR_ZONE
     
-    # PID Lfollow
+    # Clone PID Lfollow Values
     MAX_TOPHAT_VALUE_RIGHT = 3200
     MIN_TOPHAT_VALUE_RIGHT = 158
     MAX_TOPHAT_VALUE_LEFT = 3200
@@ -200,4 +203,7 @@ else:  # Clone Bot -------------------------------------------------------------
     KP_SAFE = 7
     KI_SAFE = 0.061
     KD_SAFE = 1
-NO_VALUE = 99999  # This is a number that is never used by any command. 
+
+    # Clone Miscellaneous Values
+    SAFETY_TIME = 15000  # This is the time limit for all while loops that ensures we don't have an infinite loop.
+    SAFETY_TIME_NO_STOP = SAFETY_TIME + 1
