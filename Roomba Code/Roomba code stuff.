@@ -24,7 +24,6 @@ def forwards_until_black_rfcliff_safe():
             msleep(100)
             m.activate_motors(1)
     
-    m.deactivate_motors()
     
 def forwards_until_white_rfcliff_safe():
     print "Start drive_until_white_rfcliff_safe"
@@ -35,7 +34,6 @@ def forwards_until_white_rfcliff_safe():
             msleep(100)
             m.activate_motors(1)
     
-    m.deactivate_motors()
 
             
             
