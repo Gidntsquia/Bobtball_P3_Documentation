@@ -1,5 +1,12 @@
 #Special Movement based thing
 
+def lfollow_lcliff_until_bump():
+     while leftIsNotBumped and rightIsNotBumped():
+        if BlackFrontLeft():
+            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)
+        else:
+            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)
+
 def lfollow_lcliff_smooth_until_bump():
      while leftIsNotBumped and rightIsNotBumped():
         if BlackFrontLeft():
