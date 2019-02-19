@@ -1,4 +1,4 @@
-Special Movement based things.
+#Special Movement based thing
 
 def lfollow_lcliff_smooth_until_bump():
      while leftIsNotBumped and rightIsNotBumped():
