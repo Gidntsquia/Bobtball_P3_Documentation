@@ -3,49 +3,134 @@
 from wallaby import *
 import constants as c
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Basic Movement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Base Commands ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+#  These commands start the motors in a certain way. They are a simplification of activate_motors().
+
+def base_drive(speed_multiplier=1.0):
+    activate_motors(int(speed_multiplier * c.BASE_LM_POWER), int(speed_multiplier * c.BASE_RM_POWER))
+
+
+def base_turn_left(speed_multiplier=1.0):
+    activate_motors(int(speed_multiplier * -1 * c.BASE_LM_POWER), int(speed_multiplier * c.BASE_RM_POWER))
+
+
+def base_turn_right(speed_multiplier=1.0):
+    activate_motors(int(speed_multiplier * c.BASE_LM_POWER), int(speed_multiplier * -1 * c.BASE_RM_POWER))
+
+
+def base_backwards(speed_multiplier=1.0):
+    activate_motors(int(speed_multiplier * -1 * c.BASE_LM_POWER), int(speed_multiplier * -1 * c.BASE_RM_POWER))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Basic Movement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Note: Every time the wheels are set to a speed, they must be set back to 0 or they will continue to spin.
 
-def drive(time = c.DEFAULT_DRIVE_TIME, drive_left_motor_power = c.BASE_LM_POWER, drive_right_motor_power = c.BASE_RM_POWER, stop = True, drive_print = True):
-    activate_motors(drive_left_motor_power, drive_right_motor_power)
-    if drive_print == True:
-        print "Drive forwards for %d ms" % time
+def drive(time = c.DEFAULT_DRIVE_TIME, speed_multiplier=1.0):
+    base_drive(speed_multiplier)
+    print "Drive forwards for %d ms" % time
     msleep(time)
-    if stop == True:
-        deactivate_motors()
+    deactivate_motors()
 
 
-def turn_left(time = c.LEFT_TURN_TIME, speed_multiplier = 1.0, stop = True, turn_left_print = True):
-    activate_motors(int(speed_multiplier * -1 * c.BASE_LM_POWER), int(speed_multiplier *  c.BASE_RM_POWER))
-    if turn_left_print == True:
-        print "Turn left for %d ms" % time
+def turn_left(time = c.LEFT_TURN_TIME, speed_multiplier = 1.0):
+    base_turn_left(speed_multiplier)
+    print "Turn left for %d ms" % time
     msleep(time)
-    if stop == True:
-        deactivate_motors()
+    deactivate_motors()
 
 
-def turn_right(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0, stop = True, turn_right_print = True):
-    activate_motors(int(speed_multiplier * c.BASE_LM_POWER), int(speed_multiplier * -1 * c.BASE_RM_POWER))
-    if turn_right_print == True:
-        print "Turn right for %d ms" % time
+def turn_right(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0):
+    base_turn_right(speed_multiplier)
+    print "Turn right for %d ms" % time
     msleep(time)
-    if stop == True:
-        deactivate_motors()
+    deactivate_motors()
 
 
-def backwards(time = c.DEFAULT_BACKWARDS_TIME, backwards_left_motor_power = -1 * c.BASE_LM_POWER, backwards_right_motor_power = -1 * c.BASE_RM_POWER, stop = True, backwards_print = True):
-    activate_motors(backwards_left_motor_power, backwards_right_motor_power)
-    if backwards_print == True:
-        print "Drive backwards for %d ms"%time
+def backwards(time = c.DEFAULT_BACKWARDS_TIME, speed_multiplier=1.0):
+    base_backwards(speed_multiplier)
+    print "Drive backwards for %d ms"%time
     msleep(time)
-    if stop == True:
-        deactivate_motors()
+    deactivate_motors()
 
 
 def wait(time = 1000):  # Same as msleep command, but stops the wheels.
     deactivate_motors()
     msleep(time)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ No Stop Movement~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def drive_no_stop(time = c.DEFAULT_DRIVE_TIME, speed_multiplier=1.0):
+    base_drive(speed_multiplier)
+    print "Drive forwards for %d ms" % time
+    msleep(time)
+
+
+
+def turn_left_no_stop(time = c.LEFT_TURN_TIME, speed_multiplier = 1.0):
+    base_turn_left(speed_multiplier)
+    print "Turn left for %d ms" % time
+    msleep(time)
+
+
+def turn_right_no_stop(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0):
+    base_turn_right(speed_multiplier)
+    print "Turn right for %d ms" % time
+    msleep(time)
+
+
+def backwards_no_stop(time = c.DEFAULT_BACKWARDS_TIME, speed_multiplier=1.0):
+    base_backwards(speed_multiplier)
+    print "Drive backwards for %d ms"%time
+    msleep(time)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ No Print Movement~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def drive_no_print(time = c.DEFAULT_DRIVE_TIME, speed_multiplier=1.0):
+    base_drive(speed_multiplier)
+    msleep(time)
+    deactivate_motors()
+
+
+def turn_left_no_print(time = c.LEFT_TURN_TIME, speed_multiplier = 1.0):
+    base_turn_left(speed_multiplier)
+    msleep(time)
+    deactivate_motors()
+
+
+def turn_right_no_print(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0):
+    base_turn_right(speed_multiplier)
+    msleep(time)
+    deactivate_motors()
+
+
+def backwards_no_print(time = c.DEFAULT_BACKWARDS_TIME, speed_multiplier=1.0):
+    base_backwards(speed_multiplier)
+    msleep(time)
+    deactivate_motors()
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ No Stop, No Print Movement~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def drive_no_stop_no_print(time = c.DEFAULT_DRIVE_TIME, speed_multiplier=1.0):
+    base_drive(speed_multiplier)
+    msleep(time)
+
+
+def turn_left_no_stop_no_print(time = c.LEFT_TURN_TIME, speed_multiplier = 1.0):
+    base_turn_left(speed_multiplier)
+    msleep(time)
+
+
+def turn_right_no_stop_no_print(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0):
+    base_turn_right(speed_multiplier)
+    msleep(time)
+
+
+def backwards_no_stop_no_print(time = c.DEFAULT_BACKWARDS_TIME, speed_multiplier=1.0):
+    base_backwards(speed_multiplier)
+    msleep(time)
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Complex Movement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -106,22 +191,6 @@ def backwards_tics(tics, stop = True):
         pass
     if stop == True:
         deactivate_motors()
-
-
-def drive_no_print(time = c.DEFAULT_DRIVE_TIME, drive_left_motor_power = c.BASE_LM_POWER, drive_right_motor_power = c.BASE_RM_POWER, stop = True):
-    drive(time, drive_left_motor_power, drive_right_motor_power, stop, False)
-
-
-def backwards_no_print(time = c.DEFAULT_BACKWARDS_TIME, backwards_left_motor_power = -1 * c.BASE_LM_POWER, backwards_right_motor_power = -1 * c.BASE_RM_POWER, stop = True):            
-    backwards(time, backwards_left_motor_power, backwards_right_motor_power, stop, False)
-
-
-def turn_left_no_print(time = c.LEFT_TURN_TIME, speed_multiplier = 1.0, stop = True):
-     turn_left(time, speed_multiplier, stop, False)
-
-
-def turn_right_no_print(time = c.RIGHT_TURN_TIME, speed_multiplier = 1.0, stop = True):
-     turn_right(time, speed_multiplier, stop, False)
 
 
 def av(motor_port, desired_velocity):
