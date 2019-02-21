@@ -795,18 +795,18 @@ def lfollow_lcliff_smooth_until_bump():
      print "Starting smooth_lcliff_until_bump()"
      while leftIsNotBumped and rightIsNotBumped():
         if BlackFrontLeft():
-            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
+            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)
         else:
-            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)     
+            create_drive_direct(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)     
                 
                 
 def lfollow_rcliff_smooth_until_bump():
      print "Starting smooth_rcliff_until_bump()"
      while leftIsNotBumped and rightIsNotBumped():
         if BlackFrontRight():
-            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
+            create_drive_direct(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
         else:
-            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)     
+            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)     
                 
 def lfollow_rcliff_until_bump():
      print "Starting lfollow_rcliff_until_bump()"
