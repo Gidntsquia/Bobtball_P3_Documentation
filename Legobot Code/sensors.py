@@ -894,7 +894,7 @@ def base_lfollow_left_smooth():
     if BlackLeft():
         mav(c.LEFT_MOTOR, c.BASE_LM_POWER)
         mav(c.RIGHT_MOTOR, c.LFOLLOW_SMOOTH_RM_POWER)
-   else:
+    else:
         mav(c.LEFT_MOTOR, c.LFOLLOW_SMOOTH_LM_POWER)
         mav(c.RIGHT_MOTOR, c.BASE_RM_POWER)
 
@@ -925,7 +925,7 @@ def lfollow_left_smooth(time=c.SAFETY_TIME):
 def lfollow_left_smooth_amount(time, left_speed=c.BASE_LM_POWER, right_speed=c.BASE_RM_POWER,
                                left_smooth_speed=c.LFOLLOW_SMOOTH_LM_POWER,
                                right_smooth_speed=c.LFOLLOW_SMOOTH_RM_POWER):
-    # IGNORE THIS, ALSO WORK ON THIS LATER
+    # TO DO
     print "Starting lfollow_left_smooth_amount()\n"
     m.activate_motors(left_speed, right_speed)
     if time == 0:
@@ -2001,7 +2001,7 @@ def debug_right_tophat():
         print "Right tophat see white: " + str(analog(c.RIGHT_TOPHAT))
     else:
         print "Error in defining BlackRight and NotBlackRight"
-        exit(86)
+        u.sd()
 
 
 def debug_left_tophat():
@@ -2011,4 +2011,4 @@ def debug_left_tophat():
         print "Left tophat senses white: " + str(analog(c.LEFT_TOPHAT))
     else:
         print "Error in defining BlackLeft and NotBlackLeft"
-        exit(86)
+        u.sd()
