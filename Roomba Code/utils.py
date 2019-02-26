@@ -64,10 +64,10 @@ def calibrate():
             min_sensor_value_lfcliff = get_create_lfcliff_amt()
         msleep(1)
     m.deactivate_motors()
-    c.LCLIFF_BW = ((max_sensor_value_lcliff + min_sensor_value_lcliff) / 2) + 500
-    c.RCLIFF_BW = ((max_sensor_value_rcliff + min_sensor_value_rcliff) / 2) + 500
-    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 500
-    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 500
+    c.LCLIFF_BW = ((max_sensor_value_lcliff + min_sensor_value_lcliff) / 2) + 450
+    c.RCLIFF_BW = ((max_sensor_value_rcliff + min_sensor_value_rcliff) / 2) + 450
+    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 350
+    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 350
     print "LCLIFF_BW: " + str(c.LCLIFF_BW)
     print "RCLIFF_BW: " + str(c.RCLIFF_BW)
     print "LFCLIFF_BW: " + str(c.LFCLIFF_BW)
@@ -82,7 +82,7 @@ def calibrate():
     s.backwards_until_black_lfcliff()
     s.align_far_fcliffs()
     msleep(300)
-    m.backwards(500)
+    m.backwards(1000)
     msleep(300)
     ao()
     # DON'T DELETE THESE NEXT 4 LINES. They are purposeful. It avoids the roomba going into sleep mode after the calibration and not starting right.
