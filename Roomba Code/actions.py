@@ -16,7 +16,7 @@ def point_a_to_b():
 def nuclearfusion():
     s.lfollow_lcliff_smooth_until_bump()
     
-def prismriver():
+def gasvalve():
     s.forwards_until_black_rfcliff_safe()
     s.forwards_until_white_rfcliff_safe()
     s.forwards_until_black_rfcliff_safe()
@@ -47,6 +47,17 @@ def prismriver():
     s.align_close_fcliffs()    
     m.turn_right()
     s.lfollow_rfcliff_smooth_until_bump()
+        
+def magnet():
+    m.turn_left()
+    s.forwards_until_black_rfcliff_safe()
+    s.forwards_until_white_rfcliff_safe()
+    s.forwards_until_black_rfcliff_safe()
+    s.align_close_fcliffs()    
+    m.turn_right()
+    s.align_close_fcliffs()    
+    m.turn_right()
+    s.lfollow_lfcliff_smooth_until_bump()
    
 def a(): 
     m.turn_right()
@@ -93,6 +104,11 @@ def a():
     m.turn_left()
     s.forwards_until_black_lcliff()
     m.forwards(1000)
+    s.align_close_fcliffs()
+    m.turn_right()
+    m.forwards_until_black_lcliff()
+    m.forwards_until_white_lcliff()
+    m.forwards_until_black_lfcliff()
     s.align_close_fcliffs()
     m.turn_right()
     m.forwards_until_black_lcliff()
