@@ -730,6 +730,63 @@ def back_backwards_align_until_black(time):
     msleep(10)
     create_stop()
             
+#-------------------------------------------New Stuff---------------------------------------
+                
+def forwards_until_black_rfcliff_safe():
+    print "Start drive_until_black_rfcliff_safe"
+    m.activate_motors(1)
+    while NotBlackFrontRight():
+        if rightIsBumped():
+            m.turn_left(100)
+            msleep(100)
+            m.activate_motors(1)
+    
+    m.deactivate_motors()
+                
+                
+def forwards_until_white_rfcliff_safe():
+    print "Start drive_until_white_rfcliff_safe"
+    m.activate_motors(1)
+    while BlackFrontRight():
+        if rightIsBumped():
+            m.turn_left(100)
+            msleep(100)
+            m.activate_motors(1)
+    
+    m.deactivate_motors()
+                
+def lfollow_lfcliff_until_bump():
+     print "Starting lfollow_lfcliff_until_bump()"
+     while leftIsNotBumped and rightIsNotBumped():
+        if BlackFrontLeft():
+            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)
+        else:
+            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)  
+                
+def lfollow_lfcliff_smooth_until_bump():
+     print "Starting smooth_lfcliff_until_bump()"
+     while leftIsNotBumped and rightIsNotBumped():
+        if BlackFrontLeft():
+            create_drive_direct(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
+        else:
+            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)     
+                
+                
+def lfollow_rfcliff_smooth_until_bump():
+     print "Starting smooth_rfcliff_until_bump()"
+     while leftIsNotBumped and rightIsNotBumped():
+        if BlackFrontRight():
+            create_drive_direct(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
+        else:
+            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)     
+                
+def lfollow_rfcliff_until_bump():
+     print "Starting lfollow_rfcliff_until_bump()"
+     while leftIsNotBumped and rightIsNotBumped():
+        if BlackFrontRight():
+            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)
+        else:
+            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)             
 #---------------------------------------------Debug-------------------------------------------
 
 def debug_lcliff():
