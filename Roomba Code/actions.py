@@ -16,7 +16,7 @@ def point_a_to_b():
 def nuclearfusion():
     s.lfollow_lcliff_smooth_until_bump()
     
-def gasvalve():
+def gas():
     s.forwards_until_black_rfcliff_safe()
     s.forwards_until_white_rfcliff_safe()
     s.forwards_until_black_rfcliff_safe()
@@ -29,24 +29,15 @@ def gasvalve():
     s.align_close_fcliffs()
     m.turn_right(117)
     s.forwards_until_bump()
-    m.backwards(500)
-    m.turn_right(1700)
-    s.forwards_until_bump()
-    m.backwards(500)
-    m.turn_right(1400)
-    s.forwards_until_black_rfcliff_safe()
+    m.backwards(1000)
+    m.turn_left()
+    m.turn_left()
     s.align_close_fcliffs()
-    s.forwards_until_bump()
-    m.backwards(500)
-    m.turn_right()
-    s.forwards_until_black_rfcliff_safe()
-    s.align_close_fcliffs()    
-    m.turn_right()
-    s.forwards_until_white_rfcliff_safe()
-    s.forwards_until_black_rfcliff_safe()
-    s.align_close_fcliffs()    
-    m.turn_right()
-    s.lfollow_rfcliff_smooth_until_bump()
+    m.lower_arm()
+    #left turn of doom. 
+    m.backwards(1000)
+    m.lift_arm()
+    s.forwards_until_black_rfcliff()
         
 def magnet():
     m.turn_left()
