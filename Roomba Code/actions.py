@@ -32,10 +32,11 @@ def gas():
     m.backwards(1000)
     m.turn_left()
     m.turn_left()
+    s.forwards_until_black_lfcliff()
     s.align_close_fcliffs()
     m.lower_arm()
     #left turn of doom. 
-    m.backwards(1000)
+    m.backwards(1100)
     m.lift_arm()
     s.forwards_until_black_rfcliff()
         
