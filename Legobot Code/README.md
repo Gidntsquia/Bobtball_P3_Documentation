@@ -1,3 +1,2 @@
-Any Legobot code should go here.
-
-Feel free to just ignore this folder if you're not working on the Legobot.
+# Rockville_Robotics_2018-19
+Code for 2018-19 Rockville Robotics written in Python 2.

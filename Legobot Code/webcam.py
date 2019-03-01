@@ -28,7 +28,6 @@ def check_zones_hospital():
     else:
         c.FIRE_HOSPITAL = c.FAR_ZONE
         c.SAFE_HOSPITAL = c.NEAR_ZONE
-    m.turn_right(300)
     print "Fire Hospital Zone: " + str(c.FIRE_HOSPITAL)
     print "Safe Hospital Zone: " + str(c.SAFE_HOSPITAL)
 

@@ -57,7 +57,7 @@ if IS_MAIN_BOT:
     # Claw Servo
     CLAW_SERVO = 3
     CLAW_OPEN_POS = 1800
-    CLAW_CLOSE_POS = 1000
+    CLAW_CLOSE_POS = 950
     CLAW_CHECKING_POS = 359
 
     # Starting Positions

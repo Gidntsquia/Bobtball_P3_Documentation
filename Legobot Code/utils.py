@@ -50,16 +50,16 @@ def setup():
     graphics_close()
     ao()
     enable_servo(c.CLAW_SERVO)
-    enable_servo(c.ARM_SERVO)
+    #enable_servo(c.ARM_SERVO)
     set_servo_position(c.CLAW_SERVO, c.STARTING_CLAW_POS)
-    set_servo_position(c.ARM_SERVO, c.STARTING_ARM_POS)
+    #set_servo_position(c.ARM_SERVO, c.STARTING_ARM_POS)
     msleep(1000)
     print "Set claw to starting position of %d" % c.STARTING_CLAW_POS
     print "Set arm to starting position of %d" % c.STARTING_ARM_POS
-    m.move_claw(c.CLAW_CHECKING_POS)
-    m.wait()
-    m.move_claw(c.STARTING_CLAW_POS)
-    m.wait()
+    #m.move_claw(c.CLAW_CHECKING_POS)
+    #m.wait()
+    #m.move_claw(c.STARTING_CLAW_POS)
+    #m.wait()
     console_clear()
     print "Setup complete\n\n"
 
@@ -98,7 +98,7 @@ def calibrate():
     c.LEFT_TOPHAT_BW = int(((max_sensor_value_left + min_sensor_value_left) / 2)) - 1000
     c.RIGHT_TOPHAT_BW = int(((max_sensor_value_right + min_sensor_value_right) / 2)) - 1000
     if c.IS_MAIN_BOT:
-        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2))
+        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2)) + 400
     else: # Clone bot
         c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2))  + 300
     print "max_sensor_value_left: " + str(max_sensor_value_left)

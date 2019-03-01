@@ -860,6 +860,16 @@ def backwards_until_both_white(time=c.SAFETY_TIME, speed_multiplier=1):
 def backwards_through_line_left(time=c.SAFETY_TIME):
     backwards_until_black_left(0)
     backwards_until_white_left(time)
+        
+        
+def backwards_through_line_third(time=c.SAFETY_TIME):
+    backwards_until_black_third(0)
+    backwards_until_white_third(time)
+        
+        
+def backwards_through_line_right(time=c.SAFETY_TIME):
+    backwards_until_black_right(0)
+    backwards_until_white_left_right(time)
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Line Follow Functions~~~~~~~~~~~~~~~~~~~~~~~~
@@ -908,7 +918,7 @@ def base_lfollow_left_inside_line_smooth():
         mav(c.RIGHT_MOTOR, c.LFOLLOW_SMOOTH_RM_POWER)
 
 
-def lfollow_left_smooth(time=c.SAFETY_TIME):
+def lfollow_left_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow smoothly with the left tophat for time.
     print "Starting lfollow_left_smooth()\n"
     m.base_drive(speed_multiplier)
@@ -969,7 +979,7 @@ def lfollow_left_until_right_senses_black(time=c.SAFETY_TIME):
         m.deactivate_motors()
 
 
-def lfollow_left_until_right_senses_black_smooth(time=c.SAFETY_TIME):
+def lfollow_left_until_right_senses_black_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow smoothly with the left tophat until right tophat senses black or time is reached.
     print "Starting lfollow_left_until_right_senses_black_smooth()\n"
     m.base_drive(speed_multiplier)
@@ -1009,7 +1019,7 @@ def lfollow_left_inside_line(time=c.SAFETY_TIME):
         m.deactivate_motors()
 
 
-def lfollow_left_inside_line_smooth(time=c.SAFETY_TIME):
+def lfollow_left_inside_line_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow smoothly with the left tophat inside the line until time is reached.
     print "Starting lfollow_left_inside_line_smooth()\n"
     m.base_drive(speed_multiplier)
@@ -1049,7 +1059,7 @@ def lfollow_left_inside_line_until_right_senses_black(time=c.SAFETY_TIME):
         m.deactivate_motors()
 
 
-def lfollow_left_inside_line_until_right_senses_black_smooth(time=c.SAFETY_TIME):
+def lfollow_left_inside_line_until_right_senses_black_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow smoothly with the left tophat inside the line until the right tophat senses black or time is reached.
     print "Starting lfollow_left_inside_line_until_right_senses_black_smooth()\n"
     m.base_drive(speed_multiplier)
@@ -1111,7 +1121,7 @@ def lfollow_left_until_third_senses_black(time=c.SAFETY_TIME):
         m.deactivate_motors()
 
 
-def lfollow_left_until_third_senses_black_smooth(time=c.SAFETY_TIME):
+def lfollow_left_until_third_senses_black_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow smoothly with the left tophat until the third tophat senses black or the time is reached.
     print "Starting lfollow_left_until_third_senses_black_smooth()\n"
     m.base_drive(speed_multiplier)
@@ -1169,7 +1179,7 @@ def base_lfollow_right_inside_line_smooth():
         mav(c.RIGHT_MOTOR, c.BASE_RM_POWER)
 
 
-def lfollow_right_smooth(time=c.SAFETY_TIME):
+def lfollow_right_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow smoothly with the right tophat until time is reached.
     print "Starting lfollow_right_smooth()\n"
     m.base_drive(speed_multiplier)
@@ -1209,7 +1219,7 @@ def lfollow_right_until_left_senses_black(time=c.SAFETY_TIME):
         m.deactivate_motors()
 
 
-def lfollow_right_until_left_senses_black_smooth(time=c.SAFETY_TIME):  # Must begin code while touching the line
+def lfollow_right_until_left_senses_black_smooth(time=c.SAFETY_TIME, speed_multiplier=1):  # Must begin code while touching the line
     # Line follow smoothly with the right tophat until left tophat senses black or time is reached.
     print "Starting lfollow_right_until_left_senses_black_smooth()\n"
     m.base_drive(speed_multiplier)
@@ -1270,7 +1280,7 @@ def lfollow_right_inside_line(time=c.SAFETY_TIME):
         m.deactivate_motors()
 
 
-def lfollow_right_inside_line_smooth(time=c.SAFETY_TIME):
+def lfollow_right_inside_line_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow smoothly with the right tophat inside the line until time is reached.
     print "Starting lfollow_right_inside_line_smooth()\n"
     m.base_drive(speed_multiplier)
@@ -1310,7 +1320,7 @@ def lfollow_right_inside_line_until_left_senses_black(time=c.SAFETY_TIME):
         m.deactivate_motors()
 
 
-def lfollow_right_inside_line_until_left_senses_black_smooth(time=c.SAFETY_TIME):
+def lfollow_right_inside_line_until_left_senses_black_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow smoothly with the right tophat inside the line until the left tophat senses black or time is reached.
     print "Starting lfollow_right_inside_line_until_left_senses_black_smooth()\n"
     m.base_drive(speed_multiplier)
@@ -1431,7 +1441,7 @@ def base_lfollow_backwards_smooth_bot_left():
         mav(c.RIGHT_MOTOR, -1 * c.LFOLLOW_SMOOTH_RM_POWER)
 
 
-def lfollow_backwards_smooth(time=c.SAFETY_TIME):
+def lfollow_backwards_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow backwards smoothly with the third tophat until time is reached.
     # It goes to the left side of the line from the bot's point of view.
     print "Starting lfollow_backwards_smooth()\n"
@@ -1446,7 +1456,7 @@ def lfollow_backwards_smooth(time=c.SAFETY_TIME):
         m.deactivate_both_motors()
 
 
-def lfollow_backwards_until_left_senses_black_smooth(time=c.SAFETY_TIME):
+def lfollow_backwards_until_left_senses_black_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow backwards smoothly with the third tophat until the left tophat senses black.
     # It goes to the left side of the line from the bot's point of view.
     print "Starting lfollow_backwards_until_left_senses_black_smooth()\n"
@@ -1461,7 +1471,7 @@ def lfollow_backwards_until_left_senses_black_smooth(time=c.SAFETY_TIME):
         m.deactivate_both_motors()
 
 
-def lfollow_backwards_until_left_senses_white_smooth(time=c.SAFETY_TIME):
+def lfollow_backwards_until_left_senses_white_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow backwards smoothly with the third tophat until the left tophat senses white.
     # It goes to the left side of the line from the bot's point of view.
     print "Starting lfollow_backwards_until_left_senses_white_smooth()\n"
@@ -1502,7 +1512,7 @@ def lfollow_backwards_bot_right(time=c.SAFETY_TIME):
         m.deactivate_motors()
 
 
-def lfollow_backwards_bot_right_smooth(time=c.SAFETY_TIME):
+def lfollow_backwards_bot_right_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow backwards smoothly with the third tophat inside the line until time is reached.
     print "Starting lfollow_backwards_bot_right_smooth()\n"
     m.base_backwards(speed_multiplier)
@@ -1542,7 +1552,7 @@ def lfollow_backwards_bot_right_until_right_senses_black(time=c.SAFETY_TIME):
         m.deactivate_motors()
 
 
-def lfollow_backwards_bot_right_until_right_senses_black_smooth(time=c.SAFETY_TIME):
+def lfollow_backwards_bot_right_until_right_senses_black_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow backwards smoothly with the third tophat on the right side of the line until the right tophat senses black.
     print "Starting lfollow_backwards_bot_right_until_right_senses_black_smooth()\n"
     m.base_backwards(speed_multiplier)
@@ -1556,7 +1566,7 @@ def lfollow_backwards_bot_right_until_right_senses_black_smooth(time=c.SAFETY_TI
         m.deactivate_motors()
 
 
-def lfollow_backwards_bot_right_until_right_senses_white_smooth(time=c.SAFETY_TIME):
+def lfollow_backwards_bot_right_until_right_senses_white_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow backwards smoothly with the third tophat on the right side of the line until the right tophat senses white.
     print "Starting lfollow_backwards_bot_right_until_right_senses_black_smooth()\n"
     m.base_backwards(speed_multiplier)
@@ -1570,7 +1580,7 @@ def lfollow_backwards_bot_right_until_right_senses_white_smooth(time=c.SAFETY_TI
         m.deactivate_motors()
 
 
-def lfollow_both(time=c.SAFETY_TIME):
+def lfollow_both(time=c.SAFETY_TIME, speed_multiplier=1):
     # Line follow using both tophats until time is reached.
     print "Starting lfollow_both()\n"
     m.base_drive(speed_multiplier)
