@@ -4,25 +4,17 @@ import sensors as s
 import movement as m
 import utils as u
 
-def my_command():
-    print "Starting my_command()"
-    
-    
-    print "Finished my_command()"
-
-def point_a_to_b():
-    pass
-    
 def nuclearfusion():
     s.lfollow_lcliff_smooth_until_bump()
-    
+
+
 def gas():
     s.forwards_until_black_rfcliff_safe()
     s.forwards_until_white_rfcliff_safe()
     s.forwards_until_black_rfcliff_safe()
     s.align_close_fcliffs()
     s.forwards_until_white_rfcliff_safe()
-    m.drive(500)
+    m.forwards(500)
     m.turn_left(1500)
     s.lfollow_lfcliff_smooth_until_rfcliff_senses_white()
     s.forwards_until_black_lfcliff()
@@ -39,7 +31,8 @@ def gas():
     m.backwards(1100)
     m.lift_arm()
     s.forwards_until_black_rfcliff()
-        
+
+
 def magnet():
     m.turn_left()
     s.forwards_until_black_rfcliff_safe()
@@ -50,6 +43,7 @@ def magnet():
     s.align_close_fcliffs()    
     m.turn_right()
     s.lfollow_lfcliff_smooth_until_bump()
+
    
 def a(): 
     m.turn_right()

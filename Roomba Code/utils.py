@@ -5,16 +5,16 @@ import sensors as s
 
 #---------------------------------------------States-------------------------------------------
 
-def left_pressed():
+def LeftPressed():
     return(left_button() == 1)
 
-def not_left_pressed():
+def NotLeftPressed():
     return(left_button() == 0)
 
-def right_pressed():
+def RightPressed():
     return(right_button() == 1)
 
-def not_right_pressed():
+def NotRightPressed():
     return(right_button() == 0)
 
 #---------------------------------------------Functions-------------------------------------------
@@ -101,16 +101,16 @@ def calibrateBW_front_cliffs(time = 90):
     print "Running calibrateBW_front_cliffs()"
     print "You have %d seconds until calibration ends" % time
     print "Press L(eft) button to continue actual code using default bw_front values"
-    print "Press R(ight) button to set tophat bw_front values\n"
+    print "Press R(ight) button to set cliff bw_front values\n"
     print "Waiting for user input...\n"
     sec = seconds() + time
     while seconds() < sec:
-        if left_pressed():
+        if LeftPressed():
             print "Left button pressed. Continuing with code"
             print "Left front cliff bw = %d for actual code" % c.LFCLIFF_BW
             print "Right front cliff bw = %d for actual code\n" % c.RFCLIFF_BW
             break
-        elif right_pressed():
+        elif RightPressed():
             print "Right button pressed"
             print "Calculating bw_front values...\n\n"
             c.LFCLIFF_BW = get_create_lfcliff_amt()
@@ -130,16 +130,16 @@ def calibrateBW_side_cliffs(time = 90):
     print "Running calibrateBW_side_cliffs()"
     print "You have %d seconds until calibration ends" % time
     print "Press L(eft) button to continue actual code using default bw_side values"
-    print "Press R(ight) button to set tophat bw_side values\n"
+    print "Press R(ight) button to set cliff bw_side values\n"
     print "Waiting for user input...\n"
     sec = seconds() + time
     while seconds() < sec:
-        if left_pressed():
+        if LeftPressed():
             print "Left button pressed. Continuing with code"
             print "Left side cliff bw = %d for actual code" % c.LCLIFF_BW
             print "Right side cliff bw = %d for actual code\n" % c.RCLIFF_BW
             break
-        elif right_pressed():
+        elif RightPressed():
             print "Right button pressed"
             print "Calculating bw_side values...\n\n"
             c.LCLIFF_BW = get_create_lcliff_amt()
@@ -159,7 +159,7 @@ def calibrateBW_side_cliffs(time = 90):
 
 def shutdown(value = 255):
     print "Shutdown started"
-    create_stop()
+    deactivate_motors()
     msleep(25)
     ao()
     create_disconnect()
@@ -177,7 +177,7 @@ def sd():
 
 def test_movement():  # Used to see if movements and their defaults function as intended
     print "Testing movement\n"
-    m.drive()
+    m.forwards()
     msleep(500)  # Using msleep() instead of wait() to make sure each command turns off its wheels
     m.backwards()
     msleep(500)
@@ -202,23 +202,10 @@ def test_turns():
     m.turn_right()
     sd()
 
-def test_servos():  # Used to see if basic servo commands and constants function as intended
-    print "Testing servos\n"
-    #m.extend_elbow()
-    #m.wait()  # Using wait() instead of msleep() to make sure wheels are off
-    #m.flex_elbow()
-    #m.wait()
-    #m.shoulder_up()
-    #m.wait()
-    #m.shoulder_down()
-    #m.wait()
-    print "Testing complete. Exiting...\n"
-    exit(86)
-
 
 def runtest():
     create_connect()
-    create_drive_direct(100,100)
+    m.base_forwards()
     msleep(3000)
-    create_stop()
+    deactivate_motors()
     create_disconnect()
