@@ -42,7 +42,7 @@ def calibrate():
     min_sensor_value_rfcliff = 90000
     sec = seconds() + 9
     print "Running calibrate()"
-    m.activate_motors(-1, int(c.BASE_LM_POWER / 2), int(c.BASE_RM_POWER / 2))
+    m.activate_motors(1, int(c.BASE_LM_POWER / 2), int(c.BASE_RM_POWER / 2))
     print str(int(c.BASE_LM_POWER / 2))
     print str(int(c.BASE_RM_POWER / 2))
     while seconds() < sec:
@@ -64,10 +64,10 @@ def calibrate():
             min_sensor_value_lfcliff = get_create_lfcliff_amt()
         msleep(1)
     m.deactivate_motors()
-    c.LCLIFF_BW = ((max_sensor_value_lcliff + min_sensor_value_lcliff) / 2) + 750
-    c.RCLIFF_BW = ((max_sensor_value_rcliff + min_sensor_value_rcliff) / 2) + 750
-    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 770
-    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 1000
+    c.LCLIFF_BW = ((max_sensor_value_lcliff + min_sensor_value_lcliff) / 2) + 450
+    c.RCLIFF_BW = ((max_sensor_value_rcliff + min_sensor_value_rcliff) / 2) + 450
+    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 350
+    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 350
     print "LCLIFF_BW: " + str(c.LCLIFF_BW)
     print "RCLIFF_BW: " + str(c.RCLIFF_BW)
     print "LFCLIFF_BW: " + str(c.LFCLIFF_BW)
@@ -75,24 +75,21 @@ def calibrate():
     print "max_sensor_value_rcliff: " + str(max_sensor_value_rcliff)
     print "min_sensor_value_rcliff: " + str(min_sensor_value_rcliff)
     msleep(500)
-    s.forwards_until_black_lfcliff()
-    s.align_close_fcliffs()
+    s.backwards_until_black_rcliff()
+    print "testing here"
+    s.align_far_cliffs()
     msleep(300)
-    s.forwards_until_black_lcliff()
-    s.align_close_cliffs()
+    s.backwards_until_black_lfcliff()
+    s.align_far_fcliffs()
     msleep(300)
-    s.forwards_until_bump()
-    m.backwards(100)
-    #m.activate_motors(1)
-    #msleep(4250)
-    #m.deactivate_motors()
-    msleep(1500)
+    m.backwards(1000)
+    msleep(300)
     ao()
     # DON'T DELETE THESE NEXT 4 LINES. They are purposeful. It avoids the roomba going into sleep mode after the calibration and not starting right.
-    create_disconnect()
-    wait_for_light(c.LIGHT_SENSOR)
-    create_connect()
-    shut_down_in(120)  # URGENT: PUT BACK IN BEFORE COMPETITION
+    #create_disconnect()
+    #wait_for_light(c.LIGHT_SENSOR)
+    #create_connect()
+    #shut_down_in(120)  # URGENT: PUT BACK IN BEFORE COMPETITION
 
 
 def calibrate_manually():

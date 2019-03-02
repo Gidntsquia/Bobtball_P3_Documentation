@@ -70,6 +70,22 @@ def backwards_until_white_lcliff():
     m.deactivate_motors()
 
 
+def backwards_until_black_rcliff():
+    print "Start drive_until_black_rcliff"
+    m.activate_motors()
+    while NotBlackRight():
+        pass
+    m.deactivate_motors()
+
+
+def backwards_until_white_rcliff():
+    print "Start drive_until_black_rcliff"
+    m.activate_motors()
+    while BlackRight():
+        pass
+    m.deactivate_motors()
+
+
 def backwards_through_line_cliff():
     backwards_until_black_lcliff()
     backwards_until_white_lcliff()
@@ -84,7 +100,7 @@ def forwards_until_black_lcliff():
 
 
 def forwards_until_white_lcliff():
-    print "Start drive_until_black_lcliff"
+    print "Start forwards_until_white_lcliff"
     m.activate_motors(1)
     while BlackLeft():
         pass
@@ -305,6 +321,14 @@ def lfollow_lfcliff_smooth(time):
             create_drive_direct(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
         else:
             create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)
+                
+def lfollow_lfcliff_smooth_until_rfcliff_senses_white():
+    print "Starting lfollow_lfcliff_smooth_until_rfcliff_senses_white()"
+    while BlackFrontRight():
+        if BlackFrontLeft():
+            create_drive_direct(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
+        else:
+            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)
 
 #---------------------------------------------Depth Functions-------------------------------------------
 
@@ -390,6 +414,9 @@ def forwards_until_bump():
         pass
     m.deactivate_motors()
 
+
+            
+           
 #----------------------------------Driving Front Cliff Align Functions--------------
 
 def align_close_fcliffs():
@@ -729,7 +756,8 @@ def back_backwards_align_until_black(time):
         msleep(1)
     msleep(10)
     create_stop()
-            
+ 
+                
 #-------------------------------------------New Stuff---------------------------------------
                 
 def forwards_until_black_rfcliff_safe():
@@ -786,7 +814,7 @@ def lfollow_rfcliff_until_bump():
         if BlackFrontRight():
             create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)
         else:
-            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)             
+            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)     
 #---------------------------------------------Debug-------------------------------------------
 
 def debug_lcliff():
@@ -827,3 +855,4 @@ def debug_rfcliff():
     else:
             print "Error in defining BlackRight and NotBlackRight"
             exit(86)
+

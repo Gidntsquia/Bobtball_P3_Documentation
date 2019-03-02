@@ -3,7 +3,6 @@
 # Servo Port
 ARM_SERVO = 1
 MICRO_SERVO = 2
-CLAW_SERVO = 3
 
 # Servo Limits
 MAX_ARM_SERVO_POS = 1850
@@ -11,13 +10,13 @@ MIN_ARM_SERVO_POS = 200
 SERVO_DELAY = 600  # Time needed to move a servo (need more testing to find a golden value)
 
 # Servo Base Positions
-ARM_UP_POS = 1300
-ARM_DOWN_POS = 239
-CLAW_CLOSE_POS = 1024
-CLAW_OPEN_POS = 1024
+ARM_UP_POS = 639 # 640  # The arm is just above the poms but below the frisbee.
+ARM_COLLECTION_POS = 1024  # The arm is low enough to collect the poms.
+ARM_DOWN_POS = 1598  # The arm is perpendicular to the ground.
+ARM_FRISBEE_GRAB_POS = 1557  # The arm is in a position where it lifts the frisbee high up.
+ARM_FRISBEE_DROP_POS = 715  # The arm is low enough to drop the frisbee but not low enough to hit the bins
+ARM_FRISBEE_FARTHER_DROP_POS = 558 # The arm is as low as possible
 ARM_START_POS = ARM_DOWN_POS
-CLAW_START_POS = CLAW_OPEN_POS
-
 
 # Micro Servo Positions
 MICRO_RIGHT_POS = 1520

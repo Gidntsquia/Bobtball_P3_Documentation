@@ -11,8 +11,8 @@ import utils as u
 def main():
     print "Starting main()\n"
     u.setup()
-    # u.calibrate()  # You only need to include this command if you want the tophats to sense better at the cost of speed.
-    
+    u.calibrate()  # You only need to include this command if you want the tophats to sense better at the cost of speed.
+    a.prismriver()
     
     print "Finished main\n"
     u.shutdown(86)
