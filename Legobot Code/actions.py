@@ -43,8 +43,7 @@ def deliver_ambulance():
         m.open_claw()
     else:
         s.drive_through_line_left()
-        m.drive(300)
-        s.turn_left_until_right_senses_white(0)
+        m.drive(500)
         s.turn_left_until_right_senses_black(0)
         s.turn_left_until_right_senses_white(0)
         s.turn_left_until_black()
