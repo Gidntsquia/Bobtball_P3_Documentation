@@ -69,7 +69,7 @@ def forwards_until_black_rfcliff_safe():
             
             
             
-def prismriver():
+ddef gas():
     s.forwards_until_black_rfcliff_safe()
     s.forwards_until_white_rfcliff_safe()
     s.forwards_until_black_rfcliff_safe()
@@ -82,22 +82,20 @@ def prismriver():
     s.align_close_fcliffs()
     m.turn_right(117)
     s.forwards_until_bump()
-    m.backwards(500)
-    m.turn_right(1700)
+    m.backwards(1000)
+    m.turn_left()
+    m.turn_left()
+    s.forwards_until_black_lfcliff()
+    s.align_close_fcliffs()
+    m.lower_arm()
+    #left turn of doom. 
+    m.backwards(800)
+    m.lift_arm()
     s.forwards_until_bump()
-    m.backwards(500)
-    m.turn_right(1400)
-    s.forwards_until_bump()
-    m.backwards(500)
-    m.turn_right()
-    s.forwards_until_black_rfcliff_safe()
-    s.align_close_fcliffs()    
-    m.turn_right()
-    s.forwards_until_white_rfcliff_safe()
-    s.forwards_until_black_rfcliff_safe()
-    s.align_close_fcliffs()    
-    m.turn_right()
-    s.lfollow_rcliff_smooth_until_bump()
+    m.backwards(10)
+    m.turn_right(1650)
+    s.forwards_until_black_lcliff()
+    m.backwards(2000)
    
 def a(): 
     m.turn_right()
