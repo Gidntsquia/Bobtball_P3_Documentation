@@ -8,18 +8,18 @@ def nuclearfusion():
     s.lfollow_lcliff_smooth_until_bump()
 
 
-def gas():
+def get_gas_valve():
     s.forwards_until_black_rfcliff_safe()
+    s.forwards_until_white_rfcliff_safe()
+    s.align_far_fcliffs()
     s.forwards_until_white_rfcliff_safe()
     s.forwards_until_black_rfcliff_safe()
     s.align_close_fcliffs()
     s.forwards_until_white_rfcliff_safe()
-    m.forwards(500)
-    m.turn_left(1500)
-    s.lfollow_lfcliff_smooth_until_rfcliff_senses_white()
-    s.forwards_until_black_lfcliff()
-    s.align_close_fcliffs()
-    m.turn_right(117)
+    s.forwards_through_line_rcliff()
+    m.turn_left()
+    s.forwards_through_line_lfcliff()
+    s.align_far_fcliffs()
     s.forwards_until_bump()
     m.backwards(1000)
     m.turn_left()
@@ -28,10 +28,19 @@ def gas():
     s.align_close_fcliffs()
     m.lower_arm()
     #left turn of doom. 
-    m.backwards(1100)
+    m.backwards(800)
     m.lift_arm()
-    s.forwards_until_black_rfcliff()
-
+    s.forwards_until_black_lfcliff()
+    s.align_close_fcliffs()
+    s.forwards_until_bump()
+    m.backwards(10)
+    m.turn_right()
+    s.forwards_until_black_lfcliff()
+    s.align_close_fcliffs()
+    m.turn_right(c.RIGHT_TURN_TIME / 4)
+    m.backwards(200)
+    m.lower_arm(1, 3, c.ARM_DELIVERY_POS)
+    m.backwards(400)
 
 def magnet():
     m.turn_left()

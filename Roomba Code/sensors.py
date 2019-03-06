@@ -204,7 +204,7 @@ def forwards_until_black_cliffs():
     while NotBlackLeft() and NotBlackRight():
         pass
     if BlackLeft():
-        while NotBlackRight()
+        while NotBlackRight():
             pass
     else:
         while NotBlackLeft():
@@ -218,7 +218,7 @@ def forwards_until_black_fcliffs():
     while NotBlackFrontLeft() and NotBlackFrontRight():
         pass
     if BlackFrontLeft():
-        while NotBlackFrontRight()
+        while NotBlackFrontRight():
             pass
     else:
         while NotBlackFrontLeft():
@@ -233,7 +233,7 @@ def backwards_until_black_cliffs():
     while NotBlackLeft() and NotBlackRight():
         pass
     if BlackLeft():
-        while NotBlackRight()
+        while NotBlackRight():
             pass
     else:
         while NotBlackLeft():
@@ -247,7 +247,7 @@ def backwards_until_black_fcliffs():
     while NotBlackFrontLeft() and NotBlackFrontRight():
         pass
     if BlackFrontLeft():
-        while NotBlackFrontRight()
+        while NotBlackFrontRight():
             pass
     else:
         while NotBlackFrontLeft():
@@ -729,6 +729,28 @@ def forwards_until_white_rfcliff_safe():
     print "Start drive_until_white_rfcliff_safe"
     m.base_forwards()
     while BlackFrontRight():
+        if BumpedRight():
+            m.turn_left(100)
+            msleep(100)
+            m.base_forwards()
+    m.deactivate_motors()
+
+
+def forwards_until_black_lfcliff_safe():
+    print "Start drive_until_black_lfcliff_safe"
+    m.base_forwards()
+    while NotBlackFrontLeft():
+        if BumpedRight():
+            m.turn_left(100)
+            msleep(100)
+            m.base_forwards()
+    m.deactivate_motors()
+
+
+def forwards_until_white_lfcliff_safe():
+    print "Start drive_until_white_lfcliff_safe"
+    m.base_forwards()
+    while BlackFrontLeft():
         if BumpedRight():
             m.turn_left(100)
             msleep(100)

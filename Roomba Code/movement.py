@@ -21,7 +21,7 @@ def base_backwards(speed_multiplier=1):
 #-----------------------------Basic Movement-------------------------
 
 def activate_motors(left_power=c.BASE_LM_POWER, right_power=c.BASE_RM_POWER):
-    create_drive_direct(left_power,right_power)
+    create_drive_direct(int(left_power),int(right_power))
     c.CURRENT_LM_POWER = left_power
     c.CURRENT_RM_POWER = right_power
 
@@ -69,11 +69,11 @@ def wait(time=1000):
 
 def av(motor_port, motor_power):
     # Moves one motor without affecting the other motor.
-    if motor_port = c.LEFT_MOTOR:
-        create_drive_direct(motor_power, c.CURRENT_RM_POWER)
+    if motor_port == c.LEFT_MOTOR:
+        create_drive_direct(int(motor_power), c.CURRENT_RM_POWER)
         c.CURRENT_LM_POWER = motor_power
-    elif motor_power = c.RIGHT_MOTOR:
-        create_drive_direct(c.CURRENT_RM_POWER, motor_power)
+    elif motor_port == c.RIGHT_MOTOR:
+        create_drive_direct(c.CURRENT_RM_POWER, int(motor_power))
         c.CURRENT_RM_POWER = motor_power
     else:
         print "Error in determining motor port for av()"
@@ -81,7 +81,7 @@ def av(motor_port, motor_power):
 
 #-----------------------------Servos----------------------------
 
-def lift_arm(servo_position = c.ARM_UP_POS, tics = 3, ms = 1):
+def lift_arm(tics = 3, ms = 1, servo_position = c.ARM_UP_POS):
     print "Lifting servo to: %d" % servo_position
     if servo_position > c.MAX_ARM_SERVO_POS:
         print "Invalid desired servo position\n"
@@ -90,11 +90,10 @@ def lift_arm(servo_position = c.ARM_UP_POS, tics = 3, ms = 1):
         print "Invalid desired servo position\n"
         exit(86)
     move_servo(c.ARM_SERVO, servo_position, tics, ms)
-    msleep(time)
     print "Arm reached up position: %d" % get_servo_position(c.ARM_SERVO)
 
 
-def lower_arm(servo_position = c.ARM_DOWN_POS, tics = 3, ms = 1):
+def lower_arm(tics = 3, ms = 1, servo_position = c.ARM_DOWN_POS):
     print "Lowering arm to: %d" % servo_position
     if servo_position > c.MAX_ARM_SERVO_POS:
         print "Invalid desired servo position\n"
@@ -106,7 +105,7 @@ def lower_arm(servo_position = c.ARM_DOWN_POS, tics = 3, ms = 1):
     print "Arm reached down position: %d" % get_servo_position(c.ARM_SERVO)
 
 
-def open_claw(servo_position = c.CLAW_OPEN_POS, tics = 3, ms = 1):
+def open_claw(tics = 3, ms = 1, servo_position = c.CLAW_OPEN_POS):
     print "Opening claw to: %d" % servo_position
     if servo_position > c.MAX_ARM_SERVO_POS:
         print "Invalid desired servo position\n"
@@ -118,7 +117,7 @@ def open_claw(servo_position = c.CLAW_OPEN_POS, tics = 3, ms = 1):
     print "Claw reached close position: %d" % get_servo_position(c.CLAW_SERVO)
 
 
-def close_claw(servo_position = c.CLAW_CLOSE_POS, tics = 3, ms = 1):
+def close_claw(tics = 3, ms = 1, servo_position = c.CLAW_CLOSE_POS):
     print "Closing claw to: %d" % servo_position
     if servo_position > c.MAX_ARM_SERVO_POS:
         print "Invalid desired servo position\n"

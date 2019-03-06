@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/python
 import os
 import sys
 from wallaby import *
@@ -11,11 +11,11 @@ import utils as u
 def main():
     print "Starting main()\n"
     u.setup()
-    u.calibrate()  # You only need to include this command if you want the cliffs to sense better at the cost of speed.
-    a.prismriver()
+    u.calibrate()  # You only need to include this command if you want the tophats to sense better at the cost of speed.
+    msleep(4000)
+    a.get_gas_valve()
     print "Finished main\n"
-    u.shutdown()
-    
+    u.shutdown(86)
 
 if __name__== "__main__":
     sys.stdout = os.fdopen(sys.stdout.fileno(),"w",0)

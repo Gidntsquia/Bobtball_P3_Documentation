@@ -20,7 +20,11 @@ MIN_ARM_SERVO_POS = 200
 # Servo Base Positions
 ARM_UP_POS = 639 # 640  # The arm is just above the poms but below the frisbee.
 ARM_DOWN_POS = 1598  # The arm is perpendicular to the ground.
-ARM_START_POS = ARM_DOWN_POS
+ARM_DELIVERY_POS = 1240
+ARM_START_POS = ARM_UP_POS
+CLAW_OPEN_POS = 1024
+CLAW_CLOSE_POS = 1024
+CLAW_START_POS = CLAW_OPEN_POS
 
 # Micro Servo Positions
 MICRO_RIGHT_POS = 1520

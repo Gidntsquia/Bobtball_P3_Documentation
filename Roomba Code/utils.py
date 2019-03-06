@@ -42,7 +42,7 @@ def calibrate():
     min_sensor_value_rfcliff = 90000
     sec = seconds() + 9
     print "Running calibrate()"
-    m.activate_motors(1, int(c.BASE_LM_POWER / 2), int(c.BASE_RM_POWER / 2))
+    m.activate_motors(int(c.BASE_LM_POWER / 2), int(c.BASE_RM_POWER / 2))
     print str(int(c.BASE_LM_POWER / 2))
     print str(int(c.BASE_RM_POWER / 2))
     while seconds() < sec:
@@ -64,10 +64,10 @@ def calibrate():
             min_sensor_value_lfcliff = get_create_lfcliff_amt()
         msleep(1)
     m.deactivate_motors()
-    c.LCLIFF_BW = ((max_sensor_value_lcliff + min_sensor_value_lcliff) / 2) + 450
-    c.RCLIFF_BW = ((max_sensor_value_rcliff + min_sensor_value_rcliff) / 2) + 450
-    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 350
-    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 350
+    c.LCLIFF_BW = ((max_sensor_value_lcliff + min_sensor_value_lcliff) / 2) + 500
+    c.RCLIFF_BW = ((max_sensor_value_rcliff + min_sensor_value_rcliff) / 2) + 500
+    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 450
+    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 450
     print "LCLIFF_BW: " + str(c.LCLIFF_BW)
     print "RCLIFF_BW: " + str(c.RCLIFF_BW)
     print "LFCLIFF_BW: " + str(c.LFCLIFF_BW)
@@ -75,14 +75,13 @@ def calibrate():
     print "max_sensor_value_rcliff: " + str(max_sensor_value_rcliff)
     print "min_sensor_value_rcliff: " + str(min_sensor_value_rcliff)
     msleep(500)
-    s.backwards_until_black_rcliff()
-    print "testing here"
+    s.backwards_until_black_lcliff()
     s.align_far_cliffs()
     msleep(300)
     s.backwards_until_black_lfcliff()
     s.align_far_fcliffs()
     msleep(300)
-    m.backwards(1000)
+    m.backwards(400)
     msleep(300)
     ao()
     # DON'T DELETE THESE NEXT 4 LINES. They are purposeful. It avoids the roomba going into sleep mode after the calibration and not starting right.
@@ -159,7 +158,7 @@ def calibrateBW_side_cliffs(time = 90):
 
 def shutdown(value = 255):
     print "Shutdown started"
-    deactivate_motors()
+    m.deactivate_motors()
     msleep(25)
     ao()
     create_disconnect()
