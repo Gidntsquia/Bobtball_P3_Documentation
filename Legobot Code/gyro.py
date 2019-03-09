@@ -1,9 +1,7 @@
 from wallaby import *
 import constants as c
-import actions as a
 import sensors as s
 import movement as m
-import webcam as w
 import utils as u
 
 def calibrate_gyro():
@@ -31,7 +29,7 @@ def calibrate_gyro_degrees():
     i = 0
     s.drive_until_black()
     s.align_close()
-    m.activate_motors(c.BASE_LM_POWER * -1, c.BASE_RM_POWER)
+    m.base_turn_left()
     while s.BlackRight():
         wallagrees += get_change_in_theta()
         msleep(10)
