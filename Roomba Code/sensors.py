@@ -296,7 +296,7 @@ def backwards_through_line_rfcliff():
 
 #---------------------------------------------Line Follow Functions-------------------------------------------
 
-def lfollow_left(time, refresh_rate = c.LFOLLOW_REFRESH_RATE):  # Line follow with the left cliff for time
+def lfollow_left(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):  # Line follow with the left cliff for time
     print "Starting lfollow_left()\n"
     sec = seconds() + time
     while seconds() < sec:
@@ -307,8 +307,8 @@ def lfollow_left(time, refresh_rate = c.LFOLLOW_REFRESH_RATE):  # Line follow wi
         msleep(refresh_rate)
         deactivate_motors()
 
-        
-def lfollow_left_front(time, refresh_rate = c.LFOLLOW_REFRESH_RATE):  # Line follow with the left cliff for time
+
+def lfollow_left_front(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):  # Line follow with the left cliff for time
     print "Starting lfollow_left()\n"
     sec = seconds() + time
     while seconds() < sec:
@@ -320,7 +320,7 @@ def lfollow_left_front(time, refresh_rate = c.LFOLLOW_REFRESH_RATE):  # Line fol
         deactivate_motors()
 
 
-def lfollow_left_inside_line(time, refresh_rate = c.LFOLLOW_REFRESH_RATE):
+def lfollow_left_inside_line(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     sec = seconds() + time
     while seconds() < sec:
         if BlackLeft():
@@ -331,7 +331,7 @@ def lfollow_left_inside_line(time, refresh_rate = c.LFOLLOW_REFRESH_RATE):
         deactivate_motors()
 
 
-def lfollow_right(time, refresh_rate = c.LFOLLOW_REFRESH_RATE):  # Line follow with the right cliff for time
+def lfollow_right(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):  # Line follow with the right cliff for time
     print "Starting lfollow_right()\n"
     sec = seconds() + time
     while seconds() < sec:
@@ -360,7 +360,7 @@ def lfollow_lfcliff_smooth(time):
             create_drive_direct(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
         else:
             create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)
-                
+
 def lfollow_lfcliff_smooth_until_rfcliff_senses_white():
     print "Starting lfollow_lfcliff_smooth_until_rfcliff_senses_white()"
     while BlackFrontRight():
@@ -401,14 +401,14 @@ def lfollow_lfcliff_smooth_until_depth():
             create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)
 
 
-def wait_for_depth(time = 15):
+def wait_for_depth(time=15):
     print "Starting wait_for_depth()"
     sec = seconds() + time
     while NotRightDepthSensesObject() and seconds() < sec:
         pass
-        
 
-def wait_for_not_depth(time = 7):
+
+def wait_for_not_depth(time=7):
     print "Starting wait_for_empty()"
     sec = seconds() + time
     while RightDepthSensesObject() and seconds() < sec:
@@ -460,8 +460,8 @@ def left_front_backwards_until_white():  # Left motor goes back until the left f
     while BlackFrontLeft():
         pass
     m.deactivate_motors()
-            
-            
+
+
 def right_front_backwards_until_white():  # Right motor goes back until right front cliff senses white
     print "Starting right_front_backwards_until_white()"
     m.av(c.RIGHT_MOTOR, -1 * c.BASE_RM_POWER)
@@ -469,7 +469,7 @@ def right_front_backwards_until_white():  # Right motor goes back until right fr
         pass
     m.deactivate_motors()
 
-            
+
 def left_front_backwards_until_black():  # Left motor goes back until left front cliff senses black
     print "Starting left_front_backwards_until_black()"
     m.av(c.LEFT_MOTOR, -1 * c.BASE_LM_POWER)
@@ -477,7 +477,7 @@ def left_front_backwards_until_black():  # Left motor goes back until left front
         pass
     m.deactivate_motors()
 
-            
+
 def right_front_backwards_until_black():  # Right motor goes back until right front cliff senses black
     print "Starting right_front_backwards_until_black()"
     m.av(c.RIGHT_MOTOR, -1 * c.BASE_RM_POWER)
@@ -485,23 +485,23 @@ def right_front_backwards_until_black():  # Right motor goes back until right fr
         pass
     m.deactivate_motors()
 
-            
+
 def left_front_forwards_until_white():  # Left motor goes forwards until the left front cliff senses white
     print "Starting left_front_forwards_until_white()"
     m.av(c.LEFT_MOTOR, c.BASE_LM_POWER)
     while BlackFrontLeft():
         pass
     m.deactivate_motors()
-            
-            
+
+
 def right_front_forwards_until_white():  # Right motor goes forwards until right front cliff senses white
     print "Starting right_front_forwards_until_white()"
     m.av(c.RIGHT_MOTOR, c.BASE_RM_POWER)
     while BlackFrontRight():
         pass
     m.deactivate_motors()
-            
-            
+
+
 def left_front_forwards_until_black():  # Left motor goes forwards until left front cliff senses black
     print "Starting left_front_forwards_until_black()"
     m.av(c.LEFT_MOTOR, c.BASE_LM_POWER)
@@ -509,7 +509,7 @@ def left_front_forwards_until_black():  # Left motor goes forwards until left fr
         pass
     m.deactivate_motors()
 
-            
+
 def right_front_forwards_until_black():  # Right motor goes forwards until left front cliff senses black
     print "Starting right_front_forwards_until_black()"
     m.av(c.RIGHT_MOTOR, c.BASE_RM_POWER)
@@ -646,16 +646,16 @@ def turn_right_until_rfcliff_senses_white(multiplier=1):
     m.deactivate_motors()
 
 
-#----------------------------------Driving Back Cliff Align Functions----------------------            
-        
+#----------------------------------Driving Back Cliff Align Functions----------------------
+
 def left_backwards_until_lcliff_senses_white():  # Left motor goes back until the left cliff senses white
     print "Starting left_backwards_until_lcliff_senses_white()"
     m.av(c.LEFT_MOTOR, -1 * c.BASE_LM_POWER)
     while BlackLeft():
         pass
     m.deactivate_motors()
-            
-            
+
+
 def right_backwards_until_rcliff_senses_white():  # Right motor goes back until right cliff senses white
     print "Starting right_backwards_until_rcliff_senses_white()"
     m.av(c.RIGHT_MOTOR, -1 * c.BASE_RM_POWER)
@@ -663,7 +663,7 @@ def right_backwards_until_rcliff_senses_white():  # Right motor goes back until 
         pass
     m.deactivate_motors()
 
-            
+
 def left_backwards_until_lcliff_senses_black():  # Left motor goes back until left cliff senses black
     print "Starting left_backwards_until_lcliff_senses_black()"
     m.av(c.LEFT_MOTOR, -1 * c.BASE_LM_POWER)
@@ -671,7 +671,7 @@ def left_backwards_until_lcliff_senses_black():  # Left motor goes back until le
         pass
     m.deactivate_motors()
 
-            
+
 def right_backwards_until_rcliff_senses_black():  # Right motor goes back until left cliff senses black
     print "Starting right_backwards_until_rcliff_senses_black()"
     m.av(c.RIGHT_MOTOR, -1 * c.BASE_RM_POWER)
@@ -679,23 +679,23 @@ def right_backwards_until_rcliff_senses_black():  # Right motor goes back until 
         pass
     m.deactivate_motors()
 
-            
+
 def left_forwards_until_lcliff_senses_white():  # Left motor goes forwards until the left cliff senses white
     print "Starting left_forwards_until_lcliff_senses_white()"
     m.av(c.LEFT_MOTOR, c.BASE_LM_POWER)
     while BlackLeft():
         pass
     m.deactivate_motors()
-            
-            
+
+
 def right_forwards_until_rcliff_senses_white():  # Right motor goes forwards until right cliff senses white
     print "Starting right_forwards_until_rcliff_senses_white()"
     m.av(c.RIGHT_MOTOR, c.BASE_RM_POWER)
     while BlackRight():
         pass
     m.deactivate_motors()
-            
-            
+
+
 def left_forwards_until_lcliff_senses_black():  # Left motor goes forwards until left cliff senses black
     print "Starting left_forwards_until_lcliff_senses_black()"
     m.av(c.LEFT_MOTOR, c.BASE_LM_POWER)
@@ -703,7 +703,7 @@ def left_forwards_until_lcliff_senses_black():  # Left motor goes forwards until
         pass
     m.deactivate_motors()
 
-            
+
 def right_forwards_until_rcliff_senses_black():  # Right motor goes forwards until left cliff senses black
     print "Starting right_forwards_until_rcliff_senses_black()"
     m.av(c.RIGHT_MOTOR, c.BASE_RM_POWER)
@@ -713,7 +713,7 @@ def right_forwards_until_rcliff_senses_black():  # Right motor goes forwards unt
 
 #-------------------------------------------New Stuff ---------------------------------------
 # TODO organize these commands into their actual places
-                
+
 def forwards_until_black_rfcliff_safe():
     print "Start drive_until_black_rfcliff_safe"
     m.base_forwards()
@@ -765,7 +765,7 @@ def lfollow_lfcliff_until_bump():
         if BlackFrontLeft():
             create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)
         else:
-            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)  
+            create_drive_direct(c.BASE_LM_POWER, c.BASE_RM_POWER)
 
 
 def lfollow_lfcliff_smooth_until_bump():
@@ -774,16 +774,16 @@ def lfollow_lfcliff_smooth_until_bump():
         if BlackFrontLeft():
             create_drive_direct(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
         else:
-            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)     
-                
-                
+            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)
+
+
 def lfollow_rfcliff_smooth_until_bump():
      print "Starting smooth_rfcliff_until_bump()"
      while leftIsNotBumped and NotBumpedRight():
         if BlackFrontRight():
             create_drive_direct(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
         else:
-            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)     
+            create_drive_direct(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)
 
 
 def lfollow_rfcliff_until_bump():
