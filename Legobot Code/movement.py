@@ -4,8 +4,8 @@ from wallaby import *
 import constants as c
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Base Commands ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 #  These commands start the motors in a certain way. They are a simplification of activate_motors().
+#  Note: Every time the wheels are set to a speed, they must be set back to 0 or they will continue to spin.
 
 def base_drive(speed_multiplier=1.0):
     activate_motors(int(speed_multiplier * c.BASE_LM_POWER), int(speed_multiplier * c.BASE_RM_POWER))
@@ -23,7 +23,6 @@ def base_backwards(speed_multiplier=1.0):
     activate_motors(int(speed_multiplier * -1 * c.BASE_LM_POWER), int(speed_multiplier * -1 * c.BASE_RM_POWER))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Basic Movement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Note: Every time the wheels are set to a speed, they must be set back to 0 or they will continue to spin.
 
 def drive(time = c.DEFAULT_DRIVE_TIME, speed_multiplier=1.0):
     base_drive(speed_multiplier)
