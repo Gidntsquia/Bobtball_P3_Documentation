@@ -13,9 +13,6 @@ def main():
     print "Starting main()\n"
     u.setup()
     u.calibrate()
-    s.backwards_until_black_left()
-    s.backwards_until_white_left()
-    msleep(7000)
     a.deliver_ambulance()
     u.shutdown()
 

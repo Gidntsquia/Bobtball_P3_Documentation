@@ -22,7 +22,7 @@ def check_zones_hospital():
     # This fully turns of the motors instead of just stopping them. Do not remove.
     camera_open()
     initialize_camera()
-    if get_object_area(c.RED, 0) > 50:
+    if get_object_area(c.YELLOW, 0) > 50:
         c.FIRE_HOSPITAL = c.NEAR_ZONE
         c.SAFE_HOSPITAL = c.FAR_ZONE
     else:
@@ -50,7 +50,7 @@ def check_zones_full():
         a.crate_zone = c.MIDDLE
         graphics_rectangle_fill(160, 0, 320, 260, 255, 255, 0)  # Yellow
         graphics_update()
-    elif get_object_area(c.RED, 0) > 50:
+    elif get_object_area(c.YELLOW, 0) > 50:
         a.botguy_zone = c.MIDDLE
         graphics_rectangle_fill(160, 0, 320, 260, 255, 0, 0)  # Red
         graphics_update()
@@ -71,7 +71,7 @@ def check_zones_full():
             a.crate_zone = c.LEFT
         else:
             print "ERROR. The wallaby sensed yellow for the left zone and the middle zone.\n"
-    elif get_object_area(c.RED, 0) > 100:
+    elif get_object_area(c.YELLOW, 0) > 100:
         print "The left zone is red\n"
         graphics_rectangle_fill(0, 0, 160, 260, 255, 0, 0)  # Red
         graphics_update()

@@ -274,7 +274,7 @@ def lower_arm(tics = 3, ms = 1, servo_position = c.ARM_DOWN_POS):
     if servo_position < c.MIN_SERVO_POS:
         print "Invalid desired servo position\n"
         exit(86)
-    set_servo_position(c.ARM_SERVO, servo_position, tics, ms)
+    move_servo(c.ARM_SERVO, servo_position, tics, ms)
     print "Arm reached down position: %d" % get_servo_position(c.ARM_SERVO)
 
 

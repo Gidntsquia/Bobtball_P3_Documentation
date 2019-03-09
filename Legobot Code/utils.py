@@ -69,12 +69,12 @@ def calibrate():
     cmpc(c.LEFT_MOTOR)
     cmpc(c.RIGHT_MOTOR)
     if c.IS_MAIN_BOT:
-        calibrate_tics = 2000
+        calibrate_tics = -2000
     else: # Clone bot
-        calibrate_tics = 2500
+        calibrate_tics = -2500
     print "Running calibrate()"
-    m.activate_motors(int (c.BASE_LM_POWER / 3), int(c.BASE_RM_POWER / 3))
-    while gmpc(c.LEFT_MOTOR) < calibrate_tics and gmpc(c.RIGHT_MOTOR) < calibrate_tics:
+    m.activate_motors(int (c.BASE_LM_POWER / 2 * -1), int(c.BASE_RM_POWER / 2 * -1))
+    while gmpc(c.LEFT_MOTOR) > calibrate_tics:
         if analog(c.RIGHT_TOPHAT) > max_sensor_value_right:
             max_sensor_value_right = analog(c.RIGHT_TOPHAT)
         if analog(c.RIGHT_TOPHAT) < min_sensor_value_right:
@@ -92,7 +92,7 @@ def calibrate():
     c.LEFT_TOPHAT_BW = int(((max_sensor_value_left + min_sensor_value_left) / 2)) - 1000
     c.RIGHT_TOPHAT_BW = int(((max_sensor_value_right + min_sensor_value_right) / 2)) - 1000
     if c.IS_MAIN_BOT:
-        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2)) + 400
+        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2)) + 500
     else: # Clone bot
         c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2))  + 300
     print "max_sensor_value_left: " + str(max_sensor_value_left)
@@ -109,10 +109,13 @@ def calibrate():
     c.MAX_TOPHAT_VALUE_LEFT = max_sensor_value_left
     c.MIN_TOPHAT_VALUE_LEFT = min_sensor_value_left
     print "Finished Calibrating. Moving back into starting box...\n"
-    # Put commands that will move the robot back to where you want to start it here.
+    s.drive_until_black_left()
+    s.align_close()
+    s.drive_through_line_third()
+    m.drive(800)
     msleep(25)
     ao()
-    msleep(1000)
+    msleep(2000)
     #wait_for_light(c.LIGHT_SENSOR)
     #shut_down_in(118)  # URGENT: PUT BACK IN BEFORE COMPETITION
 

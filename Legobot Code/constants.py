@@ -51,8 +51,8 @@ if IS_MAIN_BOT:
 
     # Arm Servo
     ARM_SERVO = 0 
-    ARM_DOWN_POS = 1024
-    ARM_UP_POS = 1306
+    ARM_DOWN_POS = 1010
+    ARM_UP_POS = 1325
 
     # Claw Servo
     CLAW_SERVO = 3
@@ -61,7 +61,7 @@ if IS_MAIN_BOT:
     CLAW_CHECKING_POS = 359
 
     # Starting Positions
-    STARTING_ARM_POS = ARM_UP_POS
+    STARTING_ARM_POS = ARM_DOWN_POS
     STARTING_CLAW_POS = CLAW_OPEN_POS
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sensors~~~~~~~~~~~~~~~~~~~~~~~~
