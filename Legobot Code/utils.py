@@ -18,12 +18,6 @@ def right_pressed():
 def not_right_pressed():
     return(right_button() == 0)
 
-def bumped():
-    return(digital(c.BUMP_SENSOR) == 1)
-
-def not_bumped():
-    return(digital(c.BUMP_SENSOR) == 0)
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~~~~~~~~~~~
 
 def wait_for_button():
