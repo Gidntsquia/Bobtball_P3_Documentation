@@ -51,8 +51,8 @@ if IS_MAIN_BOT:
 
     # Arm Servo
     ARM_SERVO = 0 
-    ARM_DOWN_POS = 1010
-    ARM_UP_POS = 1325
+    ARM_DOWN_POS = 1050
+    ARM_UP_POS = 1900
 
     # Claw Servo
     CLAW_SERVO = 3
