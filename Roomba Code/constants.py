@@ -11,17 +11,17 @@ CURRENT_RM_POWER = 0
 
 # Servo Port
 ARM_SERVO = 1
-CLAW_SERVO = 2
-MICRO_SERVO = 3
+MICRO_SERVO = 2
 
 # Servo Limits
 MAX_ARM_SERVO_POS = 1850
 MIN_ARM_SERVO_POS = 200
 
 # Servo Base Positions
-ARM_UP_POS = 639 # 640  # The arm is just above the poms but below the frisbee.
-ARM_DOWN_POS = 1598  # The arm is perpendicular to the ground.
+ARM_UP_POS = 639
+ARM_DOWN_POS = 1598
 ARM_DELIVERY_POS = 1240
+ARM_TESTING_POS = 1812  # The arm is just barely touching the ground.
 ARM_START_POS = ARM_UP_POS
 CLAW_OPEN_POS = 1024
 CLAW_CLOSE_POS = 1024
@@ -36,12 +36,12 @@ MICRO_START_POS = MICRO_STRAIGHT_POS
 #---------------------------------------------Movement---------------------------------------------
 
 # Turn Values
-RIGHT_TURN_TIME = 1582
-LEFT_TURN_TIME = 1582
+RIGHT_TURN_TIME = 1800  # 1582
+LEFT_TURN_TIME = 1800  # 1582
 
 # Motor Values
 BASE_LM_POWER = 109
-BASE_RM_POWER = 100
+BASE_RM_POWER = 103
 
 # Default Drive Times
 DEFAULT_DRIVE_TIME = 500
@@ -67,4 +67,10 @@ LFOLLOW_SMOOTH_RM_POWER = int (.7 * BASE_RM_POWER)
 
 # Depth Sensor Values
 DEPTH_CF = 1250
+
+# Gyro Sensor Values
+AVG_BIAS = 0
+WALLAGREES_TO_DEGREES_RATE = -0.0001
+ROBOT_ANGLE = 0
+GYRO_TIME = 10
 

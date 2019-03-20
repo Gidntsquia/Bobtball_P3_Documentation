@@ -1,6 +1,7 @@
 from wallaby import *
 import constants as c
 import movement as m
+import gyro as g
 import sensors as s
 
 #---------------------------------------------States-------------------------------------------
@@ -25,11 +26,10 @@ def setup():
     msleep(10)
     create_connect()
     msleep(20)
+    g.calibrate_gyro()
     enable_servo(c.ARM_SERVO)
-    # enable_servo(c.CLAW_SERVO)
-    # enable_servo(c.MICRO_SERVO)
     print "Servo enabled = %d\n" % get_servo_enabled(c.ARM_SERVO)
-    set_servo_position(c.ARM_SERVO, c.ARM_START_POS)
+    m.move_arm(c.ARM_START_POS)
     print "Setup complete\n"    
 
 
@@ -66,7 +66,6 @@ def calibrate():
             min_sensor_value_lfcliff = get_create_lfcliff_amt()
         msleep(1)
     m.deactivate_motors()
-    # This sets the BW values. You can change the biasing values to make the BW more or less towards one of the colors.
     c.LCLIFF_BW = ((max_sensor_value_lcliff + min_sensor_value_lcliff) / 2) + 500
     c.RCLIFF_BW = ((max_sensor_value_rcliff + min_sensor_value_rcliff) / 2) + 500
     c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 450
@@ -79,7 +78,6 @@ def calibrate():
     print "min_sensor_value_rcliff: " + str(min_sensor_value_rcliff)
     msleep(500)
     s.backwards_until_black_lcliff()
-    s.align_far_cliffs()
     msleep(300)
     s.backwards_until_black_lfcliff()
     s.align_far_fcliffs()
