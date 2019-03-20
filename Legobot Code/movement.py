@@ -153,9 +153,9 @@ def activate_motors(left_motor_power=c.BASE_LM_POWER, right_motor_power=c.BASE_R
         c.CURRENT_LM_POWER += left_velocity_change
         mav(c.RIGHT_MOTOR, c.CURRENT_RM_POWER)
         c.CURRENT_RM_POWER += right_velocity_change
-        if abs(c.CURRENT_LM_POWER) > abs(left_motor_power) or abs(c.CURRENT_RM_POWER) > abs(right_motor_power):
-            print "Velocity too high"
-            exit(86)
+        if abs(int(c.CURRENT_LM_POWER)) > abs(int(left_motor_power)) or abs(int(c.CURRENT_RM_POWER)) > abs(int(right_motor_power)):
+            print "Velocity too high\n"
+            break
         msleep(1)
     mav(c.LEFT_MOTOR, left_motor_power)  # Ensures actual desired value is reached.
     mav(c.RIGHT_MOTOR, right_motor_power)

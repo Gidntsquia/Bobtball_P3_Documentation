@@ -4,60 +4,111 @@ import sensors as s
 import movement as m
 import utils as u
 
+def turn_left_gyro(degrees = 90):
+    turn_gyro(-degrees)
+
+def turn_right_gyro(degrees = 90):
+    turn_gyro(degrees)
+
+def run_gyro():
+    print "Starting run_gyro()"
+    u.calibrate()
+    msleep(3000)
+    i = 0
+    while i < 4:
+        turn_gyro(-90)
+        print str(c.ROBOT_ANGLE * c.WALLAGREES_TO_DEGREES_RATE)
+        msleep(1000)
+        i += 1
+    print str(c.ROBOT_ANGLE * c.WALLAGREES_TO_DEGREES_RATE)
+
+
 def calibrate_gyro():
     # We need to figure out the gyro's resting value. This runs 50 trials to figure out the average amount the gyro
     # sensor is off. The robot must be still while this occurs.
     print "Gyro reading: " + str(gyro_z())
     i = 0
     sum_of_angles = 0
-    while i < 50:
+    while i < 100:
         sum_of_angles += gyro_z()
         msleep(1)
         i += 1
-    c.AVG_BIAS = sum_of_angles / 50.0
+    c.AVG_BIAS = sum_of_angles / 100.0
     print "Average bias: " + str(c.AVG_BIAS)
 
 
 def get_change_in_theta():
-    theta = 0
-    theta += (gyro_z() - c.AVG_BIAS)
+    theta = (gyro_z() - c.AVG_BIAS)
     return(theta)
+
+
+def get_change_in_angle():
+    c.ROBOT_ANGLE += (gyro_z() - c.AVG_BIAS)
+    msleep(c.GYRO_TIME)
 
 
 def calibrate_gyro_degrees():
     wallagrees = 0
     i = 0
-    s.drive_until_black()
-    s.align_close()
+    #s.drive_until_black()
+    #s.align_close()
     m.base_turn_left()
-    while s.BlackRight():
+    while s.NotBlackLeft():
         wallagrees += get_change_in_theta()
-        msleep(10)
+        msleep(c.GYRO_TIME)
+    while s.BlackLeft():
+        wallagrees += get_change_in_theta()
+        msleep(c.GYRO_TIME)
+    while s.NotBlackLeft():
+        wallagrees += get_change_in_theta()
+        msleep(c.GYRO_TIME)
+    while s.BlackLeft():
+        wallagrees += get_change_in_theta()
+        msleep(c.GYRO_TIME)
+    while s.NotBlackLeft():
+        wallagrees += get_change_in_theta()
+        msleep(c.GYRO_TIME)
+    m.deactivate_motors()
+    c.WALLAGREES_TO_DEGREES_RATE = 360.0 / wallagrees * -1
+    print "Wallagree-Degree conversion rate: " + str(c.WALLAGREES_TO_DEGREES_RATE)
+
+
+def calibrate_gyro_degrees_right():
+    wallagrees = 0
+    i = 0
+    #s.drive_until_black()
+    #s.align_close()
+    m.base_turn_right()
     while s.NotBlackRight():
         wallagrees += get_change_in_theta()
-        msleep(10)
+        msleep(c.GYRO_TIME)
     while s.BlackRight():
         wallagrees += get_change_in_theta()
-        msleep(10)
-    avg_wallagrees = wallagrees / 4.0
-    print "avg_wallagrees: " + str(avg_wallagrees)
-    c.WALLAGREES_TO_DEGREES = 90.0 / avg_wallagrees
-    print "Wallagree-Degree conversion rate: " + str(c.WALLAGREES_TO_DEGREES)
+        msleep(c.GYRO_TIME)
+    while s.NotBlackRight():
+        wallagrees += get_change_in_theta()
+        msleep(c.GYRO_TIME)
+    while s.BlackRight():
+        wallagrees += get_change_in_theta()
+        msleep(c.GYRO_TIME)
+    while s.NotBlackRight():
+        wallagrees += get_change_in_theta()
+        msleep(c.GYRO_TIME)
+    m.deactivate_motors()
+    c.WALLAGREES_TO_DEGREES_RATE = 360.0 / wallagrees
+    print "Wallagree-Degree conversion rate: " + str(c.WALLAGREES_TO_DEGREES_RATE)
 
 
-
-def turn_gyro(target_degrees = -90, speed_multiplier = 1):
-    degrees = 0
-    if target_degrees > 0:  # Left turn code is different than right turn. Positive degrees are left.
-        m.activate_motors(int(speed_multiplier * -1 * c.BASE_LM_POWER), int(speed_multiplier * c.BASE_RM_POWER))
-        while degrees < target_degrees:
-            msleep(10)
-            degrees += int(gyro_z() - c.AVG_BIAS) * c.WALLAGREES_TO_DEGREES_RATE
+def turn_gyro(target_degrees = 90, speed_multiplier = 1):
+    c.ROBOT_ANGLE = 0
+    if target_degrees < 0:  # Left turn code is different than right turn. Positive degrees are left.
+        m.base_turn_left(speed_multiplier)
+        while c.ROBOT_ANGLE * c.WALLAGREES_TO_DEGREES_RATE > target_degrees:
+            get_change_in_angle()
     else:
-        m.activate_motors(int(speed_multiplier * c.BASE_LM_POWER), int(speed_multiplier * -1 * c.BASE_RM_POWER))
-        while degrees > target_degrees:
-            msleep(10)
-            degrees += int(gyro_z() - c.AVG_BIAS) * c.WALLAGREES_TO_DEGREES_RATE
+        m.base_turn_right(speed_multiplier)
+        while c.ROBOT_ANGLE * c.WALLAGREES_TO_DEGREES_RATE < target_degrees:
+            get_change_in_angle()
     m.deactivate_motors()
 
 

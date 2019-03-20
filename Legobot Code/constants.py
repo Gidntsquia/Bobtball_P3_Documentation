@@ -52,7 +52,7 @@ if IS_MAIN_BOT:
     # Arm Servo
     ARM_SERVO = 0 
     ARM_DOWN_POS = 1050
-    ARM_UP_POS = 1900
+    ARM_UP_POS = 1899
 
     # Claw Servo
     CLAW_SERVO = 3
@@ -83,7 +83,9 @@ if IS_MAIN_BOT:
     BUMP_SENSOR = 0
 
     # Gryo Conversian Rates
-    WALLAGREES_TO_DEGREES_RATE = 90 / 50000.0
+    WALLAGREES_TO_DEGREES_RATE = -0.00990042373814
+    ROBOT_ANGLE = 0
+    GYRO_TIME = 10  # This is in ms.
 
     # Camera Colors
     YELLOW = 0
@@ -157,7 +159,7 @@ else:  # Clone Bot -------------------------------------------------------------
     CLAW_CHECKING_POS = 1530
 
     # Clone Starting Positions
-    STARTING_ARM_POS = ARM_UP_POS
+    STARTING_ARM_POS = ARM_DOWN_POS
     STARTING_CLAW_POS = CLAW_OPEN_POS
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Clone Sensors~~~~~~~~~~~~~~~~~~~~~~~~
@@ -179,7 +181,9 @@ else:  # Clone Bot -------------------------------------------------------------
     BUMP_SENSOR = 0
     
     # Clone Gryo Conversian Rates
-    WALLAGREES_TO_DEGREES_RATE = 90 / 580000
+    WALLAGREES_TO_DEGREES_RATE = -0.00990042373814
+    ROBOT_ANGLE = 0
+    GYRO_TIME = 1  # This is in ms.
 
     # Clone Camera Colors
     YELLOW = 0
