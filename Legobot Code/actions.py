@@ -9,7 +9,7 @@ import webcam as w
 
 def deliver_ambulance():
     u.enable_servo(c.CLAW_SERVO)
-    m.lower_arm()
+    m.lower_arm()  # makes sure claw is down just in case
     s.backwards_until_black_third()                                                                                                                                    
     m.lift_arm()
     s.backwards_through_line_third(c.SAFETY_TIME)    
@@ -31,8 +31,8 @@ def deliver_ambulance():
         s.turn_right_until_white()
         m.lower_arm()
         s.drive_until_black_left()
-    else:
-        s.drive_through_line_left()
+    else:  # Near zone
+        s.drive_through_line_left(0)
         m.drive(300)
         s.turn_left_until_right_senses_white(0)
         s.turn_left_until_right_senses_black(0)
@@ -49,7 +49,7 @@ def get_firefighters():
         s.turn_left_until_black()
         s.left_forwards_until_white()
         s.left_forwards_until_black()
-        
+        #TODO: Finish this if statement
     else:
         s.turn_right_until_black()
         s.drive_through_line_left(0)
