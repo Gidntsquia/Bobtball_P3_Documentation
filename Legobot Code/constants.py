@@ -70,7 +70,7 @@ if IS_MAIN_BOT:
     LIGHT_SENSOR = 5
     LEFT_TOPHAT = 0
     RIGHT_TOPHAT = 1
-    THIRD_TOPHAT = 4
+    THIRD_TOPHAT = 2
 
     # Analog Values
     LEFT_TOPHAT_BW = 721  # If more, black. If less, white.

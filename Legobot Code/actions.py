@@ -9,11 +9,15 @@ import webcam as w
 
 def near_zone_to_firefighter():
     u.sd
+    
 def deliver_ambulance():
-    u.enable_servo(c.CLAW_SERVO)
-    m.lower_arm()  # makes sure claw is down just in case
-    s.backwards_until_black_third()                                                                                                                                    
+    #u.enable_servo(c.CLAW_SERVO)
+    #m.lower_arm()  # makes sure claw is down just in case
+    s.backwards_until_black_third()                                                                                                                       
     m.lift_arm()
+    s.backwards_until_black_left()
+    s.align_close()
+    s.lfollow_left_inside_line_smooth(2000)
     s.backwards_through_line_third(c.SAFETY_TIME)    
     s.turn_right_until_black()
     s.lfollow_right_until_left_senses_black_smooth()
@@ -35,11 +39,14 @@ def deliver_ambulance():
         s.drive_until_black_left()
     else:  # Near zone
         s.drive_through_line_left(0)
-        s.snap_to_line_left(0)  # this makes it turn 180 reliably
+        s.drive_until_black_third() 
+        # this makes it turn 180 reliably---------------------------------------------------------
+        s.turn_left_until_right_senses_black(0)
         s.turn_left_until_right_senses_white(0)
         s.turn_left_until_right_senses_black(0)
         s.turn_left_until_right_senses_white(0)
         s.turn_left_until_black()
+        # end of 180---------------------------------------------------------------
         m.lower_arm()
         #s.drive_until_black_left()
         s.backwards_through_line_third()
