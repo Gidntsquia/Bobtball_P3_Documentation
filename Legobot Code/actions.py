@@ -7,6 +7,8 @@ import sensors as s
 import utils as u
 import webcam as w
 
+def near_zone_to_firefighter():
+    u.sd
 def deliver_ambulance():
     u.enable_servo(c.CLAW_SERVO)
     m.lower_arm()  # makes sure claw is down just in case
@@ -33,7 +35,7 @@ def deliver_ambulance():
         s.drive_until_black_left()
     else:  # Near zone
         s.drive_through_line_left(0)
-        m.drive(300)
+        s.snap_to_line_left(0)  # this makes it turn 180 reliably
         s.turn_left_until_right_senses_white(0)
         s.turn_left_until_right_senses_black(0)
         s.turn_left_until_right_senses_white(0)
