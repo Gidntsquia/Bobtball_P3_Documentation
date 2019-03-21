@@ -12,11 +12,6 @@ import utils as u
 def main():
     print "Starting main()\n"
     u.setup()
-    msleep(1000)
-    g.calibrate_gyro_degrees_hard_coded()
-    msleep(4000)
-    
-    u.sd()
     u.calibrate()  # You only need to include this command if you want the tophats to sense better at the cost of speed.
     msleep(4000)
     a.get_gas_valve()

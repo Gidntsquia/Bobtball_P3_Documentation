@@ -40,6 +40,17 @@ def BumpedLeft():
     return(get_create_lbump() == 1)
 
 
+def BumpedLightLeft():
+    return(get_create_lclightbump() == 1)
+
+        
+def BumpedLightFrontLeft():
+    return(get_create_lflightbump() == 1)
+        
+def BumpedLightFrontRight():
+    return(get_create_rflightbump() == 1)
+
+
 def NotBumpedLeft():
     return(get_create_lbump() == 0)
 
@@ -305,7 +316,7 @@ def lfollow_left(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):  # Line follow with
         elif NotBlackLeft():
             m.av(c.LEFT_MOTOR, c.BASE_LM_POWER)
         msleep(refresh_rate)
-        deactivate_motors()
+    deactivate_motors()
 
 
 def lfollow_left_front(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):  # Line follow with the left cliff for time
@@ -317,7 +328,7 @@ def lfollow_left_front(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):  # Line follo
         elif NotBlackFrontLeft():
             m.av(c.LEFT_MOTOR, c.BASE_LM_POWER)
         msleep(refresh_rate)
-        deactivate_motors()
+    deactivate_motors()
 
 
 def lfollow_left_inside_line(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
@@ -328,7 +339,7 @@ def lfollow_left_inside_line(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
         else:
             m.av(c.RIGHT_MOTOR, c.BASE_RM_POWER)
         msleep(refresh_rate)
-        deactivate_motors()
+    deactivate_motors()
 
 
 def lfollow_right(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):  # Line follow with the right cliff for time
@@ -340,7 +351,7 @@ def lfollow_right(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):  # Line follow wit
         elif not BlackRight():
             m.av(c.LEFT_MOTOR, -1 * c.BASE_LM_POWER)
         msleep(refresh_rate)
-        deactivate_motors()
+    deactivate_motors()
 
 
 def lfollow_lfcliff_smooth_until_rfcliff_senses_black():
@@ -423,6 +434,41 @@ def forwards_until_bump():
         pass
     m.deactivate_motors()
 
+
+def wfollow_left(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+    print "Starting wfollow_left()"
+    sec = seconds() + time / 1000.0
+    while seconds() < sec:
+        if BumpedLeft() or BumpedLightFrontLeft():
+            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.7))
+        else:
+            m.activate_motors(int(c.LFOLLOW_SMOOTH_LM_POWER * 0.7), c.BASE_RM_POWER)
+        msleep(refresh_rate)
+    m.deactivate_motors()
+
+def wfollow_left_until_black_right_front(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+    print "Starting wfollow_left_until_black_right_front()"
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and NotBlackFrontRight():  
+		
+        if BumpedLeft() or BumpedLightFrontLeft():
+            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.7))
+        else:
+            m.activate_motors(int(c.LFOLLOW_SMOOTH_LM_POWER * 0.7), c.BASE_RM_POWER)
+        msleep(refresh_rate)
+    m.deactivate_motors()
+                
+def wfollow_right_until_black_left_front(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+    print "Starting wfollow_right_until_black_left_front()"
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and NotBlackFrontRight():  
+		
+        if BumpedRight() or BumpedLightFrontRight():
+            m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.7), c.BASE_RM_POWER)
+        else:
+            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.7))
+        msleep(refresh_rate)
+    m.deactivate_motors()                
 #----------------------------------------------Align Functions-------------------------------------------
 
 def align_close_fcliffs():

@@ -5,15 +5,14 @@ import movement as m
 import utils as u
 
 def nuclearfusion():
-    s.lfollow_lcliff_smooth_until_bump()
+    s.wfollow_left_until_black_right_front()
 
 
 def get_gas_valve():
-    s.forwards_until_black_rfcliff_safe()
-    s.forwards_until_white_rfcliff_safe()
+    s.wfollow_right_until_black_left_front(9999)
     s.align_far_fcliffs()
     s.forwards_until_white_rfcliff_safe()
-    s.forwards_until_black_rfcliff_safe()
+    s.wfollow_right_until_black_left_front(9999)
     s.align_close_fcliffs()
     m.backwards(300)    
     s.forwards_until_white_rfcliff_safe()
@@ -39,7 +38,7 @@ def get_gas_valve():
     s.backwards_until_black_lfcliff()   
     s.align_far_fcliffs()    
     s.forwards_until_white_rfcliff()
-    s.forwards_until_black_rfcliff()
+    s.wfollow_left_until_black_right_front(9999)
     s.align_close_fcliffs()
     m.backwards(200)    
     m.turn_right(c.RIGHT_TURN_TIME / 3)
