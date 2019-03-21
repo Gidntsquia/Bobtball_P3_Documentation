@@ -583,14 +583,14 @@ def turn_right_until_third_senses_white(time=c.SAFETY_TIME, speed_multiplier=1):
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Driving Align Functions~~~~~~~~~~~~~~~~~~~~~~~~
 
-def snap_to_line_left():
+def snap_to_line_left(turn_time=c.SAFETY_TIME):
     drive_through_line_third()
-    turn_left_until_black()
+    turn_left_until_black(time)
 
 
-def snap_to_line_right():
+def snap_to_line_right(turn_time=c.SAFETY_TIME):
     drive_through_line_third()
-    turn_right_until_black()
+    turn_right_until_black(time)
 
 
 def drive_until_black_left(time=c.SAFETY_TIME, speed_multiplier=1):
@@ -977,6 +977,31 @@ def lfollow_left_until_right_senses_black(time=c.SAFETY_TIME):
         msleep(c.LFOLLOW_REFRESH_RATE)
     if time != c.SAFETY_TIME_NO_STOP:
         m.deactivate_motors()
+            
+def lfollow_left_until_third_senses_black(time=c.SAFETY_TIME):
+    # Line follow with the left tophat until third tophat senses black or time is reached.
+    print "Starting lfollow_left_until_third_senses_black()\n"
+    first_black = True
+    first_white = True
+    if time == 0:
+        time = c.SAFETY_TIME_NO_STOP
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and NotBlackThird():
+        if first_black and BlackLeft():
+            mav(c.LEFT_MOTOR, 0)
+            mav(c.RIGHT_MOTOR, 0)
+            m.av(c.LEFT_MOTOR, c.BASE_LM_POWER)
+            first_black = False
+            first_white = True
+        elif first_white and NotBlackLeft():
+            mav(c.LEFT_MOTOR, 0)
+            mav(c.RIGHT_MOTOR, 0)
+            m.av(c.RIGHT_MOTOR, c.BASE_RM_POWER)
+            first_black = True
+            first_white = False
+        msleep(c.LFOLLOW_REFRESH_RATE)
+    if time != c.SAFETY_TIME_NO_STOP:
+        m.deactivate_motors()
 
 
 def lfollow_left_until_right_senses_black_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
@@ -987,6 +1012,19 @@ def lfollow_left_until_right_senses_black_smooth(time=c.SAFETY_TIME, speed_multi
         time = c.SAFETY_TIME_NO_STOP
     sec = seconds() + time / 1000.0
     while seconds() < sec and NotBlackRight():
+        base_lfollow_left_smooth()
+        msleep(c.LFOLLOW_REFRESH_RATE)
+    if time != c.SAFETY_TIME_NO_STOP:
+        m.deactivate_motors()
+            
+def lfollow_left_until_third_senses_black_smooth(time=c.SAFETY_TIME, speed_multiplier=1):
+    # Line follow smoothly with the left tophat until third tophat senses black or time is reached.
+    print "Starting lfollow_left_until_third_senses_black_smooth()\n"
+    m.base_drive(speed_multiplier)
+    if time == 0:
+        time = c.SAFETY_TIME_NO_STOP
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and NotBlackThird():
         base_lfollow_left_smooth()
         msleep(c.LFOLLOW_REFRESH_RATE)
     if time != c.SAFETY_TIME_NO_STOP:

@@ -4,7 +4,6 @@ import sys
 from wallaby import *
 import constants as c
 import actions as a
-import gyro as g
 import sensors as s
 import movement as m
 import webcam as w
@@ -15,8 +14,8 @@ def main():
     u.setup()
     u.calibrate()
     a.deliver_ambulance()
-    u.shutdown()
-
+    a.get_firefighters()
+    u.sd()
 
 if __name__ == "__main__":
     sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)

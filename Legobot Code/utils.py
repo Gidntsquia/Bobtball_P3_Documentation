@@ -1,7 +1,6 @@
 from wallaby import *
 import constants as c
 import actions as a
-import gyro as g
 import sensors as s
 import movement as m
 
@@ -18,6 +17,12 @@ def right_pressed():
 
 def not_right_pressed():
     return(right_button() == 0)
+
+def bumped():
+    return(digital(c.BUMP_SENSOR) == 1)
+
+def not_bumped():
+    return(digital(c.BUMP_SENSOR) == 0)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -44,12 +49,11 @@ def setup():
         exit(86)
     graphics_close()
     ao()
-    g.calibrate_gyro()
-    #enable_servo(c.CLAW_SERVO)
+    enable_servo(c.CLAW_SERVO)
     enable_servo(c.ARM_SERVO)
-    #m.move_claw(c.STARTING_CLAW_POS)
-    m.move_arm(c.STARTING_ARM_POS + 300)
-    #msleep(1000)
+    set_servo_position(c.CLAW_SERVO, c.STARTING_CLAW_POS)
+    set_servo_position(c.ARM_SERVO, c.STARTING_ARM_POS)
+    msleep(1000)
     print "Set claw to starting position of %d" % c.STARTING_CLAW_POS
     print "Set arm to starting position of %d" % c.STARTING_ARM_POS
     #m.move_claw(c.CLAW_CHECKING_POS)
@@ -113,14 +117,6 @@ def calibrate():
     print "Finished Calibrating. Moving back into starting box...\n"
     s.drive_until_black_left()
     s.align_close()
-    s.drive_through_line_third()
-    s.turn_right_until_black()
-    g.calibrate_gyro_degrees_right()
-    msleep(1000)
-    g.turn_left_gyro(90)
-    print str(c.ROBOT_ANGLE * c.WALLAGREES_TO_DEGREES_RATE)
-    s.backwards_until_black_left()
-    s.align_far()
     s.drive_through_line_third()
     m.drive(800)
     msleep(25)
