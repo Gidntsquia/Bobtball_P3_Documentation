@@ -7,19 +7,38 @@ import sensors as s
 import utils as u
 import webcam as w
 
+
 def near_zone_to_firefighter():
     u.sd
-    
-def deliver_ambulance():
-    #u.enable_servo(c.CLAW_SERVO)
-    #m.lower_arm()  # makes sure claw is down just in case
-    s.backwards_until_black_third()                                                                                                                       
+
+def deliver_goods():
+    s.backwards_through_line_third()
     m.lift_arm()
-    s.backwards_until_black_left()
-    s.align_close()
-    s.lfollow_left_inside_line_smooth(2000)
-    s.backwards_through_line_third(c.SAFETY_TIME)    
+    s.drive_through_line_third()
     s.turn_right_until_black()
+    m.close_claw()
+    s.drive_through_line_right()
+    s.left_backwards_until_third_senses_black()
+    s.backwards_through_line_left(0)
+    s.backwards_through_line_third()
+    s.turn_right_until_left_senses_black(0)
+    s.turn_right_until_left_senses_white()
+    s.lfollow_left_until_right_senses_black_smooth()
+    w.check_zones_hospital()
+    
+
+def deliver_ambulance():
+    s.backwards_until_black_third()
+    m.lift_arm()
+    s.drive_until_black_third()
+    s.turn_right_until_black()
+    msleep(1000)
+    m.turn_left(int(c.RIGHT_TURN_TIME/1.25))
+    s.backwards_through_line_left(0)
+    s.backwards_through_line_third()
+    s.turn_right_until_left_senses_black(0)
+    s.turn_right_until_left_senses_white()
+    s.lfollow_right_until_left_senses_black(2000)
     s.lfollow_right_until_left_senses_black_smooth()
     w.check_zones_hospital()
     #c.SAFE_HOSPITAL = c.FAR_ZONE
@@ -39,14 +58,11 @@ def deliver_ambulance():
         s.drive_until_black_left()
     else:  # Near zone
         s.drive_through_line_left(0)
-        s.drive_until_black_third() 
-        # this makes it turn 180 reliably---------------------------------------------------------
-        s.turn_left_until_right_senses_black(0)
+        s.snap_to_line_left(0)  # this makes it turn 180 reliably
         s.turn_left_until_right_senses_white(0)
         s.turn_left_until_right_senses_black(0)
         s.turn_left_until_right_senses_white(0)
         s.turn_left_until_black()
-        # end of 180---------------------------------------------------------------
         m.lower_arm()
         #s.drive_until_black_left()
         s.backwards_through_line_third()
