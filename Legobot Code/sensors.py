@@ -585,12 +585,12 @@ def turn_right_until_third_senses_white(time=c.SAFETY_TIME, speed_multiplier=1):
 
 def snap_to_line_left(turn_time=c.SAFETY_TIME):
     drive_through_line_third()
-    turn_left_until_black(time)
+    turn_left_until_black(turn_time)
 
 
 def snap_to_line_right(turn_time=c.SAFETY_TIME):
     drive_through_line_third()
-    turn_right_until_black(time)
+    turn_right_until_black(turn_time)
 
 
 def drive_until_black_left(time=c.SAFETY_TIME, speed_multiplier=1):
@@ -785,7 +785,7 @@ def backwards_until_black_third(time=c.SAFETY_TIME, speed_multiplier=1):
     if time == 0:
         time = c.SAFETY_TIME_NO_STOP
     sec = seconds() + time / 1000.0
-    while seconds() < sec and NotBlackRight() and NotBlackLeft():
+    while seconds() < sec and NotBlackThird():
         pass
     print "Line sensed\n"
     if time != c.SAFETY_TIME_NO_STOP:
@@ -824,7 +824,7 @@ def backwards_until_white_third(time=c.SAFETY_TIME, speed_multiplier=1):
     if time == 0:
         time = c.SAFETY_TIME_NO_STOP
     sec = seconds() + time / 1000.0
-    while seconds() < sec and BlackRight() and BlackLeft():
+    while seconds() < sec and BlackThird():
         pass
     print "Line sensed\n"
     if time != c.SAFETY_TIME_NO_STOP:

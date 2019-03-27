@@ -54,8 +54,8 @@ def setup():
     set_servo_position(c.CLAW_SERVO, c.STARTING_CLAW_POS)
     set_servo_position(c.ARM_SERVO, c.STARTING_ARM_POS)
     msleep(1000)
-    print "Set claw to starting position of %d" % c.STARTING_CLAW_POS
-    print "Set arm to starting position of %d" % c.STARTING_ARM_POS
+    #print "Set claw to starting position of %d" % c.STARTING_CLAW_POS
+    #print "Set arm to starting position of %d" % c.STARTING_ARM_POS
     #m.move_claw(c.CLAW_CHECKING_POS)
     #m.wait()
     #m.move_claw(c.STARTING_CLAW_POS)
@@ -98,9 +98,9 @@ def calibrate():
     c.LEFT_TOPHAT_BW = int(((max_sensor_value_left + min_sensor_value_left) / 2)) - 1000
     c.RIGHT_TOPHAT_BW = int(((max_sensor_value_right + min_sensor_value_right) / 2)) - 1000
     if c.IS_MAIN_BOT:
-        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2)) + 500
+        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2)) + 1200
     else: # Clone bot
-        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2))  + 300
+        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2))  + 1200
     print "max_sensor_value_left: " + str(max_sensor_value_left)
     print "min_sensor_value_left: " + str(min_sensor_value_left)
     print "LEFT_TOPHAT_BW: " + str(c.LEFT_TOPHAT_BW)
@@ -117,12 +117,12 @@ def calibrate():
     print "Finished Calibrating. Moving back into starting box...\n"
     s.drive_until_black_left()
     s.align_close()
-    s.drive_through_line_third()
+    s.drive_through_line_third(0)
     m.drive(800)
     msleep(25)
     ao()
     msleep(2000)
-    #wait_for_light(c.LIGHT_SENSOR)
+    wait_for_light(c.LIGHT_SENSOR)
     #shut_down_in(118)  # URGENT: PUT BACK IN BEFORE COMPETITION
 
 
@@ -243,13 +243,13 @@ def test_movement_extensive(exit = True):
 def test_servos(exit = True):
 # Used to see if basic servo commands and constants function as intended.
     print "Testing servos\n"
-    m.claw_slow(c.CLAW_CLOSE_POS)
+    m.close_claw()
     m.wait()  # Using wait() instead of msleep() to make sure wheels are off.
-    m.claw_slow(c.CLAW_OPEN_POS)
+    m.open_claw()
     m.wait()
-    m.arm_slow(c.ARM_DOWN_POS)
+    m.lift_arm()
     m.wait()
-    m.arm_slow(c.ARM_HIGH_POS)
+    m.lower_arm()
     m.wait()
     print "Testing complete."
     if exit == True:

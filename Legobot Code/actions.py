@@ -28,19 +28,24 @@ def deliver_goods():
     
 
 def deliver_ambulance():
-    s.backwards_until_black_third()
+    s.backwards_until_black_left()
     m.lift_arm()
     s.drive_until_black_third()
     s.turn_right_until_black()
     msleep(1000)
-    m.turn_left(int(c.RIGHT_TURN_TIME/1.25))
+    m.turn_left(int(c.RIGHT_TURN_TIME/1.5))
     s.backwards_through_line_left(0)
     s.backwards_through_line_third()
     s.turn_right_until_left_senses_black(0)
     s.turn_right_until_left_senses_white()
-    s.lfollow_right_until_left_senses_black(2000)
-    s.lfollow_right_until_left_senses_black_smooth()
+    s.lfollow_left_until_right_senses_black(2000)
+    s.lfollow_left_until_right_senses_black_smooth()
+    s.turn_right_until_white(0)
+    s.turn_right_until_black()
+    m.lower_arm()
     w.check_zones_hospital()
+    m.lift_arm()
+    u.sd() #here is where we are now
     #c.SAFE_HOSPITAL = c.FAR_ZONE
     if c.SAFE_HOSPITAL == c.FAR_ZONE:
         s.drive_through_line_left(0)

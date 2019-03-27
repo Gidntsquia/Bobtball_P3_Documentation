@@ -20,8 +20,8 @@ if IS_MAIN_BOT:
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Motors~~~~~~~~~~~~~~~~~~~~~~~~
 
     # Motor Ports
-    LEFT_MOTOR = 3
-    RIGHT_MOTOR = 2
+    LEFT_MOTOR = 2
+    RIGHT_MOTOR = 3
 
     # Base Motor Powers
     BASE_LM_POWER = 880
@@ -50,15 +50,19 @@ if IS_MAIN_BOT:
     SERVO_DELAY = 500  # Time needed to move a servo (need more testing to find a good value).
 
     # Arm Servo
-    ARM_SERVO = 0 
-    ARM_DOWN_POS = 1050
-    ARM_UP_POS = 1649
+    ARM_SERVO = 2
+    MAX_ARM_SERVO_POS = MAX_SERVO_POS
+    MIN_ARM_SERVO_POS = MIN_SERVO_POS
+    ARM_UP_POS = 1750
+    ARM_DOWN_POS = 1015
 
     # Claw Servo
-    CLAW_SERVO = 3
-    CLAW_OPEN_POS = 1800
-    CLAW_CLOSE_POS = 950
-    CLAW_CHECKING_POS = 359
+    CLAW_SERVO = 1
+    MAX_CLAW_SERVO_POS = MAX_SERVO_POS
+    MIN_CLAW_SERVO_POS = MIN_SERVO_POS
+    CLAW_OPEN_POS = 860  # Claw fingers form a 180 degree line
+    CLAW_CLOSE_POS = 1802
+    CLAW_CHECKING_POS = CLAW_CLOSE_POS
 
     # Starting Positions
     STARTING_ARM_POS = ARM_DOWN_POS
@@ -70,7 +74,7 @@ if IS_MAIN_BOT:
     LIGHT_SENSOR = 5
     LEFT_TOPHAT = 0
     RIGHT_TOPHAT = 1
-    THIRD_TOPHAT = 2
+    THIRD_TOPHAT = 4
 
     # Analog Values
     LEFT_TOPHAT_BW = 721  # If more, black. If less, white.
@@ -146,15 +150,19 @@ else:  # Clone Bot -------------------------------------------------------------
     SERVO_DELAY = 500  # Time needed to move a servo (need more testing to find a good value).
 
     # Clone Arm Servo
-    ARM_SERVO = 0 
-    ARM_DOWN_POS = 1024
+    ARM_SERVO = 0
+    MAX_ARM_SERVO_POS = MAX_SERVO_POS
+    MIN_ARM_SERVO_POS = MIN_SERVO_POS
     ARM_UP_POS = 1306
+    ARM_DOWN_POS = 1024
 
     # Clone Claw Servo
     CLAW_SERVO = 3
-    CLAW_OPEN_POS = 1200
+    MAX_CLAW_SERVO_POS = MAX_SERVO_POS
+    MIN_CLAW_SERVO_POS = MIN_SERVO_POS
+    CLAW_OPEN_POS = 1200  # Claw fingers form a 180 degree line
     CLAW_CLOSE_POS = 1652
-    CLAW_CHECKING_POS = 1530
+    CLAW_CHECKING_POS = CLAW_CLOSE_POS
 
     # Clone Starting Positions
     STARTING_ARM_POS = ARM_UP_POS
