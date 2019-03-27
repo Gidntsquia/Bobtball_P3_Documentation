@@ -19,8 +19,9 @@ MIN_ARM_SERVO_POS = 200
 
 # Servo Base Positions
 ARM_UP_POS = 639
-ARM_DOWN_POS = 1598
-ARM_DELIVERY_POS = 1240
+ARM_DOWN_POS = 1670
+ARM_DELIVERY_POS = 1340
+ARM_HALF_UP_POS = 1300
 ARM_TESTING_POS = 1812  # The arm is just barely touching the ground.
 ARM_START_POS = 351
 CLAW_OPEN_POS = 1024
@@ -36,12 +37,12 @@ MICRO_START_POS = MICRO_STRAIGHT_POS
 #---------------------------------------------Movement---------------------------------------------
 
 # Turn Values
-RIGHT_TURN_TIME = 1800  # 1582
-LEFT_TURN_TIME = 1800  # 1582
+RIGHT_TURN_TIME = 1650  # 1582
+LEFT_TURN_TIME = 1650  # 1582
 
 # Motor Values
 BASE_LM_POWER = 109
-BASE_RM_POWER = 103
+BASE_RM_POWER = 104
 
 # Default Drive Times
 DEFAULT_DRIVE_TIME = 500
