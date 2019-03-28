@@ -13,19 +13,21 @@ def near_zone_to_firefighter():
 def deliver_ambulance():
     #u.enable_servo(c.CLAW_SERVO)
     m.lower_arm()  # makes sure claw is down just in case
+    #going towards the firefighter/////////////////////////////////////////////////
     s.backwards_until_black_third()                                                                                                                       
     m.lift_arm()
     s.backwards_until_black_left()
     s.align_close()
     s.lfollow_left_inside_line_smooth(2000)
-    #finishes getting to the firefighter
+    #beginning on it's way to the the buidings//////////////////////////////////////////
     s.backwards_through_line_third(c.SAFETY_TIME)
-    s.backwards_until_black_third()
+    #s.backwards_until_black_third() if it doesn't work
     s.turn_right_until_black()
     s.lfollow_right_until_left_senses_black_smooth()
     w.check_zones_hospital()
     #c.SAFE_HOSPITAL = c.FAR_ZONE
-    if c.SAFE_HOSPITAL == c.FAR_ZONE:
+    #sensing zones////////////////////////////////////////////////////////////////
+    if c.SAFE_HOSPITAL == c.FAR_ZONE: #far zone
         s.drive_through_line_left(0)
         s.drive_until_black_third()
         s.turn_right_until_black()
@@ -41,7 +43,7 @@ def deliver_ambulance():
         s.drive_until_black_left()
     else:  # Near zone
         s.drive_through_line_left(0)
-        s.drive_until_black_third() 
+        s.drive_until_black_third() #doesn't this go too far? I don't think this is needed
         # this makes it turn 180 reliably---------------------------------------------------------
         s.turn_left_until_right_senses_black(0)
         s.turn_left_until_right_senses_white(0)
