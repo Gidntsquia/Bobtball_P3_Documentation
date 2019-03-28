@@ -44,13 +44,13 @@ def deliver_ambulance():
     else:  # Near zone
         s.drive_through_line_left(0)
         s.drive_until_black_third() #doesn't this go too far? I don't think this is needed
-        # this makes it turn 180 reliably---------------------------------------------------------
+        # this makes it turn 180 reliably//////////////////////////////////////////////////////////
         s.turn_left_until_right_senses_black(0)
         s.turn_left_until_right_senses_white(0)
         s.turn_left_until_right_senses_black(0)
         s.turn_left_until_right_senses_white(0)
         s.turn_left_until_black()
-        # end of 180---------------------------------------------------------------
+        # end of 180///////////////////////////////////////////////////////////////////////////
         m.lower_arm()
         #s.drive_until_black_left()
         s.backwards_through_line_third()
