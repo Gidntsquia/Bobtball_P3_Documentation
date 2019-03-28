@@ -56,6 +56,13 @@ if IS_MAIN_BOT:
     ARM_UP_POS = 1750
     ARM_DOWN_POS = 1015
 
+    # Cube Arm Servo
+    CUBE_ARM_SERVO = 2
+    MAX_CUBE_ARM_SERVO_POS = MAX_SERVO_POS
+    MIN_CUBE_ARM_SERVO_POS = MIN_SERVO_POS
+    CUBE_ARM_UP_POS = 1750
+    CUBE_ARM_DOWN_POS = 1015
+
     # Claw Servo
     CLAW_SERVO = 1
     MAX_CLAW_SERVO_POS = MAX_SERVO_POS
@@ -155,6 +162,13 @@ else:  # Clone Bot -------------------------------------------------------------
     MIN_ARM_SERVO_POS = MIN_SERVO_POS
     ARM_UP_POS = 1306
     ARM_DOWN_POS = 1024
+
+    # Clone Cube Arm Servo
+    CUBE_ARM_SERVO = 2
+    MAX_CUBE_ARM_SERVO_POS = MAX_SERVO_POS
+    MIN_CUBE_ARM_SERVO_POS = MIN_SERVO_POS
+    CUBE_ARM_UP_POS = 1750
+    CUBE_ARM_DOWN_POS = 1015
 
     # Clone Claw Servo
     CLAW_SERVO = 3

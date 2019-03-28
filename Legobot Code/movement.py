@@ -256,7 +256,7 @@ def close_claw(tics = 3, ms = 1, servo_position = c.CLAW_CLOSE_POS):
 
 
 def lift_arm(tics = 3, ms = 1, servo_position = c.ARM_UP_POS):
-    print "Set lift servo to desired up position: %d" % servo_position
+    print "Set arm servo to desired up position: %d" % servo_position
     if servo_position > c.MAX_SERVO_POS:
         print "Invalid desired servo position\n"
         exit(86)
@@ -268,7 +268,7 @@ def lift_arm(tics = 3, ms = 1, servo_position = c.ARM_UP_POS):
 
 
 def lower_arm(tics = 3, ms = 1, servo_position = c.ARM_DOWN_POS):
-    print "Set lift servo to desired down position: %d" % servo_position
+    print "Set arm servo to desired down position: %d" % servo_position
     if servo_position > c.MAX_SERVO_POS:
         print "Invalid desired servo position\n"
         exit(86)
@@ -279,14 +279,43 @@ def lower_arm(tics = 3, ms = 1, servo_position = c.ARM_DOWN_POS):
     print "Arm reached down position: %d" % get_servo_position(c.ARM_SERVO)
 
 
+def lift_cube_arm(tics = 3, ms = 1, servo_position = c.CUBE_ARM_UP_POS):
+    print "Set cube arm servo to desired up position: %d" % servo_position
+    if servo_position > c.MAX_SERVO_POS:
+        print "Invalid desired servo position\n"
+        exit(86)
+    if servo_position < c.MIN_SERVO_POS:
+        print "Invalid desired servo position\n"
+        exit(86)
+    move_servo(c.CUBE_ARM_SERVO, servo_position, tics, ms)
+    print "Arm reached up position: %d" % get_servo_position(c.CUBE_ARM_SERVO)
+
+
+def lower_cube_arm(tics = 3, ms = 1, servo_position = c.CUBE_ARM_DOWN_POS):
+    print "Set cube arm servo to desired down position: %d" % servo_position
+    if servo_position > c.MAX_SERVO_POS:
+        print "Invalid desired servo position\n"
+        exit(86)
+    if servo_position < c.MIN_SERVO_POS:
+        print "Invalid desired servo position\n"
+        exit(86)
+    move_servo(c.CUBE_ARM_SERVO, servo_position, tics, ms)
+    print "Arm reached down position: %d" % get_servo_position(c.CUBE_ARM_SERVO)
+
+
 def move_claw(desired_claw_position = c.CLAW_OPEN_POS, claw_tics = 3, claw_ms = 1):
-    print "Moving Claw to " + str(c.CLAW_OPEN_POS)
+    print "Moving Claw to " + str(desired_claw_position)
     move_servo(c.CLAW_SERVO, desired_claw_position, claw_tics, claw_ms)
 
 
 def move_arm(desired_arm_position = c.ARM_UP_POS, arm_tics = 3, arm_ms = 1):
-    print "Moving Arm to " + str(c.ARM_UP_POS)
+    print "Moving Arm to " + str(desired_arm_position)
     move_servo(c.ARM_SERVO, desired_arm_position, arm_tics, arm_ms)
+
+
+def move_cube_arm(desired_cube_arm_position = c.CUBE_ARM_UP_POS, cube_arm_tics = 3, cube_arm_ms = 1):
+    print "Moving Cube Arm to " + str(desired_arm_position)
+    move_servo(c.CUBE_ARM_SERVO, desired_cube_arm_position, cube_arm_tics, cube_arm_ms)
 
 
 def move_servo(servo_port, desired_servo_position, tics = 3, ms = 1):  
