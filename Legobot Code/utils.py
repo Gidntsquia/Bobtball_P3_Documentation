@@ -51,8 +51,10 @@ def setup():
     ao()
     enable_servo(c.CLAW_SERVO)
     enable_servo(c.ARM_SERVO)
-    set_servo_position(c.CLAW_SERVO, c.STARTING_CLAW_POS)
-    set_servo_position(c.ARM_SERVO, c.STARTING_ARM_POS)
+    enable_servo(c.CUBE_ARM_SERVO)
+    m.move_claw(c.STARTING_CLAW_POS)
+    m.move_arm(c.STARTING_ARM_POS)
+    m.move_cube_arm(c.STARTING_CUBE_ARM_POS)
     msleep(1000)
     #print "Set claw to starting position of %d" % c.STARTING_CLAW_POS
     #print "Set arm to starting position of %d" % c.STARTING_ARM_POS
@@ -118,7 +120,7 @@ def calibrate():
     s.drive_until_black_left()
     s.align_close()
     s.drive_through_line_third(0)
-    m.drive(800)
+    m.drive(850)
     msleep(25)
     ao()
     msleep(2000)

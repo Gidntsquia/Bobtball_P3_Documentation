@@ -32,6 +32,7 @@ def check_zones_hospital():
     print "Safe Hospital Zone: " + str(c.SAFE_HOSPITAL)
 
 
+
 def check_zones_full():
     print "Checking zones"
     msleep(25)

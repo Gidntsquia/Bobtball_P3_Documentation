@@ -314,7 +314,7 @@ def move_arm(desired_arm_position = c.ARM_UP_POS, arm_tics = 3, arm_ms = 1):
 
 
 def move_cube_arm(desired_cube_arm_position = c.CUBE_ARM_UP_POS, cube_arm_tics = 3, cube_arm_ms = 1):
-    print "Moving Cube Arm to " + str(desired_arm_position)
+    print "Moving Cube Arm to " + str(desired_cube_arm_position)
     move_servo(c.CUBE_ARM_SERVO, desired_cube_arm_position, cube_arm_tics, cube_arm_ms)
 
 

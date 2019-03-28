@@ -57,7 +57,7 @@ if IS_MAIN_BOT:
     ARM_DOWN_POS = 1015
 
     # Cube Arm Servo
-    CUBE_ARM_SERVO = 2
+    CUBE_ARM_SERVO = 0
     MAX_CUBE_ARM_SERVO_POS = MAX_SERVO_POS
     MIN_CUBE_ARM_SERVO_POS = MIN_SERVO_POS
     CUBE_ARM_UP_POS = 1382
@@ -74,6 +74,7 @@ if IS_MAIN_BOT:
     # Starting Positions
     STARTING_ARM_POS = ARM_DOWN_POS
     STARTING_CLAW_POS = CLAW_OPEN_POS
+    STARTING_CUBE_ARM_POS = CUBE_ARM_UP_POS
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sensors~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -181,6 +182,7 @@ else:  # Clone Bot -------------------------------------------------------------
     # Clone Starting Positions
     STARTING_ARM_POS = ARM_UP_POS
     STARTING_CLAW_POS = CLAW_OPEN_POS
+    STARTING_CUBE_ARM_POS = CUBE_ARM_UP_POS
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Clone Sensors~~~~~~~~~~~~~~~~~~~~~~~~
 
