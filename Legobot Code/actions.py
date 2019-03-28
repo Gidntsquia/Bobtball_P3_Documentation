@@ -45,32 +45,17 @@ def deliver_ambulance():
     m.lower_arm()
     w.check_zones_hospital()
     m.lift_arm()
-    u.sd() #here is where we are now
-    #c.SAFE_HOSPITAL = c.FAR_ZONE
     if c.SAFE_HOSPITAL == c.FAR_ZONE:
-        s.drive_through_line_left(0)
-        s.drive_until_black_third()
-        s.turn_right_until_black()
-        s.lfollow_right_until_left_senses_black_smooth()
-        s.drive_through_line_left(0)
-        s.drive_until_black_third()
-        s.turn_right_until_black(0)
-        s.turn_right_until_white(0)
-        s.turn_right_until_black(0)
-        s.turn_right_until_black(0)
-        s.turn_right_until_white()
-        m.lower_arm()
-        s.drive_until_black_left()
-    else:  # Near zone
-        s.drive_through_line_left(0)
-        s.snap_to_line_left(0)  # this makes it turn 180 reliably
-        s.turn_left_until_right_senses_white(0)
-        s.turn_left_until_right_senses_black(0)
-        s.turn_left_until_right_senses_white(0)
-        s.turn_left_until_black()
-        m.lower_arm()
-        #s.drive_until_black_left()
         s.backwards_through_line_third()
+        s.turn_right_until_white(0)
+        s.turn_right_until_black()
+        s.backwards_until_white_right()
+        m.lower_arm()
+        s.drive_until_black_third()
+    else:  # Near zone
+        s.backwards_through_line_third()
+        m.lower_arm()
+        s.drive_until_black_third()
 
             
 def get_firefighters():
