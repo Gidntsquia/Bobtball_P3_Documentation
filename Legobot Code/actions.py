@@ -56,13 +56,23 @@ def deliver_ambulance():
         s.backwards_through_line_third()
         s.turn_right_until_white(0)
         s.turn_right_until_black()
-        s.backwards_until_white_right()
+        s.backwards_until_white_right(0)
         m.backwards(500)
         m.lower_arm()
         s.drive_until_black_third()
         s.turn_right_until_left_senses_black(0)
         s.turn_right_until_left_senses_white()
-        
+        s.lfollow_left_until_right_senses_black_smooth(0)
+        s.drive_through_line_right(0)
+        s.drive_until_black_right()
+        s.align_close()
+        s.turn_right_until_white(0)
+        s.turn_right_until_black(0)
+        s.turn_right_until_white(0)
+        s.turn_right_until_black()
+        s.align_close()
+        m.lower_cube_arm()
+        m.open_claw()
     else:  # Near zone
         s.backwards_through_line_third()
         m.lower_arm()
@@ -77,16 +87,7 @@ def deliver_ambulance():
             
 def get_firefighters():
     if c.SAFE_HOSPITAL == c.FAR_ZONE:
-        s.lfollow_left_until_right_senses_black_smooth()
-        s.drive_through_line_right(0)
-        s.drive_until_black_right()
-        s.align_close()
-        s.turn_right_until_white(0)
-        s.turn_right_until_black(0)
-        s.turn_right_until_white()
-        s.align_close()
-        m.lower_cube_arm()
-        m.open_claw()
+        pass
         #s.drive_through_line_right(0)
         #s.snap_to_line_right()
         #s.lower_cube_arm()
