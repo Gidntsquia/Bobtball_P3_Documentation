@@ -18,8 +18,9 @@ def deliver_ambulance():
     s.backwards_until_black_left()
     s.align_close()
     s.lfollow_left_inside_line_smooth(2000)
-    #does the code below actualy get the firefghter
-    s.backwards_through_line_third(c.SAFETY_TIME)    
+    #finishes getting to the firefighter
+    s.backwards_through_line_third(c.SAFETY_TIME)
+    s.backwards_until_black_third()
     s.turn_right_until_black()
     s.lfollow_right_until_left_senses_black_smooth()
     w.check_zones_hospital()
