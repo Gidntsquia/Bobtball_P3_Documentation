@@ -60,15 +60,15 @@ if IS_MAIN_BOT:
     CUBE_ARM_SERVO = 2
     MAX_CUBE_ARM_SERVO_POS = MAX_SERVO_POS
     MIN_CUBE_ARM_SERVO_POS = MIN_SERVO_POS
-    CUBE_ARM_UP_POS = 1750
-    CUBE_ARM_DOWN_POS = 1015
+    CUBE_ARM_UP_POS = 1382
+    CUBE_ARM_DOWN_POS = 317
 
     # Claw Servo
     CLAW_SERVO = 1
     MAX_CLAW_SERVO_POS = MAX_SERVO_POS
     MIN_CLAW_SERVO_POS = MIN_SERVO_POS
-    CLAW_OPEN_POS = 860  # Claw fingers form a 180 degree line
-    CLAW_CLOSE_POS = 1802
+    CLAW_OPEN_POS = 375  # Claw fingers form a 180 degree line
+    CLAW_CLOSE_POS = 1200
     CLAW_CHECKING_POS = CLAW_CLOSE_POS
 
     # Starting Positions
