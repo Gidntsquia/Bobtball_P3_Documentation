@@ -12,12 +12,13 @@ def near_zone_to_firefighter():
     
 def deliver_ambulance():
     #u.enable_servo(c.CLAW_SERVO)
-    #m.lower_arm()  # makes sure claw is down just in case
+    m.lower_arm()  # makes sure claw is down just in case
     s.backwards_until_black_third()                                                                                                                       
     m.lift_arm()
     s.backwards_until_black_left()
     s.align_close()
     s.lfollow_left_inside_line_smooth(2000)
+    #does the code below actualy get the firefghter
     s.backwards_through_line_third(c.SAFETY_TIME)    
     s.turn_right_until_black()
     s.lfollow_right_until_left_senses_black_smooth()
