@@ -14,7 +14,7 @@ def main():
     u.setup()
     u.calibrate()
     a.deliver_ambulance()
-    a.get_firefighters()
+    a.get_prism()
     u.sd()
 
 if __name__ == "__main__":

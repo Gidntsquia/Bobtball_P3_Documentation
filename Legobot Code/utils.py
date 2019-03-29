@@ -120,7 +120,7 @@ def calibrate():
     s.drive_until_black_left()
     s.align_close()
     s.drive_through_line_third(0)
-    m.drive(850)
+    m.drive(1120)
     msleep(25)
     ao()
     msleep(2000)
