@@ -70,8 +70,8 @@ def calibrate_gyro_degrees():
         get_change_in_angle()
     while s.NotBlackFrontLeft():
         get_change_in_angle()
-    c.RIGHT_TURN_TIME = int((seconds() - sec) * 1000 / 4.0)
-    c.LEFT_TURN_TIME = int((seconds() - sec) * 1000 / 4.0)
+    c.RIGHT_TURN_TIME = int((seconds() - sec) * 1000 / 4.0) - 30
+    c.LEFT_TURN_TIME = int((seconds() - sec) * 1000 / 4.0) - 30
     m.deactivate_motors()
     c.WALLAGREES_TO_DEGREES_RATE = (360.0 / c.ROBOT_ANGLE * -1) / 2
     print "Finished calibrating.\nWallagree-Degree conversion rate: " + str(c.WALLAGREES_TO_DEGREES_RATE)
@@ -111,7 +111,7 @@ def turn_gyro(target_degrees = 90, speed_multiplier = 1):
     m.deactivate_motors()
 
 
-def drive_gyro(time, kp=1, ki=1, kd=1, stop=True):
+def drive_gyro(time, kp=10, ki=.1, kd=1, stop=True):
     error = 0
     last_error = 0
     integral = 0
@@ -119,17 +119,11 @@ def drive_gyro(time, kp=1, ki=1, kd=1, stop=True):
     first_run_through = True
     sec = seconds() + time / 1000.0
     while seconds() < sec:
-        i = 0
-        temp_error = 0
-        while i < 10:
-            temp_error += get_change_in_theta()
-            i += 1
-            msleep(1)
-        error = temp_error / 10.0  # Positive error means white, negative means black.
-        print str(error)
+        error = (gyro_x() - c.AVG_BIAS) * c.WALLAGREES_TO_DEGREES_RATE
         derivative = error - last_error  # If rate of change is going negative, need to veer left
         last_error = error
         integral = 0.5 * integral + error
+        c.ROBOT_ANGLE += error
         left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
         right_power = c.BASE_RM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
         if left_power > 1300:
@@ -141,11 +135,11 @@ def drive_gyro(time, kp=1, ki=1, kd=1, stop=True):
         elif right_power > 1000:
             right_power = 1000
         if first_run_through == True:
-            m.activate_motors(int(left_power), int(right_power))
+            m.activate_motors(int(left_power), int(right_power))  # this is where the accelerate command would go if we had one.
         else:
-            mav(c.LEFT_MOTOR, int(left_power))
-            mav(c.RIGHT_MOTOR, int(right_power))
+            m.activate_motors(int(left_power), int(right_power))
         first_run_through = False
+        msleep(c.GYRO_TIME)
     if stop == True:
         m.deactivate_motors()
 

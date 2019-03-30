@@ -248,12 +248,6 @@ def backwards_until_black_cliffs():
     m.base_backwards()
     while NotBlackLeft() and NotBlackRight():
         pass
-    if BlackLeft():
-        while NotBlackRight():
-            pass
-    else:
-        while NotBlackLeft():
-            pass
     m.deactivate_motors()
 
 

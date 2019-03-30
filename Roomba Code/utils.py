@@ -44,7 +44,10 @@ def calibrate():
     min_sensor_value_lfcliff = 90000
     max_sensor_value_rfcliff = 0
     min_sensor_value_rfcliff = 90000
-    sec = seconds() + 4
+    if c.BASE_LM_POWER == 0:
+        print "c.BASE_LM_POWER can not equal 0 for the calibrate command. Autosetting to 109."
+        c.BASE_LM_POWER = 109
+    sec = seconds() + (4 * 109 / c.BASE_LM_POWER)
     print "Running calibrate()"
     m.activate_motors(int(c.BASE_LM_POWER / 2), int(c.BASE_RM_POWER / 2))
     print str(int(c.BASE_LM_POWER / 2))
@@ -79,15 +82,13 @@ def calibrate():
     print "max_sensor_value_rcliff: " + str(max_sensor_value_rcliff)
     print "min_sensor_value_rcliff: " + str(min_sensor_value_rcliff)
     msleep(500)
-    s.backwards_until_black_lcliff()
-    msleep(300)
+    s.backwards_until_black_cliffs()
+    s.align_far_cliffs()
     s.turn_left_until_lfcliff_senses_black()
-    msleep(1000)
+    msleep(300)
     g.calibrate_gyro_degrees()
-    msleep(1000)
-    g.turn_right_gyro(22.5)
-    m.turn_right(int(c.RIGHT_TURN_TIME / 4))
-               
+    msleep(300)
+    m.turn_right(int(c.RIGHT_TURN_TIME / 2))            
     s.backwards_until_black_lfcliff()
     s.align_far_fcliffs()
     msleep(300)
@@ -96,8 +97,7 @@ def calibrate():
     ao()
     # DON'T DELETE THESE NEXT 4 LINES. They are purposeful. It avoids the roomba going into sleep mode after the calibration and not starting right.
     create_disconnect()
-    #wait_for_light(c.LIGHT_SENSOR)
-    msleep(1000)
+    wait_for_light(c.LIGHT_SENSOR)
     create_connect()
     shut_down_in(120)  # URGENT: PUT BACK IN BEFORE COMPETITION
 

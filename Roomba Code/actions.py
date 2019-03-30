@@ -23,7 +23,7 @@ def get_gas_valve():
     s.wfollow_right_until_white_right(9999)
     s.turn_left_until_rfcliff_senses_white()
     s.turn_left_until_rfcliff_senses_black()
-    m.turn_left(600)
+    m.turn_left(c.LEFT_TURN_TIME / 4.2)
     # This turns the robot closer to 90 degrees
     s.forwards_until_white_lfcliff()
     s.forwards_through_line_lfcliff()
@@ -40,7 +40,6 @@ def get_gas_valve():
     #m.turn_left(250)    
     m.lower_arm()
     msleep(500)
-    #left turn of doom.
     m.backwards(900)
     m.lift_arm(3, 1, c.ARM_HALF_UP_POS)
     m.backwards(100)
@@ -50,7 +49,7 @@ def get_gas_valve():
     s.forwards_until_bump()
     #m.backwards(200)
     #g.turn_right_gyro()
-    m.turn_right()   
+    m.turn_right(c.RIGHT_TURN_TIME / 1.2)   
     s.forwards_until_white_rfcliff()
     s.wfollow_left_until_black_right_front(9999)
     s.align_close_fcliffs()

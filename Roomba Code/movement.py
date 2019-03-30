@@ -46,7 +46,9 @@ def backwards(time=c.DEFAULT_BACKWARDS_TIME, speed_multiplier=1.0):
     deactivate_motors()
 
 
-def turn_left(time=c.LEFT_TURN_TIME, speed_multiplier=1.0):
+def turn_left(time=c.BASE_TIME, speed_multiplier=1.0):
+    if time == c.BASE_TIME:
+        time = c.LEFT_TURN_TIME
     base_turn_left(speed_multiplier)
     msleep(int(time))
     print "Turn left for %d ms" % time
