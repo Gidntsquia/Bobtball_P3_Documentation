@@ -7,8 +7,10 @@ import utils as u
 def turn_left_gyro(degrees = 90):
     turn_gyro(-degrees)
 
+
 def turn_right_gyro(degrees = 90):
     turn_gyro(degrees)
+
 
 def run_gyro():
     print "Starting run_gyro()"

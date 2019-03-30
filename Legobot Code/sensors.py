@@ -19,22 +19,17 @@ import utils as u
 def BlackLeft():
     return (analog(c.LEFT_TOPHAT) > c.LEFT_TOPHAT_BW)
 
-
 def NotBlackLeft():
     return (analog(c.LEFT_TOPHAT) < c.LEFT_TOPHAT_BW)
-
 
 def BlackRight():
     return (analog(c.RIGHT_TOPHAT) > c.RIGHT_TOPHAT_BW)
 
-
 def NotBlackRight():
     return (analog(c.RIGHT_TOPHAT) < c.RIGHT_TOPHAT_BW)
 
-
 def BlackThird():
     return (analog(c.THIRD_TOPHAT) > c.THIRD_TOPHAT_BW)
-
 
 def NotBlackThird():
     return (analog(c.THIRD_TOPHAT) < c.THIRD_TOPHAT_BW)

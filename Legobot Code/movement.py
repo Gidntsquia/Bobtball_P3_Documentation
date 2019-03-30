@@ -147,16 +147,16 @@ def activate_motors(left_motor_power = c.BASE_LM_POWER, right_motor_power = c.BA
     elif right_motor_power > 1450:
         print "right_motor_power is too high! Power autoset from " + str(right_motor_power) + " to 1450"
         right_motor_power = 1450
-    left_velocity_change = left_motor_power / 30
-    right_velocity_change = right_motor_power / 30
+    left_velocity_change = (left_motor_power - c.CURRENT_LM_POWER) / 30
+    right_velocity_change = (right_motor_power - c.CURRENT_RM_POWER) / 30
     while abs(c.CURRENT_LM_POWER - left_motor_power) > 100 and abs(c.CURRENT_RM_POWER - right_motor_power) > 100:
         mav(c.LEFT_MOTOR, c.CURRENT_LM_POWER)
         c.CURRENT_LM_POWER += left_velocity_change
         mav(c.RIGHT_MOTOR, c.CURRENT_RM_POWER)
         c.CURRENT_RM_POWER += right_velocity_change
-        if abs(c.CURRENT_LM_POWER) > abs(left_motor_power) or abs(c.CURRENT_RM_POWER) > abs(right_motor_power):
-            print "Velocity too high"
-            exit(86)
+        #if abs(c.CURRENT_LM_POWER) > abs(left_motor_power) or abs(c.CURRENT_RM_POWER) > abs(right_motor_power):
+           # print "Velocity too high"
+            #exit(86)
         msleep(1)
     mav(c.LEFT_MOTOR, left_motor_power)  # Ensures actual desired value is reached.
     mav(c.RIGHT_MOTOR, right_motor_power)
@@ -355,8 +355,59 @@ def move_servo(servo_port, desired_servo_position, tics = 3, ms = 1):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Bump Sensors ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-def BumpPressed():
-    return(digital(c.BUMP_SENSOR) == 1)
+def BumpPressedRight():
+    return(digital(c.RIGHT_BUMP_SENSOR) == 1)
 
-def NotBumpPressed():
-    return(digital(c.BUMP_SENSOR) == 0)
+def NotBumpPressedRight():
+    return(digital(c.RIGHT_BUMP_SENSOR) == 0)
+
+
+def base_bumpfollow_right():
+    if BumpPressedRight():
+        m.activate_motors(c.LFOLLOW_SMOOTH_LM_POWER, c.BASE_RM_POWER)
+    else:
+        m.activate_motors(c.BASE_LM_POWER, c.LFOLLOW_SMOOTH_RM_POWER)
+
+
+def bumpfollow_right_until_left_senses_black(time=c.SAFETY_TIME):
+    print "Starting bumpfollow_right_until_left_senses_black()"
+    if time == 0:
+        time = c.SAFETY_TIME_NO_STOP
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and NotBlackLeft():
+        base_bumpfollow_right()
+    if time != c.SAFETY_TIME_NO_STOP:
+        m.deactivate_motors()
+
+
+def bumpfollow_right_until_left_senses_white(time=c.SAFETY_TIME):
+    print "Starting bumpfollow_right_until_left_senses_white()"
+    if time == 0:
+        time = c.SAFETY_TIME_NO_STOP
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and BlackLeft():
+        base_bumpfollow_right()
+    if time != c.SAFETY_TIME_NO_STOP:
+        m.deactivate_motors()
+
+
+def bumpfollow_right_until_right_senses_black(time=c.SAFETY_TIME):
+    print "Starting bumpfollow_right_until_right_senses_black()"
+    if time == 0:
+        time = c.SAFETY_TIME_NO_STOP
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and NotBlackRight():
+        base_bumpfollow_right()
+    if time != c.SAFETY_TIME_NO_STOP:
+        m.deactivate_motors()
+
+
+def bumpfollow_right_until_right_senses_white(time=c.SAFETY_TIME):
+    print "Starting bumpfollow_right_until_right_senses_black()"
+    if time == 0:
+        time = c.SAFETY_TIME_NO_STOP
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and BlackRight():
+        base_bumpfollow_right()
+    if time != c.SAFETY_TIME_NO_STOP:
+        m.deactivate_motors()

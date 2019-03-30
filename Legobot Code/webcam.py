@@ -15,6 +15,7 @@ def initialize_camera():
         msleep(1)
     print "Finished Step 100\n"
 
+
 def check_zones_hospital():
     print "Checking zones"
     msleep(25)
@@ -30,7 +31,6 @@ def check_zones_hospital():
         c.SAFE_HOSPITAL = c.NEAR_ZONE
     print "Fire Hospital Zone: " + str(c.FIRE_HOSPITAL)
     print "Safe Hospital Zone: " + str(c.SAFE_HOSPITAL)
-
 
 
 def check_zones_full():

@@ -95,7 +95,7 @@ if IS_MAIN_BOT:
     AVG_BIAS = 0
 
     # Digital Sensors
-    BUMP_SENSOR = 0
+    RIGHT_BUMP_SENSOR = 0
 
     # Gryo Conversian Rates
     WALLAGREES_TO_DEGREES_RATE = 90 / 50000.0
@@ -203,7 +203,7 @@ else:  # Clone Bot -------------------------------------------------------------
     AVG_BIAS = 0
 
     # Clone Digital Sensors
-    BUMP_SENSOR = 0
+    RIGHT_BUMP_SENSOR = 0
     
     # Clone Gryo Conversian Rates
     WALLAGREES_TO_DEGREES_RATE = 90 / 580000
