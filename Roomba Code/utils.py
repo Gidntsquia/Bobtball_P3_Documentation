@@ -70,8 +70,8 @@ def calibrate():
     m.deactivate_motors()
     c.LCLIFF_BW = ((max_sensor_value_lcliff + min_sensor_value_lcliff) / 2) + 500
     c.RCLIFF_BW = ((max_sensor_value_rcliff + min_sensor_value_rcliff) / 2) + 500
-    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 450
-    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 450
+    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 700
+    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 700
     print "LCLIFF_BW: " + str(c.LCLIFF_BW)
     print "RCLIFF_BW: " + str(c.RCLIFF_BW)
     print "LFCLIFF_BW: " + str(c.LFCLIFF_BW)
@@ -81,19 +81,23 @@ def calibrate():
     msleep(500)
     s.backwards_until_black_lcliff()
     msleep(300)
-    #s.turn_left_until_lfcliff_senses_black()
-    #g.calibrate_gyro_degrees()
-    #msleep(1000)
-    #g.turn_right_gyro(90)
+    s.turn_left_until_lfcliff_senses_black()
+    msleep(1000)
+    g.calibrate_gyro_degrees()
+    msleep(1000)
+    g.turn_right_gyro(22.5)
+    m.turn_right(int(c.RIGHT_TURN_TIME / 4))
+               
     s.backwards_until_black_lfcliff()
     s.align_far_fcliffs()
     msleep(300)
-    m.backwards(400)
+    m.backwards(600)
     msleep(300)
     ao()
     # DON'T DELETE THESE NEXT 4 LINES. They are purposeful. It avoids the roomba going into sleep mode after the calibration and not starting right.
     create_disconnect()
-    wait_for_light(c.LIGHT_SENSOR)
+    #wait_for_light(c.LIGHT_SENSOR)
+    msleep(1000)
     create_connect()
     shut_down_in(120)  # URGENT: PUT BACK IN BEFORE COMPETITION
 

@@ -13,6 +13,14 @@ def main():
     print "Starting main()\n"
     u.setup()
     u.calibrate()  # You only need to include this command if you want the tophats to sense better at the cost of speed.
+    g.turn_left_gyro(360)
+    msleep(1000)
+    print "My time right here: " + str(c.RIGHT_TURN_TIME)
+    m.turn_right()
+    m.turn_right(c.RIGHT_TURN_TIME)
+    m.turn_right()
+    m.turn_right()
+    u.sd()
     a.get_gas_valve()
     print "Finished main\n"
     u.shutdown(86)

@@ -35,27 +35,29 @@ def deactivate_motors():
 def forwards(time=c.DEFAULT_DRIVE_TIME, speed_multiplier=1.0):
     base_forwards(speed_multiplier)
     print "Drive forwards for %d ms" % time
-    msleep(time)
+    msleep(int(time))
     deactivate_motors()
 
 
 def backwards(time=c.DEFAULT_BACKWARDS_TIME, speed_multiplier=1.0):
     base_backwards(speed_multiplier)
     print "Drive backwards for %d ms" % time
-    msleep(time)
+    msleep(int(time))
     deactivate_motors()
 
 
 def turn_left(time=c.LEFT_TURN_TIME, speed_multiplier=1.0):
     base_turn_left(speed_multiplier)
-    msleep(time)
+    msleep(int(time))
     print "Turn left for %d ms" % time
     deactivate_motors()
 
 
-def turn_right(time=c.RIGHT_TURN_TIME, speed_multiplier=1.0):
+def turn_right(time=c.BASE_TIME, speed_multiplier=1.0):
+    if time == c.BASE_TIME:
+        time = c.RIGHT_TURN_TIME
     base_turn_right(speed_multiplier)
-    msleep(time)
+    msleep(int(time))
     print "Turn right for %d ms" % time
     deactivate_motors()
 

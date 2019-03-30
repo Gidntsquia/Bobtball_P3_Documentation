@@ -11,9 +11,9 @@ def turn_left_gyro(degrees = 90):
 
 
 def turn_right_gyro(degrees = 90):
-    print "Starting turn_left_gyro()"
+    print "Starting turn_right_gyro()"
     turn_gyro(degrees)
-    print "Degrees turned: " + str(c.ROBOT_ANGLE * -1 * c.WALLAGREES_TO_DEGREES_RATE)
+    print "Degrees turned: " + str(c.ROBOT_ANGLE * c.WALLAGREES_TO_DEGREES_RATE)
 
 
 def run_gyro():
@@ -32,11 +32,11 @@ def run_gyro():
 def calibrate_gyro():
     # We need to figure out the gyro's resting value. This runs 50 trials to figure out the average amount the gyro
     # sensor is off. The robot must be still while this occurs.
-    print "Gyro reading: " + str(gyro_z())
+    print "Gyro reading: " + str(gyro_x())
     i = 0
     sum_of_angles = 0
     while i < 100:
-        sum_of_angles += gyro_z()
+        sum_of_angles += gyro_x()
         msleep(1)
         i += 1
     c.AVG_BIAS = sum_of_angles / 100.0
@@ -44,64 +44,57 @@ def calibrate_gyro():
 
 
 def get_change_in_theta():
-    theta = (gyro_z() - c.AVG_BIAS)
+    theta = (gyro_x() - c.AVG_BIAS)
     return(theta)
 
 
 def get_change_in_angle():
-    c.ROBOT_ANGLE += (gyro_z() - c.AVG_BIAS)
+    c.ROBOT_ANGLE += (gyro_x() - c.AVG_BIAS)
     msleep(c.GYRO_TIME)
 
 
 def calibrate_gyro_degrees():
-    wallagrees = 0
-    i = 0
+    print "Starting calibrate_gyro_degrees()"
+    c.ROBOT_ANGLE = 0
     #s.drive_until_black()
     #s.align_close()
+    sec = seconds()
     m.base_turn_left()
     while s.NotBlackFrontLeft():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
     while s.BlackFrontLeft():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
     while s.NotBlackFrontLeft():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
     while s.BlackFrontLeft():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
     while s.NotBlackFrontLeft():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
+    c.RIGHT_TURN_TIME = int((seconds() - sec) * 1000 / 4.0)
+    c.LEFT_TURN_TIME = int((seconds() - sec) * 1000 / 4.0)
     m.deactivate_motors()
-    c.WALLAGREES_TO_DEGREES_RATE = 360.0 / wallagrees * -1
-    print "Wallagree-Degree conversion rate: " + str(c.WALLAGREES_TO_DEGREES_RATE)
+    c.WALLAGREES_TO_DEGREES_RATE = (360.0 / c.ROBOT_ANGLE * -1) / 2
+    print "Finished calibrating.\nWallagree-Degree conversion rate: " + str(c.WALLAGREES_TO_DEGREES_RATE)
+    print "Right turn time: " + str(c.RIGHT_TURN_TIME)
 
 
 def calibrate_gyro_degrees_right():
-    wallagrees = 0
-    i = 0
+    c.ROBOT_ANGLE = 0
     #s.drive_until_black()
     #s.align_close()
     m.base_turn_right()
     while s.NotBlackFrontRight():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
     while s.BlackFrontRight():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
     while s.NotBlackFrontRight():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
     while s.BlackFrontRight():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
     while s.NotBlackFrontRight():
-        wallagrees += get_change_in_theta()
-        msleep(c.GYRO_TIME)
+        get_change_in_angle()
     m.deactivate_motors()
-    c.WALLAGREES_TO_DEGREES_RATE = 360.0 / wallagrees
+    c.WALLAGREES_TO_DEGREES_RATE = (360.0 / c.ROBOT_ANGLE) * 2
     print "Wallagree-Degree conversion rate: " + str(c.WALLAGREES_TO_DEGREES_RATE)
 
 
@@ -185,11 +178,11 @@ def test_gyro(time=20000):
                 print "Turn time reached"
                 m.deactivate_motors()
                 print str(theta)
-                print str(gyro_z() - c.AVG_BIAS)
+                print str(gyro_x() - c.AVG_BIAS)
                 msleep(300)
             if c.CURRENT_LM_POWER == 0 and c.CURRENT_RM_POWER == 0:
                 pass
             else:
-                theta += (gyro_z() - c.AVG_BIAS)
+                theta += (gyro_x() - c.AVG_BIAS)
         print str(theta)
-        print str(gyro_z() - c.AVG_BIAS)
+        print str(gyro_x() - c.AVG_BIAS)

@@ -37,16 +37,18 @@ MICRO_START_POS = MICRO_STRAIGHT_POS
 #---------------------------------------------Movement---------------------------------------------
 
 # Turn Values
-RIGHT_TURN_TIME = 1650  # 1582
-LEFT_TURN_TIME = 1650  # 1582
+RIGHT_TURN_TIME = 1900  # 1650
+LEFT_TURN_TIME = 1900  # 1650
 
 # Motor Values
 BASE_LM_POWER = 109
 BASE_RM_POWER = 104
-
+#104- Right
+#109- Left
 # Default Drive Times
 DEFAULT_DRIVE_TIME = 500
 DEFAULT_BACKWARDS_TIME = 500
+BASE_TIME = 999999999
 
 #----------------------------------------------Sensors--------------------------------------------- 
 
