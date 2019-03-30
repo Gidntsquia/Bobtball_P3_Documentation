@@ -1656,6 +1656,18 @@ def lfollow_right_pid(time, kp=c.KP, ki=c.KI, kd=c.KD):
         left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
         right_power = c.BASE_RM_POWER + (
                     (kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if error > 30 or error < -30:
+            kp = 7
+            ki = c.KI
+            kd = c.KD
+        elif error < 1 and error > -1:
+            kp = 3
+            ki = 0
+            kd = 0
+        else:
+            kp = c.KP
+            ki = c.KI
+            kd = c.KD
         if left_power > 1300:
             left_power = 1300
         elif left_power < -1000:
@@ -1761,6 +1773,18 @@ def lfollow_right_until_left_senses_black_pid(time=c.SAFETY_TIME, kp=c.KP, ki=c.
         left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
         right_power = c.BASE_RM_POWER + (
                     (kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if error > 30 or error < -30:
+            kp = 7
+            ki = c.KI
+            kd = c.KD
+        elif error < 1 and error > -1:
+            kp = 3
+            ki = 0
+            kd = 0
+        else:
+            kp = c.KP
+            ki = c.KI
+            kd = c.KD
         if left_power > 1300:
             left_power = 1300
         elif left_power < -1000:
@@ -1809,6 +1833,18 @@ def lfollow_right_inside_line_pid(time, kp=c.KP, ki=c.KI, kd=c.KD):
         left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
         right_power = c.BASE_RM_POWER - (
                     (kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if error > 30 or error < -30:
+            kp = 7
+            ki = c.KI
+            kd = c.KD
+        elif error < 1 and error > -1:
+            kp = 3
+            ki = 0
+            kd = 0
+        else:
+            kp = c.KP
+            ki = c.KI
+            kd = c.KD
         if left_power > 1300:
             left_power = 1300
         elif left_power < -1000:
@@ -1856,6 +1892,18 @@ def lfollow_left_pid(time, kp=c.KP, ki=c.KI, kd=c.KD):
         left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
         right_power = c.BASE_RM_POWER - (
                     (kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if error > 30 or error < -30:
+            kp = 7
+            ki = c.KI
+            kd = c.KD
+        elif error < 1 and error > -1:
+            kp = 3
+            ki = 0
+            kd = 0
+        else:
+            kp = c.KP
+            ki = c.KI
+            kd = c.KD
         if left_power > 1300:
             left_power = 1300
         elif left_power < -1000:
@@ -1941,6 +1989,53 @@ def lfollow_left_value_testing_pid(time, kp=c.KP, ki=c.KI, kd=c.KD):
         m.deactivate_motors()
 
 
+def lfollow_left_until_right_senses_black_pid_safe_no_stop(time=c.SAFETY_TIME, kp=c.KP, ki=c.KI, kd=c.KD):
+    first_run_through = True
+    target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+    base_power_left = c.BASE_LM_POWER
+    base_power_right = c.BASE_RM_POWER
+    last_error = 0
+    integral = 0
+    if time == 0:
+        time = c.SAFETY_TIME_NO_STOP
+    sec = seconds() + time / 1000.0
+    while seconds() < sec and NotBlackRight():
+        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+        error = target - norm_reading  # Positive error means white, negative means black.
+        derivative = error - last_error  # If rate of change is going negative, need to veer left
+        last_error = error
+        integral = 0.5 * integral + error
+        if error > 30 or error < -30:
+            kp = 20
+        else:
+            kp = c.KP
+        left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
+        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if left_power > 1300:
+            left_power = 1300
+        elif left_power < -1000:
+            left_power = -1000
+        if right_power < -1300:
+            right_power = -1300
+        elif right_power > 1000:
+            right_power = 1000
+        if first_run_through == True:
+            m.activate_motors(int(left_power), int(right_power))
+            print "Norm reading: " + str(norm_reading)
+            print "Error: " + str(error)
+            print "Derivative: " + str(derivative)
+            print "kd: " + str(kd)
+            print "left_power: " + str(left_power)
+            print "right_power: " + str(right_power)
+            print "BASE_RM_POWER: " + str(c.BASE_RM_POWER)
+            print "c.MAX_TOPHAT_VALUE_LEFT: " + str(c.MAX_TOPHAT_VALUE_LEFT)
+            print "c.MIN_TOPHAT_VALUE_LEFT: " + str(c.MIN_TOPHAT_VALUE_LEFT)
+        else:
+            mav(c.LEFT_MOTOR, int(left_power))
+            mav(c.RIGHT_MOTOR, int(right_power))
+        first_run_through = False
+
+
 def lfollow_left_until_right_senses_black_pid(time=c.SAFETY_TIME, kp=c.KP, ki=c.KI, kd=c.KD):
     first_run_through = True
     target = 100.0 * (c.LEFT_TOPHAT_BW - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
@@ -1952,15 +2047,25 @@ def lfollow_left_until_right_senses_black_pid(time=c.SAFETY_TIME, kp=c.KP, ki=c.
         time = c.SAFETY_TIME_NO_STOP
     sec = seconds() + time / 1000.0
     while seconds() < sec and NotBlackRight():
-        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (
-                    c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
+        norm_reading = 100.0 * (analog(c.LEFT_TOPHAT) - c.MIN_TOPHAT_VALUE_LEFT) / (c.MAX_TOPHAT_VALUE_LEFT - c.MIN_TOPHAT_VALUE_LEFT)
         error = target - norm_reading  # Positive error means white, negative means black.
         derivative = error - last_error  # If rate of change is going negative, need to veer left
         last_error = error
         integral = 0.5 * integral + error
+        if error > 30 or error < -30:
+            kp = 7
+            ki = c.KI
+            kd = c.KD
+        elif error < 1 and error > -1:
+            kp = 3
+            ki = 0
+            kd = 0
+        else:
+            kp = c.KP
+            ki = c.KI
+            kd = c.KD
         left_power = c.BASE_LM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))
-        right_power = c.BASE_RM_POWER - (
-                    (kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        right_power = c.BASE_RM_POWER - ((kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
         if left_power > 1300:
             left_power = 1300
         elif left_power < -1000:
@@ -2008,6 +2113,18 @@ def lfollow_left_inside_line_pid(time, kp=c.KP, ki=c.KI, kd=c.KD):
         left_power = c.BASE_LM_POWER + ((kp * error) + (ki * integral) + (kd * derivative))
         right_power = c.BASE_RM_POWER + (
                     (kp * error) + (ki * integral) + (kd * derivative))  # Addition decreases power here
+        if error > 30 or error < -30:
+            kp = 7
+            ki = c.KI
+            kd = c.KD
+        elif error < 1 and error > -1:
+            kp = 3
+            ki = 0
+            kd = 0
+        else:
+            kp = c.KP
+            ki = c.KI
+            kd = c.KD
         if left_power > 1300:
             left_power = 1300
         elif left_power < -1000:

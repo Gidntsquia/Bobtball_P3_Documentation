@@ -13,8 +13,8 @@ def main():
     print "Starting main()\n"
     u.setup()
     u.calibrate()
-    a.deliver_ambulance()
-    a.get_prism()
+    a.hold_cube_and_deliver_ambulance()
+    a.hold_cube_and_get_prism()
     u.sd()
 
 if __name__ == "__main__":

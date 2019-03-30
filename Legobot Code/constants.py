@@ -54,16 +54,16 @@ if IS_MAIN_BOT:
     MAX_ARM_SERVO_POS = MAX_SERVO_POS
     MIN_ARM_SERVO_POS = MIN_SERVO_POS
     ARM_UP_POS = 1750
-    ARM_DOWN_POS = 1055
+    ARM_DOWN_POS = 1000
 
     # Cube Arm Servo
     CUBE_ARM_SERVO = 0
     MAX_CUBE_ARM_SERVO_POS = MAX_SERVO_POS
     MIN_CUBE_ARM_SERVO_POS = MIN_SERVO_POS
-    CUBE_ARM_UP_POS = 956
+    CUBE_ARM_UP_POS = 955
     CUBE_ARM_DOWN_POS = 101
     CUBE_ARM_LESS_UP_POS = 470
-    CUBE_ARM_HOLDING_POS = 1762
+    CUBE_ARM_HOLDING_POS = 1870
 
     # Claw Servo
     CLAW_SERVO = 1
@@ -73,6 +73,10 @@ if IS_MAIN_BOT:
     CLAW_CLOSE_POS = 1200
     CLAW_LESS_OPEN_POS = 791
     CLAW_CHECKING_POS = CLAW_CLOSE_POS
+
+    # Micro Servo
+    MICRO_SERVO = 3
+
 
     # Starting Positions
     STARTING_ARM_POS = ARM_DOWN_POS
@@ -116,7 +120,7 @@ if IS_MAIN_BOT:
     MIN_TOPHAT_VALUE_RIGHT = 158
     MAX_TOPHAT_VALUE_LEFT = 3200
     MIN_TOPHAT_VALUE_LEFT = 158  # These values dont do anything unless calib command doesnt work right.
-    KP = 5.75
+    KP = 10 # 5.75
     KI = 0.161
     KD = 1
     KP_SAFE = 7

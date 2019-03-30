@@ -100,9 +100,9 @@ def calibrate():
     c.LEFT_TOPHAT_BW = int(((max_sensor_value_left + min_sensor_value_left) / 2)) - 1000
     c.RIGHT_TOPHAT_BW = int(((max_sensor_value_right + min_sensor_value_right) / 2)) - 1000
     if c.IS_MAIN_BOT:
-        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2)) + 1200
+        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2)) + 800
     else: # Clone bot
-        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2))  + 1200
+        c.THIRD_TOPHAT_BW = int(((max_sensor_value_third + min_sensor_value_third) / 2))  + 800
     print "max_sensor_value_left: " + str(max_sensor_value_left)
     print "min_sensor_value_left: " + str(min_sensor_value_left)
     print "LEFT_TOPHAT_BW: " + str(c.LEFT_TOPHAT_BW)
