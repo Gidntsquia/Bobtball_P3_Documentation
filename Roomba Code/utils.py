@@ -73,8 +73,8 @@ def calibrate():
     m.deactivate_motors()
     c.LCLIFF_BW = ((max_sensor_value_lcliff + min_sensor_value_lcliff) / 2) + 500
     c.RCLIFF_BW = ((max_sensor_value_rcliff + min_sensor_value_rcliff) / 2) + 500
-    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 700
-    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 700
+    c.LFCLIFF_BW = ((max_sensor_value_lfcliff + min_sensor_value_lfcliff) / 2) + 500
+    c.RFCLIFF_BW = ((max_sensor_value_rfcliff + min_sensor_value_rfcliff) / 2) + 500
     print "LCLIFF_BW: " + str(c.LCLIFF_BW)
     print "RCLIFF_BW: " + str(c.RCLIFF_BW)
     print "LFCLIFF_BW: " + str(c.LFCLIFF_BW)

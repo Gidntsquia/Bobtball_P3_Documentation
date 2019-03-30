@@ -439,18 +439,18 @@ def wfollow_left(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     sec = seconds() + time / 1000.0
     while seconds() < sec:
         if BumpedLeft() or BumpedLightLeft() or BumpedLightFrontLeft():
-            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5))
+            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6))
         else:
             m.activate_motors(int(c.LFOLLOW_SMOOTH_LM_POWER * 0.5), c.BASE_RM_POWER)
         msleep(refresh_rate)
     m.deactivate_motors()
 
-def wfollow_left_until_black_right_front(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+def wfollow_left_until_black_right_front(time=15000, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     print "Starting wfollow_left_until_black_right_front()"
     sec = seconds() + time / 1000.0
     while seconds() < sec and NotBlackFrontRight():  
         if BumpedLeft() or BumpedLightLeft() or BumpedLightFrontLeft():
-            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5))
+            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6))
         else:
             m.activate_motors(int(c.LFOLLOW_SMOOTH_LM_POWER * 0.5), c.BASE_RM_POWER)
         msleep(refresh_rate)
@@ -458,60 +458,60 @@ def wfollow_left_until_black_right_front(time, refresh_rate=c.LFOLLOW_REFRESH_RA
 
 
 
-def wfollow_left_until_white_right_front(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+def wfollow_left_until_white_right_front(time=15000, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     print "Starting wfollow_left_until_white_right_front()"
     sec = seconds() + time / 1000.0
     while seconds() < sec and BlackFrontRight():  
         if BumpedLeft() or BumpedLightLeft() or BumpedLightFrontLeft():
-            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5))
+            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6))
         else:
             m.activate_motors(int(c.LFOLLOW_SMOOTH_LM_POWER * 0.5), c.BASE_RM_POWER)
         msleep(refresh_rate)
     m.deactivate_motors()
 
     
-def wfollow_right_until_black_left_front(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+def wfollow_right_until_black_left_front(time=15000, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     print "Starting wfollow_right_until_black_left_front()"
     sec = seconds() + time / 1000.0
     while seconds() < sec and NotBlackFrontLeft():  
         if BumpedRight() or BumpedLightRight() or BumpedLightFrontRight():
-            m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5), c.BASE_RM_POWER)
+            m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6), c.BASE_RM_POWER)
         else:
             m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5))
         msleep(refresh_rate)
     m.deactivate_motors() 
 
 
-def wfollow_right_until_white_left_front(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+def wfollow_right_until_white_left_front(time=15000, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     print "Starting wfollow_right_until_white_left_front()"
     sec = seconds() + time / 1000.0
     while seconds() < sec and BlackFrontLeft():  
         if BumpedRight() or BumpedLightRight() or BumpedLightFrontRight():
-            m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5), c.BASE_RM_POWER)
+            m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6), c.BASE_RM_POWER)
         else:
             m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5))
         msleep(refresh_rate)
     m.deactivate_motors()  
 
 
-def wfollow_right_until_black_left(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+def wfollow_right_until_black_left(time=15000, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     print "Starting wfollow_right_until_black_left()"
     sec = seconds() + time / 1000.0
     while seconds() < sec and NotBlackLeft():  
         if BumpedRight() or BumpedLightRight() or BumpedLightFrontRight():
-            m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5), c.BASE_RM_POWER)
+            m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6), c.BASE_RM_POWER)
         else:
             m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5))
         msleep(refresh_rate)
     m.deactivate_motors()
 
 
-def wfollow_right_until_white_left(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+def wfollow_right_until_white_left(time=15000, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     print "Starting wfollow_right_until_white_left()"
     sec = seconds() + time / 1000.0
     while seconds() < sec and BlackLeft():  
         if BumpedRight() or BumpedLightRight() or BumpedLightFrontRight():
-            m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5), c.BASE_RM_POWER)
+            m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6), c.BASE_RM_POWER)
         else:
             m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5))
         msleep(refresh_rate)
@@ -519,26 +519,26 @@ def wfollow_right_until_white_left(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
 
 
 
-def wfollow_right_until_black_right(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+def wfollow_right_until_black_right(time=15000, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     print "Starting wfollow_right_until_black_right()"
     sec = seconds() + time / 1000.0
     while seconds() < sec and NotBlackRight():  
         if BumpedRight() or BumpedLightRight() or BumpedLightFrontRight():
             m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6), c.BASE_RM_POWER)
         else:
-            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6))
+            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5))
         msleep(refresh_rate)
     m.deactivate_motors()
 
 
-def wfollow_right_until_white_right(time, refresh_rate=c.LFOLLOW_REFRESH_RATE):
+def wfollow_right_until_white_right(time=15000, refresh_rate=c.LFOLLOW_REFRESH_RATE):
     print "Starting wfollow_right_until_white_right()"
     sec = seconds() + time / 1000.0
     while seconds() < sec and BlackRight():  
         if BumpedRight() or BumpedLightRight() or BumpedLightFrontRight():
             m.activate_motors(int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6), c.BASE_RM_POWER)
         else:
-            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.6))
+            m.activate_motors(c.BASE_LM_POWER, int(c.LFOLLOW_SMOOTH_RM_POWER * 0.5))
         msleep(refresh_rate)
     m.deactivate_motors() 
 
